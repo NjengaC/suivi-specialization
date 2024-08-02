@@ -7,11 +7,14 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 from dotenv import load_dotenv
 from config import Config
+from flask_migrate import Migrate
+
 
 load_dotenv()
 
 app = Flask(__name__)
 # app.config.from_object(Config)
+
 
 
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
@@ -31,6 +34,9 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'auth.login'
 login_manager.login_message_category = 'info'
 mail = Mail(app)
+
+migrate = Migrate(app, db)
+
 
 from entry.routes.main_routes import main
 from entry.routes.auth_routes import auth
