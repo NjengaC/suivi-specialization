@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/styles/edit.css">
+</head>
+
+<body>
+    <header>
+        <nav id="reg">
+            <a class="home-btn" href="{{ url_for('main.home') }}">Home</a>
+            <a href="{{ url_for('main.about') }}">About</a>
+            <a href="{{ url_for('main.support') }}">Support</a>
+            <a href="{{ url_for('auth.logout') }}">Logout</a>
+            <a href="{{ url_for('rider.edit_rider_profile') }}">Profile</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Rider's Profile Section</h1>
+        <div class="content-section">
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Edit Profile</legend>
+                    <div class="form-group">
+                        {{ form.name.label(class="form-control-label") }}
+                        {{ form.name(class="form-control form-control-lg") }}
+                        {% for error in form.name.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.email.label(class="form-control-label") }}
+                        {{ form.email(class="form-control form-control-lg") }}
+                        {% for error in form.email.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.password.label(class="form-control-label") }}
+                        {{ form.password(class="form-control form-control-lg") }}
+                        {% for error in form.password.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.confirm_password.label(class="form-control-label") }}
+                        {{ form.confirm_password(class="form-control form-control-lg") }}
+                        {% for error in form.confirm_password.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.contact_number.label(class="form-control-label") }}
+                        {{ form.contact_number(class="form-control form-control-lg") }}
+                        {% for error in form.contact_number.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.vehicle_type.label(class="form-control-label") }}
+                        {{ form.vehicle_type(class="form-control form-control-lg") }}
+                        {% for error in form.vehicle_type.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.vehicle_registration.label(class="form-control-label") }}
+                        {{ form.vehicle_registration(class="form-control form-control-lg") }}
+                        {% for error in form.vehicle_registration.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.area_of_operation.label(class="form-control-label") }}
+                        {{ form.area_of_operation(class="form-control form-control-lg") }}
+                        {% for error in form.area_of_operation.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.current_location.label(class="form-control-label") }}
+                        {{ form.current_location(class="form-control form-control-lg") }}
+                        {% for error in form.current_location.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </fieldset>
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-outline-info") }}
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer id="footer">
+        <div class="social">
+            <a href="#"><i class="icon ion-social-instagram"></i></a>
+            <a href="#"><i class="icon ion-social-snapchat"></i></a>
+            <a href="#"><i class="icon ion-social-twitter"></i></a>
+            <a href="#"><i class="icon ion-social-facebook"></i></a>
+        </div>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="{{ url_for('main.home') }}">Home</a></li>
+            <li class="list-inline-item"><a href="{{ url_for('main.about') }}">About</a></li>
+            <li class="list-inline-item"><a href="{{ url_for('main.support') }}">Support</a></li>
+            <li class="list-inline-item"><a href="#">Terms</a></li>
+            <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+        </ul>
+        <p class="copyright">Vue © 2024</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
+

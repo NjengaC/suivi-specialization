@@ -1,0 +1,56 @@
+/* Styles for the View Shipping Providers page */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin: auto;
+    background-image: url('../static/image1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: auto;
+    text-align: center;
+}
+
+header {
+    background-color: #f0f0f0;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 1rem;
+}
+
+main {
+    padding: 1rem;
+}
+
+.shipping-providers h2 {
+    margin-top: 0;
+}
+
+.shipping-providers ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.shipping-providers ul li {
+    margin-bottom: 0.5rem;
+}
+

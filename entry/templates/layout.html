@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        {% if title %}
+        <title>Vue - {{ title }}</title>
+        {% else %}
+        <title>Vue</title>
+        {% endif %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/profiles.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/ship.css') }}">
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/sidebar.css') }}">
+      
+	<script src="../static/scripts/sidebar.js"></script>
+    </head>
+    <body>
+        <nav id="reg">
+	    <section id="mySidenav" class="sidenav">
+	        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <h3>Sidebars</h3>
+                    <p class='text-muted'>Need Some Help?</p>
+                        <a href="{{ url_for('auth.register') }}">History</a>
+                        <a href="{{ url_for('rider.register_rider') }}">Settings</a>
+                            <a class="dropdown-toggle" href="#" role="button" id="riderPanelDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {% if current_user.is_authenticated %}
+                                {% if user.role == 'rider' %}
+                                Dashboard
+                                {% else %}
+                                My Parcels
+                                {% endif %}
+                                {% else %}
+                                Rider's Panel
+                                {% endif %}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="riderPanelDropdown">
+                                {% if current_user.is_authenticated %}
+                                {% if current_user.role.name == 'user' %}
+                                <!-- Dropdown content for rider -->
+                                <a class="dropdown-item" href="#">View Parcels</a>
+                                <a class="dropdown-item" href="#">Edit Profile</a>
+                                {% else %}
+                                <!-- Dropdown content for non-riders -->
+                                <a class="dropdown-item" href="{{ url_for('rider.login_rider') }}">Login</a>
+                                <a class="dropdown-item" href="{{ url_for('rider.register_rider') }}">Register</a>
+                                {% endif %}
+                                {% else %}
+                                <a class="dropdown-item" href="{{ url_for('rider.login_rider') }}">Login</a>
+                                <a class="dropdown-item" href="{{ url_for('rider.register_rider') }}">Register</a>
+                                {% endif %}
+                            </div>
+                        <a href="{{ url_for('rider.register_rider') }}">Notifications</a>
+	    </section>
+
+            <ul>
+                <span style="font-size:40px;cursor:pointer;margin:0 30px" onclick="openNav()">&#9776; </span>
+                <li id="spacer"><a href="{{ url_for('main.home') }}">Home</a></li>
+                <li id="spacer"><a href="{{ url_for('main.about') }}">Support</a></li>
+                {% if current_user.is_authenticated %}
+                {% if user.role == 'user' %}
+                <h1> Welcome {{ current_user.username }} </h1>
+                <li id="spacer"><a href="{{ url_for('parcel.request_pickup') }}">Request</a></li>
+                {% else %}
+                <h1> Welcome {{ current_user.name }} </h1>
+                <li id="spacer"><a href="#">Activate</a></li>
+                <li id="spacer"><a href="#">Deactivate</a></li>
+                {% endif %}
+                <li id="spacer"><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                <li id="spacer"><a href="{{ url_for('auth.edit_profile') }}">Profile</a></li>
+                {% else %}
+                <h1 >Welcome to Vue</h1>
+                <li id="spacer"><a href="{{ url_for('auth.login') }}">Login</a></li>
+                <li id="spacer"><a href="{{ url_for('auth.register') }}">Register</a></li>
+                <li id="spacer"><a href="{{ url_for('parcel.request_pickup') }}">Request</a></li>
+		<a class="btn btn-outline-primary btn-lg mx-2" href="{{ url_for('parcel.track_parcel') }}">Track Parcel</a>
+            </ul>
+
+            {% endif %}
+        </nav>
+        <div class="row">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+        </div>
+	<div>
+                {% block content %}{% endblock %}
+	</div>
+        <footer>
+            <button onclick="location.href='{{ url_for('main.about') }}'">Who we are</button>
+            <button onclick="location.href='{{ url_for('main.about') }}'">What we do</button>
+            <button onclick="location.href='{{ url_for('main.about') }}'">Contacts</button>
+	     <p>&copy; 2024 Vue HomePage. All rights reserved.</p>
+        </footer>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rider Parcel History</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/view_parcel_history.css') }}">
+  <link rel="icon" href="../static/images/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/images/favicon-16x16.png">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-P8XN+Jyrp6rVIiIMT9RYBq5h6DScnIxK1K8yhSfFNSq7hdx38P4qNGpbKNisF3d6V2fK60h0RVaMx6syPeCifQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/view_parcel_history.css') }}">
+</head>
+<body>
+<header>
+    <nav id="reg" class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">VUE</a> <!-- Your brand name or logo -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span> <!-- Hamburger icon for mobile -->
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('main.home') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('main.about') }}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('main.support') }}">Support</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('rider.edit_rider_profile') }}">Profile</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+{% if current_user.is_authenticated %}
+<div class="container">
+    <h1>Your Parcel History</h1>
+    
+    <h5>Open Parcels</h5>
+    {% if open_orders %}
+        {% for parcel in open_orders %}
+            <div class="tracking-item">
+                <div class="tracking-icon status-allocated">
+                    <svg class="svg-inline--fa fa-circle fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                        <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path>
+                    </svg>
+                </div>
+                <div class="tracking-date">{{ parcel.date }}<span>{{ parcel.time }}</span></div>
+                <div class="tracking-content">
+                    <p><strong>Parcel ID:</strong> {{ parcel.id }}</p>
+                    <p><strong>Receiver Name:</strong> {{ parcel.receiver_name }}</p>
+                    <p><strong>Receiver Contact:</strong> {{ parcel.receiver_contact }}</p>
+                    <p><strong>Pickup Location:</strong> {{ parcel.pickup_location }}</p>
+                    <p><strong>Delivery Location:</strong> {{ parcel.delivery_location }}</p>
+                    <p><strong>Description:</strong> {{ parcel.description }}</p>
+		</div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No allocated parcels found.</p>
+    {% endif %}
+
+    <h5>Closed Parcels</h5>
+    {% if closed_orders %}
+        {% for parcel in closed_orders %}
+            <div class="tracking-item">
+                <div class="tracking-icon status-inprogress">
+                    <svg class="svg-inline--fa fa-circle fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                        <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path>
+                    </svg>
+                </div>
+                <div class="tracking-date">{{ parcel.date }}<span>{{ parcel.time }}</span></div>
+                <div class="tracking-content">
+                    <p><strong>Parcel ID:</strong> {{ parcel.id }}</p>
+                    <p><strong>Receiver Name:</strong> {{ parcel.receiver_name }}</p>
+                    <p><strong>Receiver Contact:</strong> {{ parcel.receiver_contact }}</p>
+                    <p><strong>Pickup Location:</strong> {{ parcel.pickup_location }}</p>
+                    <p><strong>Delivery Location:</strong> {{ parcel.delivery_location }}</p>
+                    <p><strong>Description:</strong> {{ parcel.description }}</p>
+		</div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No parcels in progress.</p>
+    {% endif %}
+
+</div>
+{% else %}
+<div class="container">
+    <h1>Rider Parcel History</h1>
+    <p>Please log in to view your parcel history.</p>
+</div>
+{% endif %}
+<footer id="footer">
+            <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>            <ul class="list-inline">
+                    <li class="list-inline-item"><a href="{{ url_for('main.home') }}">Home</a></li>
+                    <li class="list-inline-item"><a href="{{ url_for('main.about') }}">About</a></li>
+                    <li class="list-inline-item"><a href="{{ url_for('main.support') }}">Support</a></li>
+                <li class="list-inline-item"><a href="#">Terms</a></li>
+                <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+            </ul>
+            <p class="copyright">Vue © 2024</p>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            </body>
+        </footer>
+</body>
+</html>

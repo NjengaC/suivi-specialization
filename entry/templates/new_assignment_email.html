@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Delivery Assignment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .parcel-details {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .action-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+        .action-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>New Delivery Assignment</h1>
+    <p>Hey {{ rider.name }},</p>
+    <p>We have a new delivery assignment for you. Here are the details:</p>
+    <div class="parcel-details">
+        <p><strong>Sender:</strong> {{ parcel.sender_name }} (<a href="mailto:{{ parcel.sender_email }}">{{ parcel.sender_email }}</a>)</p>
+        <p><strong>Sender Contact:</strong> {{ parcel.sender_contact }}</p>
+        <p><strong>Receiver:</strong> {{ parcel.receiver_name }}</p>
+        <p><strong>Receiver Contact:</strong> {{ parcel.receiver_contact }}</p>
+        <p><strong>Pickup Location:</strong> {{ parcel.pickup_location }}</p>
+        <p><strong>Delivery Location:</strong> {{ parcel.delivery_location }}</p>
+        <p><strong>Description:</strong> {{ parcel.description }}</p>
+        <p><strong>Expected Arrival:</strong> {{ parcel.expected_arrival }}</p>
+        <p><strong>Tracking Number:</strong> {{ parcel.tracking_number }}</p>
+    </div>
+    <p>To view more details and accept the assignment, click the button below:</p>
+    <a href="http://www.happyfaces.tech/login_rider" class="action-button">View and Accept Assignment</a>
+    <p>If you have any questions or concerns, feel free to contact us at <a href="mailto:victorcyrus01@gmail.com">support@happyfaces.tech</a>.</p>
+    <p>Thank you!</p>
+</body>
+</html>    

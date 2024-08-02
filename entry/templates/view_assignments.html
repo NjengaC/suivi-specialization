@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="assyn">
+    <h1 class="heading">Pending Delivery Assignments</h1>
+
+    {% if assignment %}
+        <ul class="assignment-list">
+            <li class="assignment-item">
+                <p class="assignment-info"><strong>Sender:</strong> {{ assignment.sender_name }}</p>
+                <p class="assignment-info"><strong>Pickup Location:</strong> {{ assignment.pickup_location }}</p>
+                <p class="assignment-info"><strong>Delivery Location:</strong> {{ assignment.delivery_location }}</p>
+                <p class="assignment-info"><strong>Description:</strong> {{ assignment.description }}</p>
+                <div class="action-buttons">
+                    <button class="accept-btn" data-id="{{ assignment.id }}">Accept</button>
+                    <button class="deny-btn" data-id="{{ assignment.id }}">Deny</button>
+                </div>
+            </li>
+        </ul>
+    {% else %}
+        <p class="no-assignments">No pending assignments.</p>
+    {% endif %}
+</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add event listeners to accept and deny buttons
+            document.querySelectorAll('.accept-btn').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    handleAction(button.dataset.id, 'accept');
+                });
+            });
+
+            document.querySelectorAll('.deny-btn').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    handleAction(button.dataset.id, 'deny');
+                });
+            });
+
+            // Function to handle action (accept or deny) for an assignment
+            function handleAction(parcelId, action) {
+                // Send AJAX request to update assignment status
+                fetch('/update_assignment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        parcel_id: parcelId,
+                        action: action,
+                    }),
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Failed to update assignment');
+                    }
+                })
+                .then(data => {
+                    // Handle success response
+                    if (data.success) {
+                        // Reload the page or update UI as needed
+                        location.reload();
+                    } else {
+                        // Handle error response
+                        console.error(data.error);
+                    }
+                })
+                .catch(error => {
+                    // Handle fetch errors
+                    console.error('Error:', error);
+                });
+            }
+        });
+    </script>
+{% endblock %}

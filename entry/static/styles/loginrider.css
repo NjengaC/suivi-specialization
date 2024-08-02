@@ -1,0 +1,112 @@
+/* Background styling */
+#grad1 {
+    background-color: navy;
+}
+
+/* login.css */
+
+
+/* Form styling */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-control-label {
+    font-weight: bold;
+}
+
+.form-control-lg {
+    height: calc(1.5em + 1rem + 2px);
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: 0.3rem;
+}
+
+/* Button styling */
+.btn-outline-info {
+    color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.btn-outline-info:hover {
+    color: navy;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+/* Content section styling */
+.content-section {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.3rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Form legend styling */
+legend {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    border-bottom: 2px solid #333;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Error message styling */
+.text-danger {
+    font-size: 0.875rem;
+}
+/* login.css */
+
+/* Form styling */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-control-label {
+    font-weight: bold;
+}
+
+.form-control-lg {
+    height: calc(1.5em + 1rem + 2px);
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: 0.3rem;
+}
+
+/* Button styling */
+.btn-outline-info {
+    color: navy;
+    border-color: navy;
+}
+
+.btn-outline-info:hover {
+    color: navy;
+    background-color: navy;
+    border-color: navy;
+}
+
+/* Content section styling */
+.content-section {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.3rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Form legend styling */
+legend {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    border-bottom: 2px solid #333;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Error message styling */
+.text-danger {
+    font-size: 0.875rem;
+}

@@ -1,0 +1,158 @@
+body {
+    background: rgb(99, 39, 120);
+}
+header {
+    color: grey;
+}
+.form-control:focus {
+    box-shadow: none;
+    border-color: #BA68C8;
+}
+
+.btn.btn-outline-info {
+    background: rgb(99, 39, 120);
+    box-shadow: none;
+    border: none;
+}
+
+.btn.btn-outline-info:hover {
+    background: #682773;
+}
+
+.btn.btn-outline-info:focus {
+    background: #682773;
+    box-shadow: none;
+}
+
+.btn.btn-outline-info:active {
+    background: #682773;
+    box-shadow: none;
+}
+
+.back:hover {
+    color: #682773;
+    cursor: pointer;
+}
+
+.labels {
+    font-size: 11px;
+}
+#reg a {
+	display: inline-block;
+	margin: 0 30px;
+}
+#reg .home-btn {
+	margin-left: 140px;
+}
+/* Your existing CSS styles */
+
+body {
+    background-color: #f8f9fa; /* Light gray background */
+}
+
+.container {
+    margin-top: 50px; /* Add some top margin for spacing */
+}
+
+h1 {
+    color: #682773; /* Dark purple heading color */
+}
+
+.content-section {
+    background-color: #fff; /* White background for the content section */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow */
+}
+
+footer {
+    background-color: #333; /* Dark background color for the footer */
+    color: #fff; /* White text color */
+    padding: 20px;
+    text-align: center;
+}
+
+.social a {
+    color: #fff; /* White color for social icons */
+    margin: 0 10px; /* Add spacing between social icons */
+}
+
+.list-inline {
+    list-style: none; /* Remove bullet points */
+    padding: 0;
+}
+
+.list-inline-item {
+    display: inline-block; /* Display list items horizontally */
+    margin-right: 10px; /* Add right margin for spacing */
+}
+
+.list-inline-item:last-child {
+    margin-right: 0; /* Remove margin for the last list item */
+}
+
+.copyright {
+    margin-top: 10px; /* Add top margin for spacing */
+}
+/* edit.css */
+
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #BA68C8;
+}
+
+.btn.btn-outline-info {
+    background: rgb(99, 39, 120);
+    box-shadow: none;
+    border: none;
+}
+
+.btn.btn-outline-info:hover {
+    background: #682773;
+}
+
+.btn.btn-outline-info:focus {
+    background: #682773;
+    box-shadow: none;
+}
+
+.btn.btn-outline-info:active {
+    background: #682773;
+    box-shadow: none;
+}
+
+.back:hover {
+    color: #682773;
+    cursor: pointer;
+}
+
+.labels {
+    font-size: 11px;
+}
+
+#reg {
+    text-align: center;
+    margin-top: 20px;
+    background-color: grey;
+    height: 80px;
+
+}
+
+#reg a {
+    display: inline-block;
+    margin: 0 20px;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+#reg a:hover {
+    color: #BA68C8;
+}
+
+.home-btn {
+    margin-left: 140px;
+}
+

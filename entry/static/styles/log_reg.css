@@ -1,0 +1,100 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+h1 {
+  text-align: center;
+  color: white;
+  margin: 40:px;
+}
+
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+    height: 100%;
+}
+
+header {
+    display: inline-block;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    max-width: 100px;
+    top:5px;
+    left: 1px;
+    position: fixed;
+}
+.forgot_pass {
+  color: lightblue;
+  transition: color 0.3s ease;
+}
+.forgot_pass:hover {
+  color: darkblue;
+}
+section.companies {
+    text-align: center;
+}
+
+a {
+    padding: 10px 20px;
+    background-color: #ffcc99;
+    color: #fff;
+    border: solid;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+#companies {
+    padding: 10px 20px;
+    background-color: lightblue;
+    color: white;
+    border: solid;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px;
+}
+a:hover {
+    background-color: #333;
+    color: #fff;
+}
+#companies:hover {
+    background-color: #333;
+    color: #fff;
+}
+#reg {
+  margin-left: 10px;
+  float: right;
+}
+.container {
+    background-image: url('../static/image1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: auto;
+    text-align: center;
+}
+#company-list {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+}
+
+/* Style for each company item */
+#company-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc; /* Add border between items */
+    transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+/* Change background color on hover */
+#company-list li:hover {
+    background-color: #f0f0f0;
+    cursor: pointer; /* Change cursor to pointer on hover */
+}

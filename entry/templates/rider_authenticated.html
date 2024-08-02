@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue - Rider's Dashboard</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Boxicons CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/home.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/riderauth.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/ship.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/sidebar.css') }}">
+</head>
+<body id="body-pd">
+<header class="header" id="header">
+  <nav id="mainNavbar" class="navbar navbar-dark navbar-expand-md py-0 fixed-top">
+    <a href="{{ url_for('main.home') }}" class="navbar-brand">VUE</a>
+    <button class="navbar-toggler" data-toggle="collapse" data-target="#navLinks">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navLinks">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a href="{{ url_for('main.home') }}" class="nav-link">HOME</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url_for('main.about') }}" class="nav-link">ABOUT</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url_for('main.support') }}" class="nav-link">SUPPORT</a>
+        </li>
+        <li class="nav-item">
+          <a href="#footer" class="nav-link">CONTACTS</a>
+        </li>
+      </ul>
+      <input type="checkbox" id="checkbox" {% if user.status == 'available' %} checked {% endif %} />
+      <label for="checkbox" class="switch">
+        <span id="availability-text">{% if user.status == 'available' %} Available {% else %} Unavailable {% endif %}</span>
+        <svg class="slider" viewBox="0 0 512 512" height="1em" xmlns="http://www.w3.org/2000/svg">
+          <path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V256c0 17.7 14.3 32 32 32s32-14.3 32-32V32zM143.5 120.6c13.6-11.3 15.4-31.5 4.1-45.1s-31.5-15.4-45.1-4.1C49.7 115.4 16 181.8 16 256c0 132.5 107.5 240 240 240s240-107.5 240-240c0-74.2-33.8-140.6-86.6-184.6c-13.6-11.3-33.8-9.4-45.1 4.1s-9.4 33.8 4.1 45.1c38.9 32.3 63.5 81 63.5 135.4c0 97.2-78.8 176-176 176s-176-78.8-176-176c0-54.4 24.7-103.1 63.5-135.4z"></path>
+        </svg>
+      </label>
+    </div>
+  </nav>
+  <div class="row justify-content-center">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+      {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+  </div>
+</header>
+<div class="l-navbar" id="nav-bar">
+  <nav class="nav">
+    <div>
+      <a href="#" class="nav_logo">
+        <i class='bx bx-layer nav_logo-icon'></i><span class="nav_logo-name">BBBootstrap</span>
+      </a>
+      <div class="nav_list">
+        <a href="#" class="nav_link active"><i class='bx bx-grid-alt nav_icon'></i><span class="nav_name">Dashboard</span></a>
+        <a href="#" class="nav_link"><i class='bx bx-user nav_icon'></i><span class="nav_name">Users</span></a>
+        <a href="{{ url_for('rider.edit_rider_profile') }}" class="nav_link"><i class='bx bx-message-square-detail nav_icon'></i><span class="nav_name">My profile</span></a>
+        <a href="{{ url_for('rider.edit_rider_profile') }}" class="nav_link"><i class='bx bx-bookmark nav_icon'></i><span class="nav_name">Update status</span></a>
+        <a href="{{ url_for('main.support') }}" class="nav_link"><i class='bx bx-folder nav_icon'></i><span class="nav_name">Support</span></a>
+        <a href="{{ url_for('rider.view_rider_history') }}" class="nav_link"><i class='bx bx-bar-chart-alt-2 nav_icon'></i><span class="nav_name">View my History</span></a>
+      </div>
+    </div>
+    <a href="{{ url_for('auth.logout') }}" class="nav_link"><i class='bx bx-log-out nav_icon'></i><span class="nav_name">SignOut</span></a>
+  </nav>
+</div>
+<div class="assyn">
+  <h2 class="greeting-message" style="color: #1abc9c;"></h2><br>
+  <h3>Pending Delivery Assignments</h3>
+  {% if assignment %}
+  <ul class="assignment-list">
+      <li class="assignment-item">
+          <p class="assignment-info"><strong>Sender:</strong> {{ assignment.sender_name }}</p>
+          <p class="assignment-info"><strong>Sender Contact:</strong> {{ assignment.sender_contact }}</p>
+          <p class="assignment-info"><strong>Pickup Location:</strong> {{ assignment.pickup_location }}</p>
+          <p class="assignment-info"><strong>Delivery Location:</strong> {{ assignment.delivery_location }}</p>
+          <p class="assignment-info"><strong>Receiver Name:</strong> {{ assignment.receiver_name }}</p>
+          <p class="assignment-info"><strong>Receiver Contact:</strong> {{ assignment.receiver_contact }}</p>
+          <p class="assignment-info"><strong>Description:</strong> {{ assignment.description }}</p>
+          <div class="action-buttons" id="action-buttons">
+              <button type="button" class="btn btn-success accept-btn">Accept</button>
+              <button type="button" class="btn btn-danger reject-btn">Reject</button>
+              <button type="button" class="btn btn-primary picked-up-btn">Picked Up</button>
+              <button type="button" class="btn btn-info delivered-btn">Delivered</button>
+          </div>  
+      </li>
+  </ul>
+  {% else %}
+  <p class="no-assignments">No pending assignments.</p>
+  {% endif %}
+  <div class="additional-content" style="background-color: lightgrey; padding: 20px; margin-top: 20px; border-radius: 10px;">
+    <h2 class="sub-heading" style="color: #333;">We value your contribution</h2><br>
+    <p class="content-info" style="color: #555;">You can help us by always updating your status frequently on the <span style="color: #1abc9c;">Available/Unavailable</span> Button Above.</p>
+    <p class="content-info" style="color: #555;">Also update your current location After Each delivery, Soon we will Enable you to use your current location on your device.</p>
+    <p class="content-info" style="color: black; font-weight: bold;">Happy Delivering!</p>
+    <button class="custom-button" style="background-color: #1abc9c; color: #fff; border: none; padding: 10px 20px; border-radius: 5px;">View More</button>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+<script>
+// Get the checkbox and the label
+const checkbox = document.getElementById('checkbox');
+const availabilityText = document.getElementById('availability-text');
+
+// Add event listener to the checkbox to toggle the label text and call the route
+checkbox.addEventListener('change', function() {
+  if (checkbox.checked) {
+    availabilityText.textContent = 'Available'; // Change text to "Available" when checked
+    toggleRiderStatus(true); // Call the route to set rider status as available
+  } else {
+    availabilityText.textContent = 'Unavailable'; // Change text to "Unavailable" when unchecked
+    toggleRiderStatus(false); // Call the route to set rider status as unavailable
+  }
+});
+
+// Function to call the route to toggle rider status
+async function toggleRiderStatus(isAvailable) {
+  try {
+    const response = await fetch(`/toggle_rider_status/{{ current_user.id }}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        available: isAvailable
+      })
+    });
+    const data = await response.json();
+    console.log(data); // Log the response data (optional)
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Get the greeting element
+  const greetingElement = document.querySelector('.greeting-message');
+
+  // Get the current hour
+  const currentHour = new Date().getHours();
+
+  // Define the greeting messages
+  let greetingMessage = '';
+  if (currentHour < 12) {
+    greetingMessage = 'Good Morning! {{ current_user.name}}';
+  } else if (currentHour < 18) {
+    greetingMessage = 'Good Afternoon! {{ current_user.name}}';
+  } else {
+    greetingMessage = 'Good Evening! {{ current_user.name}}';
+  }
+  const h1Element = document.createElement('h1');
+  h1Element.textContent = greetingMessage;
+
+  greetingElement.innerHTML = '';
+  greetingElement.appendChild(h1Element);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const actionButtons = document.getElementById('action-buttons');
+  const acceptButton = document.querySelector('.accept-btn');
+  const rejectButton = document.querySelector('.reject-btn');
+  const pickedUpButton = document.querySelector('.picked-up-btn');
+  const deliveredButton = document.querySelector('.delivered-btn');
+
+  // Initially hide all buttons
+  actionButtons.style.display = 'none';
+
+  // Function to show accept and reject buttons
+  function showAcceptRejectButtons() {
+    acceptButton.style.display = 'inline-block';
+    rejectButton.style.display = 'inline-block';
+    pickedUpButton.style.display = 'none';
+    deliveredButton.style.display = 'none';
+    actionButtons.style.display = 'block';
+  }
+
+  // Function to show picked up and delivered buttons
+  function showPickedUpButton() {
+    acceptButton.style.display = 'none';
+    rejectButton.style.display = 'none';
+    pickedUpButton.style.display = 'inline-block';
+    deliveredButton.style.display = 'none';
+    actionButtons.style.display = 'block';
+  }
+
+  function showDeliveredButton() {
+    acceptButton.style.display = 'none';
+    rejectButton.style.display = 'none';
+    pickedUpButton.style.display = 'none';
+    deliveredButton.style.display = 'inline-block';
+    actionButtons.style.display = 'block';
+  }
+
+  // Check assignment status and show buttons accordingly
+  const assignmentStatus = "{{ assignment.status }}"; // Replace with actual assignment status
+  if (assignmentStatus === "allocated") {
+    showAcceptRejectButtons();
+  } else if (assignmentStatus === "in_progress") {
+    showPickedUpButton();
+  } else if (assignmentStatus === "shipped") {
+    showDeliveredButton();
+  }
+
+  // Add event listener to accept button
+  acceptButton.addEventListener('click', function() {
+    // Call function to handle accept action
+    updateAssignment('accept');
+    // Hide accept and reject buttons, show picked up and delivered buttons
+    showPickedUpButton();
+  });
+
+  // Add event listener to reject button
+  rejectButton.addEventListener('click', function() {
+    // Call function to handle reject action
+    updateAssignment('reject');
+    // Hide all buttons
+    actionButtons.style.display = 'none';
+  });
+
+  // Add event listener to picked up button
+  pickedUpButton.addEventListener('click', function() {
+    // Call function to handle picked up action
+    updateAssignment('shipped');
+    // Show delivered button
+    showDeliveredButton();
+  });
+
+  // Add event listener to delivered button
+  deliveredButton.addEventListener('click', function() {
+    // Call function to handle delivered action
+    updateAssignment('arrived');
+    // Hide all buttons
+    actionButtons.style.display = 'none';
+  });
+
+  // Function to update assignment status
+  function updateAssignment(action) {
+    // Send AJAX request to update assignment
+    fetch('/update_assignment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        parcel_id: "{{ assignment.id }}", // Replace with actual parcel ID
+        action: action,
+      }),
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Failed to update assignment');
+      }
+    })
+    .then(data => {
+      // Handle success response
+      if (data.success) {
+        // Reload the page or update UI as needed
+        location.reload();
+      } else {
+        // Handle error response
+        console.error(data.error);
+      }
+    })
+    .catch(error => {
+      // Handle fetch errors
+      console.error('Error:', error);
+    });
+  }
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Pickup</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Your custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- Leaflet JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../static/styles/ship.css">
+</head>
+<header>
+        <nav id="reg">
+
+                <a class="home-btn" href="{{ url_for('main.home') }}">Home</a>
+                <a href="{{ url_for('main.about') }}">About</a>
+                <a href="{{ url_for('main.support') }}">Support</a>
+                <a href="{{ url_for('auth.logout') }}">Logout</a>
+                <a href="{{ url_for('rider.edit_rider_profile') }}">Profile</a>
+
+        </nav>
+</header>
+<div class="container rounded">
+        <div class="row">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+        </div>
+<body>
+    <div class="container">
+            <div id="spinner" class="spinner" style="display: none;"></div>
+            <h1><i class="fas fa-shipping-fast"></i>Shipping Details</h1>
+	    <form id="parcelForm" method="POST" action="{{ url_for('parcel.request_pickup') }}">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">
+                            <label for="sender_name">Sender's Name</label>
+                            {{ form.sender_name(class="form-control") }}
+                            {% for error in form.sender_name.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="col">
+                            <label for="sender_email">Sender's Email</label>
+                            {{ form.sender_email(class="form-control") }}
+                            {% for error in form.sender_email.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">
+                            <label for="sender_contact">Sender's Contact</label>
+                            {{ form.sender_contact(class="form-control") }}
+                            {% for error in form.sender_contact.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="col">
+                            <label for="receiver_name">Receiver's Name</label>
+                            {{ form.receiver_name(class="form-control") }}
+                            {% for error in form.receiver_name.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">
+                            <label for="receiver_contact">Receiver's Contact</label>
+                            {{ form.receiver_contact(class="form-control") }}
+                            {% for error in form.receiver_contact.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="col">
+                            <label for="pickup_location">Pickup Location</label>
+                            {{ form.pickup_location(class="form-control") }}
+                            {% for error in form.pickup_location.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">
+                            <label for="delivery_location">Delivery Location</label>
+                            {{ form.delivery_location(class="form-control") }}
+                            {% for error in form.delivery_location.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="col">
+                            <label for="description">Description</label>
+                            {{ form.description(class="form-control") }}
+                            {% for error in form.description.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+	    <a href="{{ url_for('main.home') }}" class="btn btn-primary">Go back home</a>
+    </div>
+<footer>
+<script>
+  // Function to show the spinner
+  function showSpinner() {
+    document.getElementById('spinner').style.display = 'block';
+  }
+
+  // Add event listener to the submit button
+  document.getElementById('submit-button').addEventListener('click', function(event) {
+    // Prevent default button behavior
+    event.preventDefault();
+
+    // Show the spinner
+    showSpinner();
+
+    // Submit the form after a short delay (to give time for spinner to display)
+    setTimeout(() => {
+      document.getElementById('your-form-id').submit();
+    }, 500); // Adjust the delay time as needed
+  });
+</script>
+
+</footer>
+</body>
+</html>

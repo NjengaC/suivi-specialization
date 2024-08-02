@@ -1,0 +1,44 @@
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 4px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    margin: 8px auto; /* Center the button horizontally with auto margin */
+    border: solid;
+    border-radius: 9px;
+    cursor: pointer;
+    width: 40%; /* Adjust the width of the button */
+    padding: 15px; /* Add padding for better visual appearance */
+}
+
+
+button[type="submit"]:hover {
+    background-color: #333;
+}
+
+.error-message {
+    color: red;
+}
+#reg ul {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  padding: 0;
+}
+
+#reg ul li {
+  margin-right: 20px;
+}

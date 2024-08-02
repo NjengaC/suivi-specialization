@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue - Home Authenticated</title>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+<header>
+                <div class="sidebar-link">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                                {{ message }}
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                        {% endwith %}
+
+                </div>
+</header>
+    <div class="min-h-screen flex flex-row bg-gray-100">
+        <div class="flex flex-col w-56 bg-white rounded-r-3xl overflow-hidden">
+            <div class="flex items-center justify-center h-20 shadow-md">
+                <h1 class="text-3xl uppercase text-indigo-500">Logo</h1>
+            </div>
+            <ul class="flex flex-col py-4">
+                <li>
+                    <a href="{{ url_for('parcel.request_pickup') }}" class="sidebar-link">
+                        <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"><i class='bx bx-package'></i></span>
+                        <span class="text-sm font-medium">Request Pickup</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('parcel.track_parcel') }}" class="sidebar-link">
+                        <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"><i class="bx bx-map"></i></span>
+                        <span class="text-sm font-medium">Track Parcel</span>
+                    </a>
+                </li>
+		<li>
+			<a href="{{ url_for('parcel.view_parcel_history') }}" class="sidebar-link">
+                        <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"><i class="bx bx-history"></i></span>
+                        <span class="text-sm font-medium">View Order History</span>
+                    </a>
+                </li>
+		<li>
+                    <a href="{{ url_for('auth.edit_profile') }}" class="sidebar-link">
+                        <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"><i class="bx bx-edit"></i></span>
+                        <span class="text-sm font-medium">Edit Profile</span>
+                    </a>
+                </li>
+		  <li>
+                    <a href="{{ url_for('main.support') }}" class="sidebar-link">
+                        <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"><i class="bx bx-map"></i></span>
+                        <span class="text-sm font-medium">Support</span>
+                    </a>
+                </li>
+		<li>
+                    <a href="{{ url_for('auth.logout') }}" >
+                        <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"><i class="bx bx-log-out"></i></span>
+                        <span class="text-sm font-medium">Logout</span>
+                    </a>
+                </li>
+                <!-- Add more sidebar links here -->
+            </ul>
+        </div>
+<!--this is the dfault when users login-->
+        <div id="main-content" class="flex-grow">
+            <!-- Content from sidebar links will be loaded here -->
+        </div>
+    </div>
+<script>
+// Get all sidebar links
+// Get all sidebar links
+const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+// Attach click event listener to each sidebar link
+sidebarLinks.forEach(link => {
+    link.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default link behavior
+
+        // Get the href attribute of the clicked link
+        const href = this.getAttribute('href');
+
+        // Fetch the content from the href URL
+        fetch(href)
+            .then(response => response.text()) // Convert response to text
+            .then(data => {
+                // Replace the content of the main content area with the fetched data
+                document.getElementById('main-content').innerHTML = data;
+            })
+            .catch(error => console.error('Error fetching content:', error));
+    });
+});
+</script>
+</body>
+</html>

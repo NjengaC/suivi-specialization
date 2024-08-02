@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/payment.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <h1>Parcel Payment</h1>
+            <nav>
+                <ul>
+			<li><a href="{{ url_for('main.home') }}"></li>
+			<li><a href="{{ url_for('main.about') }}">About</a></li>
+			<li><a href="{{ url_for( 'contacts') }}">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="row justify-content-center">
+	    {% with messages = get_flashed_messages(with_categories=true) %}
+	    {% if messages %}
+	    {% for category, message in messages %}
+	    <div class="alert alert-{{ category }}">
+		    {{ message }}
+	    </div>
+	    {% endfor %}
+	    {% endif %}
+	    {% endwith %}
+
+    </div>
+    <main>
+
+	    <div class="card"> 
+		    <button type="button" class="dismiss">×</button> 
+		    <div class="header"> 
+			    <div class="image">
+				    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g><g id="SVGRepo_iconCarrier"> <path stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" stroke="#000000" d="M20 7L9.00004 18L3.99994 13"></path> </g></svg>
+			    </div> 
+			    <div class="content">
+				    <span class="title">Parcel validated</span> 
+				    <p class="message">Thank you for your request. you package will be allocated a rider shortly</p> 
+			    </div> 
+			    <div class="actions">
+				    <button type="button" class="history" href="{{ url_for('parcel.view_parcel_history') }}">History</button> 
+				    <button type="button" class="track"href="{{ url_for('parcel.track_parcel') }}">Track my package</button> 
+			    </div> 
+		    </div> 
+	    </div>
+
+
+        <div class="container">
+            <!-- Payment Options Section -->
+            <section id="payment-options">
+                <h2>Payment Options</h2>
+                <div class="payment-card">
+                    <h3>How would you like to pay?</h3>
+                    <form id="payment-form">
+                        <div class="form-group">
+                            <label for="card-owner">Card Owner</label>
+                            <input type="text" id="card-owner" name="card-owner" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="card-number">Card Number</label>
+                            <input type="text" id="card-number" name="card-number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="expiration-date">Expiration Date</label>
+                            <input type="text" id="expiration-date" name="expiration-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" name="cvv" required>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Parcel Summary Section -->
+            <section id="parcel-summary">
+                <h2>Parcel Summary</h2>
+                <div class="parcel-details">
+                    <!-- Display parcel details such as amount payable -->
+                    <p>Amount Payable: ${{ result.distance }}</p>
+                    <!-- Add more details as needed -->
+                </div>
+                <form id="payment-submit">
+			<button href="{{ url_for('payment_success') }}" >Submit Payment</button>
+                </form>
+            </section>
+
+            <!-- Receipt Section -->
+            <section id="receipt">
+                <h2>Payment Receipt</h2>
+                <div class="receipt-details">
+                    <!-- Display dynamically produced receipt -->
+                    <p>{{ result.message }}</p>
+                    <!-- Add more receipt details as needed -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Parcel Delivery. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="{{ url_for('static', filename='scripts/payment.js') }}"></script>
+</body>
+</html>

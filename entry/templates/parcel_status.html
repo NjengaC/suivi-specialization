@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcel Status</title>
+</head>
+<body>
+    <h1>Parcel Status</h1>
+    {% if error %}
+        <p>{{ error }}</p>
+    {% else %}
+        <p>Tracking Number: {{ tracking_number }}</p>
+        <p>Status: {{ status }}</p>
+    {% endif %}
+</body>
+</html>

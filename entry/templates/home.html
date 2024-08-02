@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue</title>
+  <link rel="stylesheet" href="../static/styles/home.css">
+  <link rel="icon" href="../static/images/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/images/favicon-16x16.png">
+  <link rel="manifest" href="../static/site.webmanifest">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-P8XN+Jyrp6rVIiIMT9RYBq5h6DScnIxK1K8yhSfFNSq7hdx38P4qNGpbKNisF3d6V2fK60h0RVaMx6syPeCifQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="path/to/ionicons.min.css">
+</head>
+<body>
+	<header>
+<nav  id ="mainNavbar" class ="navbar navbar-dark  navbar-expand-md py-0 fixed-top">
+	<a href="{{ url_for('main.home') }}" class = "navbar-brand">VUE</a>
+    <button class = "navbar-toggler" data-toggle="collapse" data-target ="#navLinks">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class ="collapse navbar-collapse" id="navLinks">
+         <ul class ="navbar-nav">
+          <li class ="nav-item">
+		  <a href="{{ url_for('main.home') }}" class="nav-link">HOME</a>
+          </li>
+          <li class ="nav-item">
+		  <a href="{{ url_for('main.about') }}" class="nav-link">ABOUT</a>
+          </li>
+          <li class ="nav-item">
+		  <a href="{{ url_for('main.support') }}" class="nav-link">SUPPORT</a>
+          </li>
+          <li class ="nav-item">
+            <a href="#footer" class="nav-link">CONTACTS</a>
+          </li>
+          <li class ="nav-item">
+                  <a href="{{ url_for('auth.login') }}" class="nav-link">LOGIN</a>
+          </li>
+          <li class ="nav-item">
+                  <a href="{{ url_for('auth.register') }}" class="nav-link">REGISTER</a>
+          </li>
+        </ul>
+      </div>
+</nav>
+</header>
+        <div class="row">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+        </div>
+<div class="small-header">
+  <div class="carousel-caption d-none d-md-block custom-carousel-content">
+    <h3 class="display-4">Welcome to Vue</h3>
+    <p class="lead text-white">Explore our services and get started today!</p>
+    <a href="{{ url_for('parcel.request_pickup') }}" class="btn btn-secondary">Ship Now</a>
+    <a href="{{ url_for('auth.register') }}" class="btn btn-primary mr-3 future">Get Started</a>
+  </div>
+</div>
+
+<!-- Page Content -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<section class="p-4 lg:p-8 bg-gray-800 dark:bg-gray-100 text-gray-100 dark:text-gray-800">
+  <div class="container mx-auto space-y-12">
+<div class="cards-container">
+  <a href="#" class="card delivery">
+    <div class="overlay"></div>
+    <div class="circle">
+      <svg width="71px" height="76px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M4.91421 2.41421C5.03855 2.28989 5.18852 2.18934 5.35697 2.11869C5.52542 2.04805 5.7088 2.00953 5.89339 2.00574C6.07798 2.00194 6.25913 2.03238 6.42435 2.09561C6.58957 2.15884 6.7343 2.25396 6.84835 2.37157L12.7071 8.23035L18.5646 2.37285C18.6784 2.25884 18.8226 2.16102 18.9874 2.09853C19.1522 2.03604 19.3335 2.00994 19.5127 2.02293C19.6918 2.03592 19.8622 2.08752 20.0107 2.17357C20.1592 2.25962 20.2823 2.37707 20.3695 2.51486C20.4566 2.65265 20.5059 2.8068 20.5136 2.96684C20.5213 3.12687 20.487 3.28706 20.4135 3.43555C20.3401 3.58404 20.2299 3.71585 20.0922 3.8173L12.7071 11.2024L5.32203 3.8173C5.18431 3.71585 5.07411 3.58404 5.00071 3.43555C4.92731 3.28706 4.893 3.12687 4.90072 2.96684C4.90843 2.8068 4.95769 2.65265 5.0448 2.51486C5.1319 2.37707 5.25504 2.25962 5.40353 2.17357C5.55202 2.08752 5.7224 2.03592 5.90152 2.02293C6.08064 2.00994 6.26192 2.03604 6.42674 2.09853C6.59155 2.16102 6.73579 2.25884 6.84958 2.37285L12.7071 8.23035Z" fill="#D98A19"/>
+      </svg>
+    </div>
+    <p>Timely Delivery</p>
+  </a>
+
+  <a href="#" class="card secure">
+    <div class="overlay"></div>
+    <div class="circle">
+      <svg width="64px" height="72px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M22 0H2C0.895431 0 0 0.89543 0 2V22C0 23.1046 0.89543 24 2 24H22C23.1046 24 24 23.1046 24 22V2C24 0.895431 23.1046 0 22 0ZM16 2C16 2.55228 15.5523 3 15 3H9C8.44772 3 8 2.55228 8 2V1H16V2ZM2 22V4H22V22H2ZM9.5 10H10.5V16H9.5V10ZM9.5 17H10.5V18H9.5V17Z" fill="#59A785"/>
+      </svg>
+    </div>
+    <p>Secure Parcel Handling</p>
+  </a>
+
+  <!-- Translucent section for policy content -->
+  <section id="policySection" class="policy-section">
+    <div class="policy-content">
+      <!-- Content for timely delivery policy -->
+      <button id="closePolicyBtn" class="close-policy-btn">Close</button>
+      <div id="timelyDelivery" class="policy-content-item" style="display: none;">
+        <h2>Timely Delivery Policy</h2>
+            <p>We strive to deliver all Parcels in a timely manner to ensure customer satisfaction. Our delivery team is committed to meeting specified delivery timelines. In case of any delays, we will communicate promptly with affected customers and provide updates on the status of their parcels. If you have any concerns regarding the delivery of your parcel, please don't hesitate to contact our customer support team for assistance.</p>
+      </div>
+      <!-- Content for secure parcel handling policy -->
+      <div id="secureParcelHandling" class="policy-content-item" style="display: none;">
+        <h2>Secure Parcel Handling Policy</h2>
+            <p>We prioritize the safety and security of all parcels entrusted to us. Our team follows strict protocols to ensure that parcels are handled with care and professionalism throughout the delivery process. We use secure packaging materials and employ advanced tracking systems to safeguard parcels during transit.
+Rest assured that your parcel is in good hands, and we take every precaution to protect it from loss, damage, or theft.</p>
+      </div>
+    </div>
+  </section>
+  <!-- End of translucent section -->
+<a href="{{ url_for('parcel.track_parcel') }}" class="card tracking">
+  <div class="overlay"></div>
+  <div class="circle">
+    <svg width="78px" height="60px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M18.71 11.29L20.12 9.88C20.5 9.5 20.5 8.88 20.12 8.5L18.71 7.08C18.32 6.7 17.69 6.7 17.29 7.08L15.88 8.5C15.5 8.88 15.5 9.5 15.88 9.88L17.29 11.29C17.68 11.67 17.68 12.29 17.29 12.67L12.34 17.59C12.17 17.76 11.93 17.86 11.69 17.86C11.44 17.86 11.2 17.76 11.03 17.59L6.08 12.67C5.68 12.29 5.68 11.67 6.08 11.29L7.49 9.88C7.87 9.5 8.49 9.5 8.88 9.88L10.29 11.29C10.68 11.67 11.31 11.67 11.71 11.29L12 11L12.29 11.29C12.69 11.67 13.32 11.67 13.71 11.29L18.71 6.29C19.1 5.91 19.73 5.91 20.12 6.29L21.52 7.71C21.91 8.09 21.91 8.71 21.52 9.09L18.71 11.29Z" fill="#25D48A"/>
+    </svg>
+  </div>
+  <p>Real-time Parcel Tracking<br><span class="smaller-text">Click Here to track your parcel</span></p>
+</a>
+
+<a href="{{ url_for('parcel.request_pickup') }}" class="card secure-delivery">
+  <div class="overlay"></div>
+  <div class="circle">
+    <svg width="71px" height="76px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M17 0H7C6.44772 0 6 0.447715 6 1V3C6 3.55228 6.44772 4 7 4H17C17.5523 4 18 3.55228 18 3V1C18 0.447715 17.5523 0 17 0ZM7 22H17C17.5523 22 18 21.5523 18 21V5C18 4.44771 17.5523 4 17 4H7C6.44772 4 6 4.44771 6 5V21C6 21.5523 6.44772 22 7 22ZM15 7H9C8.44772 7 8 7.44772 8 8C8 8.55228 8.44772 9 9 9H15C15.5523 9 16 8.55228 16 8C16 7.44772 15.5523 7 15 7ZM15 11H9C8.44772 11 8 11.4477 8 12C8 12.5523 8.44772 13 9 13H15C15.5523 13 16 12.5523 16 12C16 11.4477 15.5523 11 15 11ZM15 15H9C8.44772 15 8 15.4477 8 16C8 16.5523 8.44772 17 9 17H15C15.5523 17 16 16.5523 16 16C16 15.4477 15.5523 15 15 15Z" fill="#AC8BE9"/>
+    </svg>
+  </div>
+  <p>Fast & Secure Delivery<br><span class="smaller-text">Try out requesting pickup Here</span></p>
+</a>
+
+<a href="{{ url_for('rider.login_rider') }}" class="card secure">
+  <div class="overlay"></div>
+  <div class="circle">
+    <svg width="66px" height="77px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M4.28872 42.7465C4.28872 39.3309 5.41592 33.7621 6.40577 30.4913C10.5921 32.1099 14.3021 35.1208 18.6959 35.1208C30.9936 35.1208 42.5761 28.7163 50 17.9015C56.8027 23.8881 60.8188 33.0463 60.8188 42.7465C60.8188 60.8174 47.6105 76.6693 32.5538 76.6693C17.4971 76.6693 4.28872 60.8174 4.28872 42.7465ZM16 2C16 2.55228 15.5523 3 15 3H9C8.44772 3 8 2.55228 8 2V1H16V2ZM2 22V4H22V22H2ZM9.5 10H10.5V16H9.5V10ZM9.5 17H10.5V18H9.5V17Z" fill="#AFCEFF"/>
+    </svg>
+  </div>
+  <p>Earn with us<br><span class="smaller-text">Join Us as a rider</span></p>
+</a>
+    </div> <!-- End of cards-container -->
+  </div>
+</section>
+<script>
+  $(function () {
+      $(document).scroll(function () {
+          var $nav = $("#mainNavbar");
+          $nav.toggleClass("scrolled", $(this).scrollTop() > $nav.height());
+      });
+  });
+</script>
+<section class="p-4 lg:p-8 bg-gray-800 dark:bg-gray-100 text-gray-100 dark:text-gray-800">
+	<div class="container mx-auto space-y-12">
+		<div class="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row">
+			<img src="../static/images/feature 1.png" alt="" class="h-80 bg-gray-500 dark:bg-gray-500 aspect-video">
+			<div class="flex flex-col justify-center flex-1 p-6 bg-gray-900 dark:bg-gray-50">
+				<span class="text-xs uppercase text-gray-400 dark:text-gray-600">Shipping Made Easy</span>
+				<h3 class="text-3xl font-bold">Revolutionizing Shipping, Simplified</h3>
+				<p class="my-6 text-gray-400 dark:text-gray-600">Discover seamless shipping solutions tailored to your needs at VUE. Our commitment to excellence is reflected in our streamlined shipping process, ensuring your orders reach you swiftly and securely, Discover seamless shipping solutions tailored to your needs at Vue. Our commitment to excellence is reflected in our streamlined shipping process, ensuring your orders reach you swiftly and securely</p>
+				<a href="{{ url_for('parcel.request_pickup') }}" class="self-start">
+					<button type="button">REQUEST</button></a>
+			</div>
+		</div>
+		<div class="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row-reverse">
+			<img src="../static/images/feature 2.png" alt="" class="h-80 bg-gray-500 dark:bg-gray-500 aspect-video">
+			<div class="flex flex-col justify-center flex-1 p-6 bg-gray-900 dark:bg-gray-50">
+				<span class="text-xs uppercase text-gray-400 dark:text-gray-600">Join now to enjoy these benefits, it's free!</span>
+				<h3 class="text-3xl font-bold">Unlock Exclusive Benefits for Free Today!</h3>
+				<p class="my-6 text-gray-400 dark:text-gray-600">Discover seamless shipping solutions tailored to your needs at VUE. Our commitment to excellence is reflected in our streamlined shipping process, ensuring your orders reach you swiftly and securely.</p>
+				<a href="{{ url_for('rider.register_rider') }}" class="self-start">
+					<button type="button">REGISTER</button></a>
+			</div>
+		</div>
+		<div class="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row">
+			<img src="../static/images/feature 3.png" alt="" class="h-80 bg-gray-500 dark:bg-gray-500 aspect-video">
+			<div class="flex flex-col justify-center flex-1 p-6 bg-gray-900 dark:bg-gray-50">
+				<span class="text-xs uppercase text-gray-400 dark:text-gray-600">Track Your Parcel with Ease</span>
+				<h3 class="text-3xl font-bold">Easily Track Your Parcel Every Step of the Way</h3>
+				<p class="my-6 text-gray-400 dark:text-gray-600">Stay informed every step of the way with our intuitive parcel tracking feature. Whether you're sending or receiving a package, our platform provides real-time updates to ensure peace of mind. Simply enter your tracking number, and gain instant access to the current status and estimated delivery time of your parcel.</p>
+				<a href="{{ url_for('parcel.track_parcel') }}" class="self-start">
+					  <button type="button">TRACK</button>
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
+<footer id="footer">
+            <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>            <ul class="list-inline">
+		    <li class="list-inline-item"><a href="{{ url_for('main.home') }}">Home</a></li>
+		    <li class="list-inline-item"><a href="{{ url_for('main.about') }}">About</a></li>
+		    <li class="list-inline-item"><a href="{{ url_for('main.support') }}">Support</a></li>
+                <li class="list-inline-item"><a href="#">Terms</a></li>
+                <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+            </ul>
+            <p class="copyright">Vue © 2024</p>
+	    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="static/scripts/home.js"></script>
+</footer>
+	    </body>
+</html>

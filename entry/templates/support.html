@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Center</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../static/styles/support.css">
+</head>
+<body>
+<!-- Navigation -->
+<div class="container-fluid bg-dark">
+    <header class="header-box py-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <!-- Navigation links -->
+            <nav>
+                <ul class="list-inline text-light">
+                    <li class="list-inline-item"><a href="{{ url_for('main.home') }}">Home</a></li>
+                    <li class="list-inline-item"><a href="{{ url_for('auth.login') }}">Login</a></li>
+                    <li class="list-inline-item"><a href="{{ url_for('auth.register') }}">Register</a></li>
+                    <li class="list-inline-item"><a href="{{ url_for('parcel.request_pickup') }}">Request pickup</a></li>
+                    <li class="list-inline-item"><a href="{{ url_for('rider.register_rider') }}">Find a Job</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+</div>
+
+<!-- Header -->
+<header class="header-box">
+    <h1 class="text-center display-4">Support Center</h1>
+</header>
+            <!-- Flash messages -->
+            <div class="row justify-content-center">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+            </div>
+<!-- Support Form -->
+<div class="container">
+    <section class="support-form">
+        <h2 class="header-text">Having Problems?</h2>
+        <form class="mx-auto text-center" action="/support" method="POST">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="comment">Comment</label>
+                <textarea class="form-control" id="comment" name="comment" rows="5" placeholder="Enter your comment" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Send</button>
+        </form>
+        <p class="text-center mt-3">Already have an account? <a href="{{ url_for('auth.login') }}">Login</a></p>
+    </section>
+</div>
+
+<!-- FAQ Section -->
+<div class="container2">
+    <section class="search-area text-center">
+        <input type="text" class="form-control search-box" placeholder="Search FAQs">
+        <button type="button" class="btn btn-primary search-btn">Search</button>
+    </section>
+
+<section class="faq faq-box">
+    <h2 class="header-text">Frequently Asked Questions</h2>
+    {% if existing_faqs %}
+        {% for faq in existing_faqs %}
+            <div class="question">
+                {% if search_query %}
+                    <h2 class="header-text">Your Question matched:</h2>
+                {% endif %}
+                <h3>{{ faq.question }}</h3>
+                <p>{{ faq.answer }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No existing FAQs found.</p>
+    {% endif %}
+</section>
+</div>
+
+<!-- Bootstrap and jQuery scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Custom JavaScript -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const searchBtn = document.querySelector(".search-btn");
+
+    searchBtn.addEventListener("click", function() {
+        const searchBox = document.querySelector(".search-box");
+        const searchTerm = searchBox.value.trim();
+
+        // Send AJAX request to the server to perform search
+        fetch(`/support?search_query=${encodeURIComponent(searchTerm)}`)
+            .then(response => response.json())
+            .then(data => {
+                // Handle the search results returned by the server
+                console.log("Search Results:", data);
+                // You can update the HTML to display the search results as needed
+                const faqSection = document.querySelector('.faq-box');
+                faqSection.innerHTML = ''; // Clear previous content
+                if (data.length > 0) {
+                    const header = document.createElement('h2');
+                    header.textContent = 'Your Question matched:';
+                    header.classList.add('header-text');
+                    faqSection.appendChild(header);
+                    data.forEach(faq => {
+                        const questionDiv = document.createElement('div');
+                        questionDiv.classList.add('question');
+                        const questionHeader = document.createElement('h3');
+                        questionHeader.textContent = faq.question;
+                        const answerPara = document.createElement('p');
+                        answerPara.textContent = faq.answer;
+                        questionDiv.appendChild(questionHeader);
+                        questionDiv.appendChild(answerPara);
+                        faqSection.appendChild(questionDiv);
+                    });
+                } else {
+                    faqSection.innerHTML = '<p>No matching FAQs found.</p>';
+                }
+            })
+            .catch(error => {
+                console.error("Error performing search:", error);
+            });
+    });
+});
+
+</script>
+
+</body>
+</html>

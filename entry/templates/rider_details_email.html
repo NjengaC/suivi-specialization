@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcel Allocation Details</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Parcel Allocation Details</h1>
+        <p>Your parcel has been allocated to the nearest rider, <strong>{{ rider_name }}, </strong> <strong> {{ rider_contact }}</strong></p>
+            <strong>Vehicle Type:</strong> {{ vehicle_type }}, <strong>Vehicle Registration:</strong> {{ vehicle_registration }}
+            <p> Your parcel <strong> Tracking Number is {{ tracking_number }}</strong>
+        <p>Please wait for confirmation from the rider.</p>
+        <p>Use your tracking number to track the status of this profile <a href="https://www.happyfaces.tech/track_parcel">here</a></p>
+        <p>If you do not recognize this organization, please ignore this email</p>
+    </div>
+</body>
+
+</html>

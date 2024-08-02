@@ -1,0 +1,90 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.container {
+    width: 30%; /* Occupying 30% of the width */
+    float: left; /* Displaying side by side */
+    margin-right: 20px; /* Adding some space between containers */
+}
+
+.container2 {
+    width: 65%; /* Occupying 65% of the width */
+    float: left; /* Displaying side by side */
+}
+
+/* Header styles */
+.header-box {
+    padding: 20px;
+    background-color: #343a40;
+    color: #fff;
+}
+
+.header-box h1 {
+    margin: 0;
+}
+
+/* Support form styles */
+.support-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.support-form .header-text {
+    margin-bottom: 20px;
+}
+
+.support-form form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* FAQ styles */
+.faq {
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.faq h2 {
+    margin-bottom: 20px;
+}
+
+.question {
+    margin-bottom: 20px;
+}
+
+/* Footer styles */
+.footer-box {
+    background-color: #343a40;
+    color: #fff;
+    padding: 20px;
+    clear: both; /* Clearing floats */
+}
+
+.footer-box p {
+    margin: 0;
+}
+
+/* Search area styles */
+.search-area {
+    margin-top: 20px;
+}
+
+.search-box {
+    width: 60%;
+    margin-bottom: 10px;
+}
+
+.search-btn {
+    margin-left: 10px;
+}
+
+/* FAQ box styles */
+.faq-box {
+    margin-top: 20px;
+}
