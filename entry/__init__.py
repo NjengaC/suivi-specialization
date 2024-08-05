@@ -16,7 +16,7 @@ app = Flask(__name__)
 # engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:new_password@localhost/vue'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:new_password@localhost/suivi'
 engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
