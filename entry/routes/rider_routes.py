@@ -7,29 +7,31 @@ from sqlalchemy.exc import IntegrityError
 
 rider = Blueprint('rider', __name__)
 
+
 @rider.route('/register_rider', methods=['GET', 'POST'])
 def register_rider():
     form = RiderRegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         new_rider = Rider(
-                name=form.name.data,
-                contact_number=form.contact_number.data,
-                email=form.email.data,
-                vehicle_type=form.vehicle_type.data,
-                vehicle_registration=form.vehicle_registration.data,
-                area_of_operation=form.area_of_operation.data,
-                password=hashed_password,
-                current_location=form.current_location.data,
-                role='rider'
-                )
+            name=form.name.data,
+            contact_number=form.contact_number.data,
+            email=form.email.data,
+            vehicle_type=form.vehicle_type.data,
+            vehicle_registration=form.vehicle_registration.data,
+            area_of_operation=form.area_of_operation.data,
+            password=hashed_password,
+            current_location=form.current_location.data,
+            role='rider'
+        )
         db.session.add(new_rider)
         try:
             db.session.commit()
             welcome_msg = render_template('welcome_rider_mail.html', rider=new_rider, login_url=url_for('rider.login_rider', _external=True))
-            msg = Message('Welcome to Vue!', recipients=[new_rider.email])
+            msg= Message('Welcome to Vue!', recipients=[new_rider.email])
             msg.html = welcome_msg
             mail.send(msg)
+
             flash('Rider registration successful!', 'success')
             return redirect(url_for('rider.login_rider'))
         except IntegrityError:
@@ -37,7 +39,6 @@ def register_rider():
             flash('User with details provided already exists. Please check Name, contact or Vehicle Registration', 'danger')
             return render_template('register_rider.html', title='Register Rider', form=form)
     return render_template('register_rider.html', title='Register Rider', form=form)
-
 
 
 @rider.route('/login_rider', methods=['GET', 'POST'])
