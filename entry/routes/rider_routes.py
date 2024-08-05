@@ -4,9 +4,10 @@ from entry import db, bcrypt, mail
 from entry.forms import RiderRegistrationForm, LoginRiderForm, UpdateRiderForm, ParcelForm
 from entry.models import Rider, Parcel
 from sqlalchemy.exc import IntegrityError
+from flask_mail import Message, Mail
+
 
 rider = Blueprint('rider', __name__)
-
 
 @rider.route('/register_rider', methods=['GET', 'POST'])
 def register_rider():
@@ -28,7 +29,7 @@ def register_rider():
         try:
             db.session.commit()
             welcome_msg = render_template('welcome_rider_mail.html', rider=new_rider, login_url=url_for('rider.login_rider', _external=True))
-            msg= Message('Welcome to Vue!', recipients=[new_rider.email])
+            msg = Message('Welcome to Vue!', recipients=[new_rider.email])
             msg.html = welcome_msg
             mail.send(msg)
 
@@ -36,8 +37,7 @@ def register_rider():
             return redirect(url_for('rider.login_rider'))
         except IntegrityError:
             db.session.rollback()
-            flash('User with details provided already exists. Please check Name, contact or Vehicle Registration', 'danger')
-            return render_template('register_rider.html', title='Register Rider', form=form)
+            flash('User with the provided details already exists. Please check Name, Contact, or Vehicle Registration', 'danger')
     return render_template('register_rider.html', title='Register Rider', form=form)
 
 
