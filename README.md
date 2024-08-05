@@ -58,7 +58,7 @@ CREATE DATABASE suivi
 ```
 5. Navigate to the project's root directory and run the following commands to instantiate database.
    ```bash
-   EXPORT FLASK_APP=run.py
+   export FLASK_APP=run.py
    flask db init
    flask db migrate -m "Initial migration."
    flask db upgrade
