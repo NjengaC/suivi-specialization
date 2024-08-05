@@ -20,10 +20,10 @@ def register():
         try:
             db.session.commit()
             welcome_msg = render_template('welcome_user_mail.html', user=user, login_url=url_for('auth.login', _external=True))
-            msg = Message('Welcome to Vue!', recipients=[user.email])
+            flash('Account created', 'success')
+            msg = Message('Welcome to Suivi!', recipients=[user.email])
             msg.html = welcome_msg
             mail.send(msg)
-            flash('Account created', 'success')
             return redirect(url_for('auth.login'))
         except IntegrityError:
             db.session.rollback()
