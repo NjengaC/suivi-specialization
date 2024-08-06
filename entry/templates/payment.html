@@ -15,7 +15,7 @@
                 <ul>
 			<li><a href="{{ url_for('main.home') }}"></li>
 			<li><a href="{{ url_for('main.about') }}">About</a></li>
-			<li><a href="{{ url_for( 'contacts') }}">Contact</a></li>
+			<li><a href="{{ url_for( 'main.contacts') }}">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -90,7 +90,7 @@
                     <!-- Add more details as needed -->
                 </div>
                 <form id="payment-submit">
-			<button href="{{ url_for('payment_success') }}" >Submit Payment</button>
+			<button href="{{ url_for('payment.payment_success') }}" >Submit Payment</button>
                 </form>
             </section>
 

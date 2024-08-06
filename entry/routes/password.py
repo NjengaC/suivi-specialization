@@ -33,7 +33,7 @@ def forgot_password():
             send_email(user.email, "Password Reset Request", message)
 
             flash("Instructions to reset your password have been sent to your email.", "success")
-            return redirect(url_for('login'))
+            return redirect(url_for('auth.login'))
         elif rider:
             # Generate a unique token for the rider
             token = secrets.token_urlsafe(32)
@@ -46,7 +46,7 @@ def forgot_password():
             send_email(rider.email, "Password Reset Request", message)
 
             flash("Instructions to reset your password have been sent to your email.", "success")
-            return redirect(url_for('auth.login'))
+            return redirect(url_for('rider.login_rider'))
         else:
             flash("Email address not found.", 'danger')
     return render_template('forgot_password.html', form=form)

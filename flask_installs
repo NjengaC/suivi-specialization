@@ -16,7 +16,8 @@ pip install geoalchemy2
 pip install Flask-Mail
 pip install twilio
 pip install retrying
-sudo apt install postgresql
-sudo apt install nodejs npm
-npm install -D tailwindcss
-npx tailwindcss init
+pip install flask-admin
+# sudo apt install postgresql
+# sudo apt install nodejs npm
+# npm install -D tailwindcss
+# npx tailwindcss init
