@@ -22,7 +22,8 @@ def load_user(user_id):
     return None
 
 class User(db.Model, UserMixin):
-    id = db.Column(db.String(36), primary_key=True, default=str(uuid.uuid4()))
+    __tablename__ = 'users'
+    id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     username = db.Column(db.String(100), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
@@ -35,7 +36,7 @@ class User(db.Model, UserMixin):
 
 class Rider(db.Model, UserMixin):
     __tablename__ = 'rider'
-    id = db.Column(db.String(36), primary_key=True, default=str(uuid.uuid4()))
+    id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     name = db.Column(db.String(100), nullable=False)
     contact_number = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -90,7 +91,7 @@ class Parcel(db.Model):
 
 
 class Admin(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     username = db.Column(db.String(100), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
