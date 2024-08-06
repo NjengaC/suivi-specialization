@@ -27,6 +27,11 @@ def about():
 def contacts():
     return render_template('contact.html')
 
+@main.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('main.home'))
 
 @main.route('/support', methods=['GET', 'POST'])
 def support():

@@ -8,9 +8,9 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
         {% if title %}
-        <title>Vue - {{ title }}</title>
+        <title>suivi - {{ title }}</title>
         {% else %}
-        <title>Vue</title>
+        <title>suivi</title>
         {% endif %}
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/profiles.css') }}">
@@ -73,10 +73,10 @@
                 <li id="spacer"><a href="#">Activate</a></li>
                 <li id="spacer"><a href="#">Deactivate</a></li>
                 {% endif %}
-                <li id="spacer"><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                <li id="spacer"><a href="{{ url_for('main.logout') }}">Logout</a></li>
                 <li id="spacer"><a href="{{ url_for('auth.edit_profile') }}">Profile</a></li>
                 {% else %}
-                <h1 >Welcome to Vue</h1>
+                <h1 >Welcome to suivi</h1>
                 <li id="spacer"><a href="{{ url_for('auth.login') }}">Login</a></li>
                 <li id="spacer"><a href="{{ url_for('auth.register') }}">Register</a></li>
                 <li id="spacer"><a href="{{ url_for('parcel.request_pickup') }}">Request</a></li>
@@ -104,7 +104,7 @@
             <button onclick="location.href='{{ url_for('main.about') }}'">Who we are</button>
             <button onclick="location.href='{{ url_for('main.about') }}'">What we do</button>
             <button onclick="location.href='{{ url_for('main.about') }}'">Contacts</button>
-	     <p>&copy; 2024 Vue HomePage. All rights reserved.</p>
+	     <p>&copy; 2024 suivi HomePage. All rights reserved.</p>
         </footer>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

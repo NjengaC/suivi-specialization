@@ -15,8 +15,8 @@
             <a class="home-btn" href="{{ url_for('main.home') }}">Home</a>
             <a href="{{ url_for('main.about') }}">About</a>
             <a href="{{ url_for('main.support') }}">Support</a>
-            <a href="{{ url_for('auth.logout') }}">Logout</a>
-            <a href="{{ url_for('auth.edit_rider_profile') }}">Profile</a>
+            <a href="{{ url_for('main.logout') }}">Logout</a>
+            <a href="{{ url_for('rider.edit_rider_profile') }}">Profile</a>
         </nav>
     </header>
 
@@ -112,7 +112,7 @@
             <li class="list-inline-item"><a href="#">Terms</a></li>
             <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
         </ul>
-        <p class="copyright">Vue © 2024</p>
+        <p class="copyright">suivi © 2024</p>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -120,4 +120,3 @@
 </body>
 
 </html>
-

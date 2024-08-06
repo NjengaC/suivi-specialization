@@ -12,6 +12,8 @@ rider = Blueprint('rider', __name__)
 @rider.route('/register_rider', methods=['GET', 'POST'])
 def register_rider():
     form = RiderRegistrationForm()
+    if current_user.is_authenticated:
+        return redirect(url_for('rider.login_rider'))
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         new_rider = Rider(
@@ -29,7 +31,11 @@ def register_rider():
         try:
             db.session.commit()
             welcome_msg = render_template('welcome_rider_mail.html', rider=new_rider, login_url=url_for('rider.login_rider', _external=True))
+<<<<<<< HEAD
             msg = Message('Welcome to Suivi!', recipients=[new_rider.email])
+=======
+            msg = Message('Welcome to suivi!', recipients=[new_rider.email])
+>>>>>>> 58ffb737e2a3773276b235fe0b3124ee310cb6ad
             msg.html = welcome_msg
             mail.send(msg)
 
@@ -44,9 +50,7 @@ def register_rider():
 @rider.route('/login_rider', methods=['GET', 'POST'])
 def login_rider():
     if current_user.is_authenticated and current_user.role == 'rider':
-        rider = Rider.query.filter_by(contact_number=current_user.contact_number).first()
-        pending_assignments = Parcel.query.filter_by(rider_id=current_user.id).filter(Parcel.status.in_(['allocated', 'shipped', 'in_progress'])).first()
-        return render_template('rider_authenticated.html', title='Rider\'s dashboard', user=current_user, assignment=pending_assignments)
+        return redirect(url_for('rider.rider_authenticated'))
     form = LoginRiderForm()
     if form.validate_on_submit():
         rider = Rider.query.filter_by(contact_number=form.contact_number.data).first()
@@ -92,7 +96,7 @@ def edit_rider_profile():
             current_user.current_location = form.current_location.data
             db.session.commit()
             flash('Your account has been updated successfully!', 'success')
-            return render_template('rider_authenticated.html', title='Home', user=current_user)
+            return redirect(url_for('rider.rider_authenticated'))
     return render_template('edit_rider_profile.html', title='Edit Profile', form=form, user=current_user)
 
 

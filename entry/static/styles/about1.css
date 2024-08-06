@@ -56,8 +56,8 @@ header a {
     padding: 50px 20px;
 }
 
-/* Why Choose Vue Section */
-.why-choose-vue, .become-rider {
+/* Why Choose suivi Section */
+.why-choose-suivi, .become-rider {
     background-color: #fff;
     padding: 30px;
     border-radius: 10px;
@@ -65,7 +65,7 @@ header a {
     margin-bottom: 30px;
 }
 
-.why-choose-vue h2, .become-rider h2 {
+.why-choose-suivi h2, .become-rider h2 {
     margin-bottom: 20px;
     border-bottom: 2px solid #007bff;
     padding-bottom: 10px;
