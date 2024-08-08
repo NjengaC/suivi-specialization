@@ -31,11 +31,7 @@ def register_rider():
         try:
             db.session.commit()
             welcome_msg = render_template('welcome_rider_mail.html', rider=new_rider, login_url=url_for('rider.login_rider', _external=True))
-<<<<<<< HEAD
             msg = Message('Welcome to Suivi!', recipients=[new_rider.email])
-=======
-            msg = Message('Welcome to suivi!', recipients=[new_rider.email])
->>>>>>> 58ffb737e2a3773276b235fe0b3124ee310cb6ad
             msg.html = welcome_msg
             mail.send(msg)
 
