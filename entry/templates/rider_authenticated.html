@@ -3,6 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suivi - Rider's Dashboard</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""/>
+
+  <!-- Make sure you put this AFTER Leaflet's CSS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+  crossorigin=""></script>
   <title>suivi - Rider's Dashboard</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -15,11 +24,15 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/riderauth.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/ship.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/sidebar.css') }}">
+
+  <style>
+        #map { height: 350px; }
+  </style>
 </head>
 <body id="body-pd">
 <header class="header" id="header">
   <nav id="mainNavbar" class="navbar navbar-dark navbar-expand-md py-0 fixed-top">
-    <a href="{{ url_for('main.home') }}" class="navbar-brand">VUE</a>
+    <a href="{{ url_for('main.home') }}" class="navbar-brand">SUIVI</a>
     <button class="navbar-toggler" data-toggle="collapse" data-target="#navLinks">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -108,14 +121,50 @@
     <p class="content-info" style="color: black; font-weight: bold;">Happy Delivering!</p>
     <button class="custom-button" style="background-color: #1abc9c; color: #fff; border: none; padding: 10px 20px; border-radius: 5px;">View More</button>
   </div>
+  <div id="map"></div>
 </div>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 
-
-
 <script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    var map = L.map('map').setView([-1.286389, 36.817223], 13);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    navigator.geolocation.watchPosition(success, error);
+
+    let marker, circle, zoomed;
+
+    function success(pos) {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        const accuracy = pos.coords.accuracy;
+
+        if (marker) {
+            map.removeLayer(marker);
+            map.removeLayer(circle);
+        }
+
+        marker = L.marker([lat, lng]).addTo(map);
+        circle = L.circle([lat, lng], { radius: accuracy }).addTo(map);
+
+        if (!zoomed)
+            map.fitBounds(circle.getBounds());
+    }
+
+    function error(err) {
+        if (err.code === 1) {
+            alert("Please allow geolocation access");
+        } else {
+            alert("Cannot get current location");
+        }
+    }
+});
+
 // Get the checkbox and the label
 const checkbox = document.getElementById('checkbox');
 const availabilityText = document.getElementById('availability-text');

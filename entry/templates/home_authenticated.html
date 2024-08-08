@@ -3,10 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>suivi - Home Authenticated</title>
+    <title>suivi - Dashboard</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        #map { height: 300px; }
+    </style>
 </head>
 <body class="bg-gray-100">
 <header>
@@ -72,8 +83,46 @@
         <div id="main-content" class="flex-grow">
             <!-- Content from sidebar links will be loaded here -->
         </div>
+        <div id="map"></div>
     </div>
 <script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    var map = L.map('map').setView([-1.286389, 36.817223], 13);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    navigator.geolocation.watchPosition(success, error);
+
+    let marker, circle, zoomed;
+
+    function success(pos) {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        const accuracy = pos.coords.accuracy;
+
+        if (marker) {
+            map.removeLayer(marker);
+            map.removeLayer(circle);
+        }
+
+        marker = L.marker([lat, lng]).addTo(map);
+        circle = L.circle([lat, lng], { radius: accuracy }).addTo(map);
+
+        if (!zoomed)
+            map.fitBounds(circle.getBounds());
+    }
+
+    function error(err) {
+        if (err.code === 1) {
+            alert("Please allow geolocation access");
+        } else {
+            alert("Cannot get current location");
+        }
+    }
+});
+
 // Get all sidebar links
 // Get all sidebar links
 const sidebarLinks = document.querySelectorAll('.sidebar-link');

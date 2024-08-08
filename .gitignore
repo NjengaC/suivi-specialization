@@ -1,5 +1,9 @@
 # Byte-compiled / optimized / DLL files
-__pycache__/
+/__pycache__/*
+/entry/routes/__pycache__/*
+/entry/__pycache__/*
+/node_modules/*
+/migrations/
 *.py[cod]
 *$py.class
 
@@ -21,7 +25,6 @@ sdist/
 var/
 wheels/
 share/python-wheels/
-*.egg-info/
 .installed.cfg
 *.egg
 MANIFEST
