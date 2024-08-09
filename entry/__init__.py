@@ -4,7 +4,9 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
 from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
 from dotenv import load_dotenv
+from config import Config
 from flask_migrate import Migrate
 import logging
 from flask_admin import Admin
