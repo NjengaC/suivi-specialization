@@ -88,8 +88,8 @@
             <h2>Reviewing the route...</h2>
             <div id="map"></div>
             <button type="submit" class="btn btn-primary">Confirm to Proceed</button><br>
-            <button type="button" class="btn btn-primary", id="confirm">Change Pickup Location</button>
-            <button type="button" class="btn btn-primary", id="confirm">Change Delivery Location</button>
+            <a href="{{ url_for('parcel.request_pickup', step='2') }}" class="btn btn-primary" id="changePickupLocation">Change Pickup Location</a>
+            <a href="{{ url_for('parcel.request_pickup', step='1') }}" class="btn btn-primary" id="changeDeliveryLocation">Change Delivery Location</a>
 
             {% elif step == '4' %}
             <div class="form-group">
@@ -106,7 +106,7 @@
                     <span class="text-danger">{{ error }}</span>
                 {% endfor %}
             </div>
-            <button type="submit" class="btn btn-primary">Finalize Request</button>
+            <a href="{{ url_for('payment.verify_payment') }}" class="btn btn-primary">Finalize Request</button>
 
             {% else %}
             <!-- Any additional steps or summary can be placed here -->
