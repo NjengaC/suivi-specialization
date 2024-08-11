@@ -14,10 +14,18 @@ from geopy.distance import geodesic
 from geopy.geocoders import Nominatim
 import retrying
 import geopy.exc
-
+import os
 
 parcel = Blueprint('parcel', __name__)
+secret_key = os.getenv('STRIPE_SECRET_KEY')
+publishable_key = os.getenv('STRIPE_PUBLISHABLE_KEY')
 
+stripe_keys = {
+        "secret_key": secret_key,
+        "publishable_key": publishable_key,
+        }
+
+stripe.api_key = stripe_keys['secret_key']
 
 @parcel.route('/track_parcel')
 def track_parcel():
@@ -39,11 +47,11 @@ def get_parcel_status():
     else:
         return jsonify({'error': 'Tracking number not provided'}), 400
 
-
-@parcel.route('/request_pickup', methods=['GET', 'POST'])
+@parcel.route('/request_pickup', methods=['POST', 'GET'])
 def request_pickup():
     form = ParcelForm()
-    if form.validate_on_submit():
+    if request.method == 'POST' and form.validate_on_submit():
+        # Create the parcel in the database
         parcel = Parcel(
             sender_name=form.sender_name.data,
             sender_email=form.sender_email.data,
@@ -56,20 +64,12 @@ def request_pickup():
         )
         db.session.add(parcel)
         db.session.commit()
-        #Allocate parcel to the nearest unoccupied rider
-        allocation_result = allocate_parcel()
-        if allocation_result['success']:
-            send_rider_details_email(parcel.sender_email, allocation_result, parcel.tracking_number)
-            flash(f'Rider Allocated. Check your email for more details')
-#            return render_template('payment.html', results=allocation_result                    )
-            return redirect(url_for('payment.verify_payment'))
-        else:
-            flash('Allocation in progress. Please wait for a rider to be assigned', 'success')
-            return redirect(url_for('payment.verify_payment'))
-#            return render_template('payment.html', result = allocation_result)
-    return render_template('request_pickup.html', form=form)
 
-
+        # Return a success response to the frontend
+        return jsonify({"status": "success"}), 200
+    
+    # If it's a GET request or form validation fails, render the form
+    return render_template('request_pickup.html', form=form, key=stripe_keys['publishable_key'])
 
 def allocate_parcel():
     """
