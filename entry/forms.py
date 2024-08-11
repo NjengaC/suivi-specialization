@@ -8,6 +8,9 @@ from entry.models import User, Rider, Admin
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()])
+    user_contact = StringField('Contact Number', validators=[DataRequired(),
+                                 Regexp(r'^[0-9]{10}$',
+                                 message='Please enter a valid 10-digit phone number')])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')

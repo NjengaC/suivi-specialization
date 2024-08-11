@@ -9,7 +9,18 @@ from entry import app, db, bcrypt
 from flask_mail import Message, Mail
 from sqlalchemy import or_
 import secrets
+import os
+import stripe
 
+secret_key = os.getenv('STRIPE_SECRET_KEY')
+publishable_key = os.getenv('STRIPE_PUBLISHABLE_KEY')
+
+stripe_keys = {
+        "secret_key": secret_key,
+        "publishable_key": publishable_key,
+        }
+
+stripe.api_key = stripe_keys['secret_key']
 
 payment = Blueprint('payment', __name__)
 
@@ -18,28 +29,31 @@ def payment_success():
     return redirect(url_for('main.home'))
 
 
-@payment.route('/verify_payment', methods=['GET', 'POST'])
-def verify_payment():
-    # Extract the token from the request data
-    # stripe_token = request.form.get('stripeToken')
+@payment.route('/checkout', methods=['GET', 'POST'])
+def checkout():
+    return render_template('checkout.html',key=stripe_keys['publishable_key'])
 
-    # Here you would perform the necessary steps to verify the payment using the token
-    # For demonstration purposes, let's assume the payment is verified successfully
-    payment_verified = True
 
-    if payment_verified:
-        send_payment_notification_email()
-        return redirect(url_for('main.home'))
+@payment.route('/charge', methods=['POST'])
+def charge():
+    amount = 1000  # Amount in cents
 
-    else:
-        return redirect(url_for('main.home'))
+    customer = stripe.Customer.create(
+        email='customer@example.com',
+        source=request.form['stripeToken']
+    )
 
-# Function to send email notification to admin
+    charge = stripe.Charge.create(
+        customer=customer.id,
+        amount=amount,
+        currency='usd',
+        description='Flask Charge'
+    )
+
+    return jsonify({'success': True})
+
+
 def send_payment_notification_email():
     msg = Message('New Payment Received', recipients=['victorcyrus01@gmai.com'])
     msg.body = 'A new payment has been received. Please check the dashboard for details.'
     mail.send(msg)
-
-    # Optionally, you can also render a template for the email content
-    # msg.html = render_template('payment_notification.html', amount=...)
-

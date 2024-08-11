@@ -13,7 +13,7 @@ auth = Blueprint('auth', __name__)
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return render_template('home_authenticated.html')
+        return redirect(url_for('main.home'))
     
     form = RegistrationForm()
     if form.validate_on_submit():
@@ -23,7 +23,7 @@ def register():
             return redirect(url_for('auth.register'))
         
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password, role='user')
+        user = User(username=form.username.data, email=form.email.data, user_contact=form.user_contact.data, password=hashed_password, role='user')
         db.session.add(user)
         
         try:
@@ -44,7 +44,7 @@ def register():
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return render_template('home_authenticated.html', user=current_user)
+        return redirect(url_for('main.home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()

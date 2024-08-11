@@ -33,6 +33,20 @@
         }
     </style>
 
+    <!-- Stripe.js -->
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+    <style>
+        .thank-you-message {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -106,13 +120,24 @@
                     <span class="text-danger">{{ error }}</span>
                 {% endfor %}
             </div>
-            <a href="{{ url_for('payment.verify_payment') }}" class="btn btn-primary">Finalize Request</button>
+			<button type="button" class="btn btn-primary" id="submit-button">Submit</button>
 
-            {% else %}
             <!-- Any additional steps or summary can be placed here -->
+			<div id="payment-section" style="display: none;">
+				<h3>Proceed to Payment</h3>
+				<button type="button" id="pay-button" class="btn btn-success">Pay $10.00</button>
+			</div>
+			<!-- Thank You Message -->
+			<div id="thank-you" class="thank-you-message" style="display: none;">
+				Thank you for your payment! You will be redirected home shortly.
+			</div>
+		</div>
+		{% else %}
             {% endif %}
         </form>
     </div>
+	<footer>
+        </footer>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var map = L.map('map').setView([-1.286389, 36.817223], 13);
@@ -187,6 +212,67 @@
             } else {
                 alert("Geolocation is not supported by this browser.");
             }
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#submit-button').on('click', function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                // AJAX call to submit form data
+                $.ajax({
+                    url: $('#parcelForm').attr('action'),
+                    method: 'POST',
+                    data: $('#parcelForm').serialize(),
+                    success: function(response) {
+                        // Hide the submit button and show the payment button
+                        $('#submit-button').hide();
+                        $('#payment-section').show();
+                    },
+                    error: function() {
+                        alert('Failed to request pickup. Please try again.');
+                    }
+                });
+            });
+            $('#pay-button').on('click', function() {
+                var handler = StripeCheckout.configure({
+                    key: '{{ key }}',
+                    locale: 'auto',
+                    email: $('#sender_email').val(), // Fetch email dynamically
+                    token: function(token) {
+                        $.ajax({
+                            url: '/charge',
+                            method: 'POST',
+                            data: {
+                                stripeToken: token.id,
+                                email: $('#sender_email').val(), // Fetch email dynamically
+                                description: 'Payment for parcel from ' + $('#sender_name').val() + ' to ' + $('#receiver_name').val() // Fetch names dynamically
+                            },
+                            success: function(response) {
+                                $('#thank-you').show(); // Show thank you message
+                                setTimeout(function() {
+                                    window.location.href = "{{ url_for('main.home') }}";
+                                }, 1000); // Redirect after 2 seconds
+                            },
+                            error: function() {
+                                alert('Payment failed. Please try again.');
+                            }
+                        });
+                    }
+                });
+
+                handler.open({
+                    name: 'Suivi',
+                    description: 'Payment for parcel from ' + $('#sender_name').val() + ' to ' + $('#receiver_name').val(), // Fetch names dynamically
+                    amount: 1000
+                });
+
+                $(window).on('popstate', function() {
+                    handler.close();
+                });
+            });
+
         });
     </script>
 </body>

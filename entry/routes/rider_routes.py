@@ -5,9 +5,19 @@ from entry.forms import RiderRegistrationForm, LoginRiderForm, UpdateRiderForm, 
 from entry.models import Rider, Parcel
 from sqlalchemy.exc import IntegrityError
 from flask_mail import Message, Mail
-
+from functools import wraps
 
 rider = Blueprint('rider', __name__)
+
+
+def rider_login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated or current_user.role != 'rider':
+            return redirect(url_for('rider.login_rider', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
+
 
 @rider.route('/register_rider', methods=['GET', 'POST'])
 def register_rider():
@@ -61,7 +71,7 @@ def login_rider():
 
 
 @rider.route('/rider_authenticated')
-@login_required
+@rider_login_required
 def rider_authenticated():
     rider = Rider.query.filter_by(contact_number=current_user.contact_number).first()
     pending_assignments = Parcel.query.filter_by(rider_id=current_user.id).filter(Parcel.status.in_(['allocated', 'shipped', 'in_progress'])).first()
@@ -69,7 +79,7 @@ def rider_authenticated():
 
 
 @rider.route('/edit_rider_profile', methods=['GET', 'POST'])
-@login_required
+@rider_login_required
 def edit_rider_profile():
     form = UpdateRiderForm()
     if request.method == 'GET':
@@ -97,6 +107,7 @@ def edit_rider_profile():
 
 
 @rider.route('/view_rider_history', methods=['GET', 'POST'])
+@rider_login_required
 def view_rider_history():
     if current_user.is_authenticated:
         # Query parcels for the current rider
@@ -115,12 +126,14 @@ def view_rider_history():
 
 
 @rider.route('/rider_dashboard', methods=['GET', 'POST'])
+@rider_login_required
 def rider_dashboard():
     pending_assignments = Parcel.query.filter(Parcel.status == 'allocated', Parcel.rider_id==rider.id).first()
     return render_template('rider_dashboard.html', rider=current_user)
 
 
 @rider.route('/toggle_rider_status/<int:rider_id>', methods=['POST'])
+@rider_login_required
 def toggle_rider_status(rider_id):
     """
     Toggles the status of the rider between available and unavailable

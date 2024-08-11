@@ -17,9 +17,18 @@ import retrying
 import geopy.exc
 from flask import session
 
+import os
 
 parcel = Blueprint('parcel', __name__)
+secret_key = os.getenv('STRIPE_SECRET_KEY')
+publishable_key = os.getenv('STRIPE_PUBLISHABLE_KEY')
 
+stripe_keys = {
+        "secret_key": secret_key,
+        "publishable_key": publishable_key,
+        }
+
+stripe.api_key = stripe_keys['secret_key']
 
 @parcel.route('/track_parcel')
 def track_parcel():
@@ -41,8 +50,7 @@ def get_parcel_status():
     else:
         return jsonify({'error': 'Tracking number not provided'}), 400
 
-
-@parcel.route('/request_pickup', methods=['GET', 'POST'])
+@parcel.route('/request_pickup', methods=['POST', 'GET'])
 def request_pickup():
     form = ParcelForm()
     step = request.args.get('step', '1')
@@ -85,7 +93,7 @@ def request_pickup():
             parcel = Parcel(
                 sender_name=current_user.username,
                 sender_email=current_user.email,
-                sender_contact="011122",  # Assuming this is fetched from somewhere else or hardcoded for now
+                sender_contact=current_user.user_contact,
                 receiver_name=session['receiver_name'],
                 receiver_contact=session['receiver_contact'],
                 pickup_location=session['pickup_location'],
@@ -100,12 +108,11 @@ def request_pickup():
             if allocation_result['success']:
                 send_rider_details_email(parcel.sender_email, allocation_result, parcel.tracking_number)
                 flash('Rider Allocated. Check your email for more details', 'success')
-                return redirect(url_for('payment.verify_payment'))
             else:
                 flash('Allocation in progress. Please wait for a rider to be assigned', 'success')
-                return redirect(url_for('payment.verify_payment'))
 
-    return render_template('request_pickup.html', form=form, step=step)
+    # If it's a GET request or form validation fails, render the form
+    return render_template('request_pickup.html', form=form, step=step, key=stripe_keys['publishable_key'])
 
 
 @parcel.route('/get_coordinates', methods=['POST'])
@@ -120,13 +127,12 @@ def get_coordinates():
     # Check if both locations were successfully fetched
     if None in (pickup_lat, pickup_lng, delivery_lat, delivery_lng):
         return jsonify({"error": "Could not fetch coordinates for one or both locations"}), 400
-
     return jsonify({
         "pickup_lat": pickup_lat,
         "pickup_lng": pickup_lng,
         "delivery_lat": delivery_lat,
         "delivery_lng": delivery_lng
-    })
+        })
 
 
 def get_lat_lng(location):
