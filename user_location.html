@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Customer's location</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+
+    <style>
+        #map { height: 350px; }
+    <style/>
+
+    <!-- Add any additional meta tags, styles, or scripts here -->
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Website</h1>
+        <!-- Navigation, logo, etc. can go here -->
+    </header>
+
+    <div id="map"></div>
+
+    <main>
+        <section>
+            <h2>About</h2>
+            <p>This is a placeholder for the main content of the page.</p>
+        </section>
+
+        <section>
+            <h2>Services</h2>
+            <p>Details about the services offered will go here.</p>
+        </section>
+
+        <!-- Add more sections as needed -->
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Your Company Name. All rights reserved.</p>
+    </footer>
+</body>
+<script>
+    var map = L.map('map').setView([51.505, -0.09], 13);
+<script/>
+</html>

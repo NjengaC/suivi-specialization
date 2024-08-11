@@ -84,6 +84,19 @@
                                 {% endif %}
                             </div>
                             <div class="form-group">
+                                {{ form.user_contact.label(class="form-control-label") }}
+                                {% if form.user_contact.errors %}
+                                {{ form.user_contact(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.user_contact.errors %}
+                                    <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                {{ form.user_contact(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
                                 {{ form.password.label(class="form-control-label") }}
                                 {% if form.password.errors %}
                                 {{ form.password(class="form-control form-control-lg is-invalid") }}

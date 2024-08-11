@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, flash, request, redirect, url_for, jsonify
+from flask import Blueprint, session, render_template, flash, request, redirect, url_for, jsonify
+import requests
 from flask_login import login_user, login_required, logout_user, current_user
 import json
 from entry import mail
@@ -14,6 +15,8 @@ from geopy.distance import geodesic
 from geopy.geocoders import Nominatim
 import retrying
 import geopy.exc
+from flask import session
+
 import os
 
 parcel = Blueprint('parcel', __name__)
@@ -50,26 +53,94 @@ def get_parcel_status():
 @parcel.route('/request_pickup', methods=['POST', 'GET'])
 def request_pickup():
     form = ParcelForm()
-    if request.method == 'POST' and form.validate_on_submit():
-        # Create the parcel in the database
-        parcel = Parcel(
-            sender_name=form.sender_name.data,
-            sender_email=form.sender_email.data,
-            sender_contact=form.sender_contact.data,
-            receiver_name=form.receiver_name.data,
-            receiver_contact=form.receiver_contact.data,
-            pickup_location=form.pickup_location.data,
-            delivery_location=form.delivery_location.data,
-            description=form.description.data
-        )
-        db.session.add(parcel)
-        db.session.commit()
+    step = request.args.get('step', '1')
 
-        # Return a success response to the frontend
-        return jsonify({"status": "success"}), 200
-    
+    if request.method == 'POST':
+        if step == '1':
+            session['delivery_location'] = form.delivery_location.data
+            return redirect(url_for('parcel.request_pickup', step='2'))
+
+        elif step == '2':
+            session['pickup_location'] = form.pickup_location.data
+            return redirect(url_for('parcel.request_pickup', step='3'))
+        elif step == '3':
+            response = requests.post(url_for('parcel.get_coordinates', _external=True), json={
+                'pickup_location': session.get('pickup_location'),
+                'delivery_location': session.get('delivery_location')
+            })
+
+            if response.ok:
+                data = response.json()
+                session['pickup_coords'] = {
+                    'lat': data.get('pickup_lat'),
+                    'lng': data.get('pickup_lng')
+                }
+                session['delivery_coords'] = {
+                    'lat': data.get('delivery_lat'),
+                    'lng': data.get('delivery_lng')
+                }
+                return redirect(url_for('parcel.request_pickup', session=session, step='4'))
+            else:
+                flash('Unable to get coordinates. Please try again.', 'error')
+                return redirect(url_for('parcel.request_pickup', step='2'))
+
+        elif step == '4':
+            # Save receiver's information
+            session['receiver_name'] = form.receiver_name.data
+            session['receiver_contact'] = form.receiver_contact.data
+
+            # Create the parcel entry in the database
+            parcel = Parcel(
+                sender_name=current_user.username,
+                sender_email=current_user.email,
+                sender_contact=current_user.user_contact,
+                receiver_name=session['receiver_name'],
+                receiver_contact=session['receiver_contact'],
+                pickup_location=session['pickup_location'],
+                delivery_location=session['delivery_location'],
+                description="pipi"
+            )
+
+            db.session.add(parcel)
+            db.session.commit()
+
+            allocation_result = allocate_parcel()
+            if allocation_result['success']:
+                send_rider_details_email(parcel.sender_email, allocation_result, parcel.tracking_number)
+                flash('Rider Allocated. Check your email for more details', 'success')
+            else:
+                flash('Allocation in progress. Please wait for a rider to be assigned', 'success')
+
     # If it's a GET request or form validation fails, render the form
-    return render_template('request_pickup.html', form=form, key=stripe_keys['publishable_key'])
+    return render_template('request_pickup.html', form=form, step=step, key=stripe_keys['publishable_key'])
+
+
+@parcel.route('/get_coordinates', methods=['POST'])
+def get_coordinates():
+    data = request.get_json()
+    pickup_location = data.get('pickup_location')
+    delivery_location = data.get('delivery_location')
+
+    pickup_lat, pickup_lng = get_lat_lng(pickup_location)
+    delivery_lat, delivery_lng = get_lat_lng(delivery_location)
+
+    # Check if both locations were successfully fetched
+    if None in (pickup_lat, pickup_lng, delivery_lat, delivery_lng):
+        return jsonify({"error": "Could not fetch coordinates for one or both locations"}), 400
+    return jsonify({
+        "pickup_lat": pickup_lat,
+        "pickup_lng": pickup_lng,
+        "delivery_lat": delivery_lat,
+        "delivery_lng": delivery_lng
+        })
+
+
+def get_lat_lng(location):
+    user_agent = 'MyGeocodingApp/1.0 (victorcyrus01@gmail.com)'
+    geolocator = Nominatim(user_agent=user_agent)
+    location = geolocator.geocode(location)
+    return location.latitude, location.longitude
+
 
 def allocate_parcel():
     """

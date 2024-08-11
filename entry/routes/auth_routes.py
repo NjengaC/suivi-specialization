@@ -23,7 +23,7 @@ def register():
             return redirect(url_for('auth.register'))
         
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password, role='user')
+        user = User(username=form.username.data, email=form.email.data, user_contact=form.user_contact.data, password=hashed_password, role='user')
         db.session.add(user)
         
         try:
