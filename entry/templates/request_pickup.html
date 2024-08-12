@@ -176,41 +176,55 @@
             routeWhileDragging: true
         }).addTo(map);
     });
-
     document.getElementById('currentLocation').addEventListener('click', function() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var latitude = position.coords.latitude;
-                var longitude = position.coords.longitude;
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
 
-                // Autofill the pickup location form field with the user's current location
-                var pickupLocationInput = document.getElementById("pickup_location");
-                pickupLocationInput.value = latitude + ", " + longitude;
+            // Reverse Geocoding using Nominatim API to get the address
+            var geocodeUrl = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`;
 
-                // Create a hidden form element to store the current location
-                var form = document.getElementById('parcelForm');
-                var hiddenLat = document.createElement("input");
-                hiddenLat.setAttribute("type", "hidden");
-                hiddenLat.setAttribute("name", "current_lat");
-                hiddenLat.setAttribute("value", latitude);
-                form.appendChild(hiddenLat);
+            $.getJSON(geocodeUrl, function(data) {
+                if (data && data.address) {
+                    var address = data.display_name; // Get the formatted address
 
-                var hiddenLng = document.createElement("input");
-                hiddenLng.setAttribute("type", "hidden");
-                hiddenLng.setAttribute("name", "current_lng");
-                hiddenLng.setAttribute("value", longitude);
-                form.appendChild(hiddenLng);
+                    // Autofill the pickup location form field with the resolved address
+                    var pickupLocationInput = document.getElementById("pickup_location");
+                    pickupLocationInput.value = address;
 
-                // Automatically submit the form after the location is autofilled
-                form.submit();
-            }, function(error) {
-                console.error("Error fetching location: " + error.message);
-                alert("Unable to retrieve your location. Please enter your pickup location manually.");
+                    // Create hidden form elements to store the current coordinates
+                    var form = document.getElementById('parcelForm');
+                    var hiddenLat = document.createElement("input");
+                    hiddenLat.setAttribute("type", "hidden");
+                    hiddenLat.setAttribute("name", "current_lat");
+                    hiddenLat.setAttribute("value", latitude);
+                    form.appendChild(hiddenLat);
+
+                    var hiddenLng = document.createElement("input");
+                    hiddenLng.setAttribute("type", "hidden");
+                    hiddenLng.setAttribute("name", "current_lng");
+                    hiddenLng.setAttribute("value", longitude);
+                    form.appendChild(hiddenLng);
+
+                    // Automatically submit the form after the location is autofilled
+                    form.submit();
+                } else {
+                    alert("Unable to resolve the location to an address. Please enter your pickup location manually.");
+                }
+            }).fail(function() {
+                alert("Error fetching the location. Please enter your pickup location manually.");
             });
-        } else {
-            alert("Geolocation is not supported by this browser.");
-        }
-    });
+
+        }, function(error) {
+            console.error("Error fetching location: " + error.message);
+            alert("Unable to retrieve your location. Please enter your pickup location manually.");
+        });
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+});
+
 </script>
 
 <script>
