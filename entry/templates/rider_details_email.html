@@ -51,8 +51,8 @@
 <body>
     <div class="container">
         <h1>Parcel Allocation Details</h1>
-        <p>Your parcel has been allocated to the nearest rider, <strong>{{ rider_name }}, </strong> <strong> {{ rider_contact }}</strong></p>
-            <strong>Vehicle Type:</strong> {{ vehicle_type }}, <strong>Vehicle Registration:</strong> {{ vehicle_registration }}
+        <p>Your parcel has been allocated to the nearest rider, <strong>{{ rider.name }}, </strong> <strong> {{ rider.contact_number }}</strong></p>
+            <strong>Vehicle Type:</strong> {{ rider.vehicle_type }}, <strong>Vehicle Registration:</strong> {{ rider.vehicle_registration }}
             <p> Your parcel <strong> Tracking Number is {{ tracking_number }}</strong>
         <p>Please wait for confirmation from the rider.</p>
         <p>Use your tracking number to track the status of this profile <a href="https://www.happyfaces.tech/track_parcel">here</a></p>

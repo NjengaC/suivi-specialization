@@ -13,7 +13,7 @@ main = Blueprint('main', __name__)
 @main.route('/')
 @main.route('/home')
 def home():
-    if current_user.is_authenticated and current_user.role == 'user':
+    if current_user.is_authenticated and (current_user.role == 'user' or current_user.role == 'admin'):
         return redirect(url_for('auth.home_authenticated'))
     elif current_user.is_authenticated and current_user.role == 'rider':
         return redirect(url_for('rider.rider_authenticated'))
@@ -44,7 +44,7 @@ def support():
             flash('Please fill out all fields.', 'error')
         else:
             # Create a Message object for sending email to admin
-            msg = Message(subject='User Comment', recipients=['victorcyrus01@gmail.com'])
+            msg = Message(subject='User Comment', recipients=['suiviadmn@gmail.com'])
             msg.body = f"Name: {name}\nEmail: {email}\nComment: {comment}"
 
             try:

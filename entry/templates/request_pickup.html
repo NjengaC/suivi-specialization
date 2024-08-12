@@ -18,7 +18,6 @@
     <!-- Leaflet Routing Machine -->
     <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Your custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
@@ -50,26 +49,26 @@
 </head>
 <body>
 <header>
-        <nav id="reg">
-                <a class="home-btn" href="{{ url_for('main.home') }}">Home</a>
-                <a href="{{ url_for('main.about') }}">About</a>
-                <a href="{{ url_for('main.support') }}">Support</a>
-                <a href="{{ url_for('main.logout') }}">Logout</a>
-                <a href="{{ url_for('auth.edit_profile') }}">Profile</a>
-        </nav>
+    <nav id="reg">
+        <a class="home-btn" href="{{ url_for('main.home') }}">Home</a>
+        <a href="{{ url_for('main.about') }}">About</a>
+        <a href="{{ url_for('main.support') }}">Support</a>
+        <a href="{{ url_for('main.logout') }}">Logout</a>
+        <a href="{{ url_for('auth.edit_profile') }}">Profile</a>
+    </nav>
 </header>
 <div class="container rounded">
-        <div class="row">
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">
-                    {{ message }}
-                </div>
-                {% endfor %}
-                {% endif %}
-                {% endwith %}
+    <div class="row">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
         </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
     <div class="container">
         <h1>Suivi Delivery Company</h1>
         <form id="parcelForm" method="POST" action="{{ url_for('parcel.request_pickup', step=step) }}">
@@ -93,9 +92,9 @@
                     <span class="text-danger">{{ error }}</span>
                 {% endfor %}
             </div>
-            <button type="submit" class="btn btn-primary", id="confirm">Next</button>
+            <button type="submit" class="btn btn-primary" id="confirm">Next</button>
             <p>or</p>
-            <button type="button" class="btn btn-primary", id="currentLocation">Use your current location</button><br>
+            <button type="button" class="btn btn-primary" id="currentLocation">Use your current location</button><br>
 
             {% elif step == '3' %}
             <!-- Automatically proceed to showing the map after submitting the pickup location -->
@@ -120,160 +119,160 @@
                     <span class="text-danger">{{ error }}</span>
                 {% endfor %}
             </div>
-			<button type="button" class="btn btn-primary" id="submit-button">Submit</button>
+            <button type="button" class="btn btn-primary" id="submit-button">Submit</button>
 
-            <!-- Any additional steps or summary can be placed here -->
-			<div id="payment-section" style="display: none;">
-				<h3>Proceed to Payment</h3>
-				<button type="button" id="pay-button" class="btn btn-success">Pay $10.00</button>
-			</div>
-			<!-- Thank You Message -->
-			<div id="thank-you" class="thank-you-message" style="display: none;">
-				Thank you for your payment! You will be redirected home shortly.
-			</div>
-		</div>
-		{% else %}
-            {% endif %}
-        </form>
-    </div>
-	<footer>
-        </footer>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var map = L.map('map').setView([-1.286389, 36.817223], 13);
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            }).addTo(map);
+            <div id="payment-section" style="display: none;">
+                <h3>Proceed to Payment</h3>
+                <button type="button" id="pay-button" class="btn btn-success">Pay $10.00</button>
+            </div>
+            <!-- Thank You Message -->
+            <div id="thank-you" class="thank-you-message" style="display: none;">
+                Thank you for your payment! You will be redirected home shortly.
+            </div>
+        </div>
+        {% else %}
+        {% endif %}
+    </form>
+</div>
+<footer>
+</footer>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var map = L.map('map').setView([-1.286389, 36.817223], 13);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
 
-            // Coordinates for pickup and delivery locations
-            var pickupCoords = L.latLng({{ session.get('pickup_coords')['lat'] }}, {{ session.get('pickup_coords')['lng'] }});
-            var deliveryCoords = L.latLng({{ session.get('delivery_coords')['lat'] }}, {{ session.get('delivery_coords')['lng'] }});
+        // Coordinates for pickup and delivery locations
+        var pickupCoords = L.latLng({{ session.get('pickup_coords')['lat'] }}, {{ session.get('pickup_coords')['lng'] }});
+        var deliveryCoords = L.latLng({{ session.get('delivery_coords')['lat'] }}, {{ session.get('delivery_coords')['lng'] }});
 
-            // Add markers for pickup and delivery locations
-            var pickupMarker = L.marker(pickupCoords).addTo(map).bindPopup('Pickup Location').openPopup();
-            var deliveryMarker = L.marker(deliveryCoords).addTo(map).bindPopup('Delivery Location').openPopup();
+        // Add markers for pickup and delivery locations
+        var pickupMarker = L.marker(pickupCoords).addTo(map).bindPopup('Pickup Location').openPopup();
+        var deliveryMarker = L.marker(deliveryCoords).addTo(map).bindPopup('Delivery Location').openPopup();
 
-            // Add circles around the pickup and delivery locations
-            var pickupCircle = L.circle(pickupCoords, {
-                color: 'blue',
-                fillColor: '#30f',
-                fillOpacity: 0.5,
-                radius: 500 // Adjust the radius as needed
-            }).addTo(map);
+        // Add circles around the pickup and delivery locations
+        var pickupCircle = L.circle(pickupCoords, {
+            color: 'blue',
+            fillColor: '#30f',
+            fillOpacity: 0.5,
+            radius: 500 // Adjust the radius as needed
+        }).addTo(map);
 
-            var deliveryCircle = L.circle(deliveryCoords, {
-                color: 'red',
-                fillColor: '#f03',
-                fillOpacity: 0.5,
-                radius: 500 // Adjust the radius as needed
-            }).addTo(map);
+        var deliveryCircle = L.circle(deliveryCoords, {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 500 // Adjust the radius as needed
+        }).addTo(map);
 
-            // Add a route between the pickup and delivery locations
-            L.Routing.control({
-                waypoints: [
-                    pickupCoords,
-                    deliveryCoords
-                ],
-                routeWhileDragging: true
-            }).addTo(map);
-        });
+        // Add a route between the pickup and delivery locations
+        L.Routing.control({
+            waypoints: [
+                pickupCoords,
+                deliveryCoords
+            ],
+            routeWhileDragging: true
+        }).addTo(map);
+    });
 
-        document.getElementById('currentLocation').addEventListener('click', function() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var latitude = position.coords.latitude;
-                    var longitude = position.coords.longitude;
+    document.getElementById('currentLocation').addEventListener('click', function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
 
-                    // Autofill the pickup location form field with the user's current location
-                    var pickupLocationInput = document.getElementById("pickup_location");
-                    pickupLocationInput.value = latitude + ", " + longitude;
+                // Autofill the pickup location form field with the user's current location
+                var pickupLocationInput = document.getElementById("pickup_location");
+                pickupLocationInput.value = latitude + ", " + longitude;
 
-                    // Create a hidden form element to store the current location
-                    var form = document.getElementById('parcelForm');
-                    var hiddenLat = document.createElement("input");
-                    hiddenLat.setAttribute("type", "hidden");
-                    hiddenLat.setAttribute("name", "current_lat");
-                    hiddenLat.setAttribute("value", latitude);
-                    form.appendChild(hiddenLat);
+                // Create a hidden form element to store the current location
+                var form = document.getElementById('parcelForm');
+                var hiddenLat = document.createElement("input");
+                hiddenLat.setAttribute("type", "hidden");
+                hiddenLat.setAttribute("name", "current_lat");
+                hiddenLat.setAttribute("value", latitude);
+                form.appendChild(hiddenLat);
 
-                    var hiddenLng = document.createElement("input");
-                    hiddenLng.setAttribute("type", "hidden");
-                    hiddenLng.setAttribute("name", "current_lng");
-                    hiddenLng.setAttribute("value", longitude);
-                    form.appendChild(hiddenLng);
+                var hiddenLng = document.createElement("input");
+                hiddenLng.setAttribute("type", "hidden");
+                hiddenLng.setAttribute("name", "current_lng");
+                hiddenLng.setAttribute("value", longitude);
+                form.appendChild(hiddenLng);
 
-                    // Automatically submit the form after the location is autofilled
-                    form.submit();
-                }, function(error) {
-                    console.error("Error fetching location: " + error.message);
-                    alert("Unable to retrieve your location. Please enter your pickup location manually.");
-                });
-            } else {
-                alert("Geolocation is not supported by this browser.");
-            }
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $('#submit-button').on('click', function(event) {
-                event.preventDefault(); // Prevent default form submission
-
-                // AJAX call to submit form data
-                $.ajax({
-                    url: $('#parcelForm').attr('action'),
-                    method: 'POST',
-                    data: $('#parcelForm').serialize(),
-                    success: function(response) {
-                        // Hide the submit button and show the payment button
-                        $('#submit-button').hide();
-                        $('#payment-section').show();
-                    },
-                    error: function() {
-                        alert('Failed to request pickup. Please try again.');
-                    }
-                });
+                // Automatically submit the form after the location is autofilled
+                form.submit();
+            }, function(error) {
+                console.error("Error fetching location: " + error.message);
+                alert("Unable to retrieve your location. Please enter your pickup location manually.");
             });
-            $('#pay-button').on('click', function() {
-                var handler = StripeCheckout.configure({
-                    key: '{{ key }}',
-                    locale: 'auto',
-                    email: $('#sender_email').val(), // Fetch email dynamically
-                    token: function(token) {
-                        $.ajax({
-                            url: '/charge',
-                            method: 'POST',
-                            data: {
-                                stripeToken: token.id,
-                                email: $('#sender_email').val(), // Fetch email dynamically
-                                description: 'Payment for parcel from ' + $('#sender_name').val() + ' to ' + $('#receiver_name').val() // Fetch names dynamically
-                            },
-                            success: function(response) {
-                                $('#thank-you').show(); // Show thank you message
-                                setTimeout(function() {
-                                    window.location.href = "{{ url_for('main.home') }}";
-                                }, 1000); // Redirect after 2 seconds
-                            },
-                            error: function() {
-                                alert('Payment failed. Please try again.');
-                            }
-                        });
-                    }
-                });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    });
+</script>
 
-                handler.open({
-                    name: 'Suivi',
-                    description: 'Payment for parcel from ' + $('#sender_name').val() + ' to ' + $('#receiver_name').val(), // Fetch names dynamically
-                    amount: 1000
-                });
+<script>
+    $(document).ready(function() {
+        $('#submit-button').on('click', function(event) {
+            event.preventDefault(); // Prevent default form submission
 
-                $(window).on('popstate', function() {
-                    handler.close();
-                });
+            // AJAX call to submit form data
+            $.ajax({
+                url: $('#parcelForm').attr('action'),
+                method: 'POST',
+                data: $('#parcelForm').serialize(),
+                success: function(response) {
+                    // Hide the submit button and show the payment button
+                    $('#submit-button').hide();
+                    $('#payment-section').show();
+                },
+                error: function() {
+                    alert('Failed to request pickup. Please try again.');
+                }
+            });
+        });
+
+        $('#pay-button').on('click', function() {
+            var handler = StripeCheckout.configure({
+                key: '{{ key }}',
+                locale: 'auto',
+                email: '{{ current_user.email }}',
+                token: function(token) {
+                    $.ajax({
+                        url: '/charge',
+                        method: 'POST',
+                        data: {
+                            stripeToken: token.id,
+                            email: '{{ current_user.email }}',
+                            description: 'Payment for parcel from {{ current_user.name }} to ' + $('#receiver_name').val()
+                        },
+                        success: function(response) {
+                            $('#thank-you').show(); // Show thank you message
+                            setTimeout(function() {
+                                window.location.href = "{{ url_for('main.home') }}";
+                            }, 1000); // Redirect after 2 seconds
+                        },
+                        error: function() {
+                            alert('Payment failed. Please try again.');
+                        }
+                    });
+                }
             });
 
+            handler.open({
+                name: 'Suivi',
+                description: 'Payment for parcel from {{ current_user.name }} to ' + $('#receiver_name').val(),
+                amount: 1000
+            });
+
+            $(window).on('popstate', function() {
+                handler.close();
+            });
         });
-    </script>
+    });
+</script>
 </body>
 </html>
+

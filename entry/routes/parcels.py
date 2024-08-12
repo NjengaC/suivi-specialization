@@ -32,7 +32,6 @@ stripe.api_key = stripe_keys['secret_key']
 
 @parcel.route('/track_parcel')
 def track_parcel():
-    # Implement the functionality for sending parcels here
     return render_template('track_parcel.html')
 
 @parcel.route('/get_parcel_status')
@@ -51,6 +50,7 @@ def get_parcel_status():
         return jsonify({'error': 'Tracking number not provided'}), 400
 
 @parcel.route('/request_pickup', methods=['POST', 'GET'])
+@login_required
 def request_pickup():
     form = ParcelForm()
     step = request.args.get('step', '1')
@@ -104,14 +104,13 @@ def request_pickup():
             db.session.add(parcel)
             db.session.commit()
 
-            allocation_result = allocate_parcel()
-            if allocation_result['success']:
-                send_rider_details_email(parcel.sender_email, allocation_result, parcel.tracking_number)
+            closest_rider = allocate_parcel(parcel)
+            if closest_rider:
+                send_rider_details_email(parcel.sender_email, closest_rider, parcel.tracking_number)
                 flash('Rider Allocated. Check your email for more details', 'success')
             else:
                 flash('Allocation in progress. Please wait for a rider to be assigned', 'success')
 
-    # If it's a GET request or form validation fails, render the form
     return render_template('request_pickup.html', form=form, step=step, key=stripe_keys['publishable_key'])
 
 
@@ -142,58 +141,38 @@ def get_lat_lng(location):
     return location.latitude, location.longitude
 
 
-def allocate_parcel():
+def allocate_parcel(parcel):
     """
     Allocates pending parcel deliveries to available riders
     """
-    pending_parcels = Parcel.query.filter_by(status='pending').all()
     available_riders = Rider.query.filter_by(status='available').all()
-    allocated_parcels = []
 
-    for parcel in pending_parcels:
-        if not available_riders:
-            break  # Break if no available riders left
+    if not available_riders:
+        return None
 
-        pickup_location = parcel.pickup_location
-        closest_rider = None
-        min_distance = float('inf')
+    pickup_location = parcel.pickup_location
+    closest_rider = None
+    min_distance = float('inf')
 
-        available_riders_excluding_denied = [rider for rider in available_riders if rider.id != parcel.rider_id]
+    available_riders_not_rejected = [rider for rider in available_riders if rider.id != parcel.rider_id]
 
-        for rider in available_riders_excluding_denied:
-            distance = calculate_distance(pickup_location, rider.current_location)
-            if distance < min_distance:
-                closest_rider = rider
-                min_distance = distance
+    for rider in available_riders_not_rejected:
+        distance = calculate_distance(pickup_location, rider.current_location)
+        if distance < min_distance:
+            closest_rider = rider
+            min_distance = distance
 
-        if closest_rider:
-            parcel.status = 'allocated'
-            parcel.rider_id = closest_rider.id
-            closest_rider.status = 'unavailable'
-            db.session.commit()
-            notify_rider_new_assignment(closest_rider.email, parcel, closest_rider)
-            allocated_parcels.append(parcel)
+    if closest_rider:
+        parcel.status = 'allocated'
+        parcel.rider_id = closest_rider.id
+        closest_rider.status = 'unavailable'
+        db.session.commit()
+        notify_rider_new_assignment(closest_rider.email, parcel, closest_rider)
 
-    if allocated_parcels:
-        closest_rider_details = {
-            'id': closest_rider.id,
-            'name': closest_rider.name,
-            'contact': closest_rider.contact_number,
-            'vehicle_type': closest_rider.vehicle_type,
-            'vehicle_registration': closest_rider.vehicle_registration
-        }
-        result = {
-            'success': True,
-            'allocated_parcels': allocated_parcels,
-            'closest_rider': closest_rider_details
-        }
+    if closest_rider:
+        return closest_rider
     else:
-        result = {
-            'success': False,
-            'message': 'No available riders, parcel allocation pending'
-        }
-
-    return result
+        return None
 
 
 @retrying.retry(wait_exponential_multiplier=1000, wait_exponential_max=10000)
@@ -230,9 +209,9 @@ def notify_rider_new_assignment(rider_email, parcel, rider):
     mail.send(msg)
 
 
-def send_rider_details_email(recipient_email, allocation_result, tracking_number):
+def send_rider_details_email(recipient_email, closest_rider, tracking_number):
     msg = Message('Parcel Allocation Details', recipients=[recipient_email])
-    html_content = render_template('rider_details_email.html', **allocation_result, tracking_number=tracking_number)
+    html_content = render_template('rider_details_email.html', rider=closest_rider, tracking_number=tracking_number)
     msg.html = html_content
     mail.send(msg)
 
@@ -255,10 +234,9 @@ def update_assignment():
             if rider:
                 rider.status = 'available'
             assignment.status = 'pending'
-            assignment.rider_id = None
             db.session.commit()
             flash("You have Rejected parcel pickup!, contact admin if that was unintentional", 'danger')
-            allocate_parcel()
+            allocate_parcel(assignment)
         elif action == 'shipped':
             assignment.status = 'shipped'
             db.session.commit()
@@ -278,6 +256,7 @@ def update_assignment():
 
 
 @parcel.route('/view_parcel_history', methods=['GET', 'POST'])
+@login_required
 def view_parcel_history():
     if current_user.is_authenticated:
         parcels = Parcel.query.filter_by(sender_email=current_user.email).all()
