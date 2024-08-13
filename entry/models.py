@@ -44,7 +44,7 @@ class Rider(db.Model, UserMixin):
     vehicle_type = db.Column(db.String(50), nullable=False)
     vehicle_registration = db.Column(db.String(50), unique=True, nullable=False)
     area_of_operation = db.Column(db.String(100), nullable=False)
-    current_location = db.Column(db.String(255), nullable=False)
+    current_location = db.Column(db.String(255), nullable=True)
     password = db.Column(db.String(60), nullable=False)
     role = db.Column(db.String(20), nullable=False)
     status = db.Column(db.String(20), default='available')
