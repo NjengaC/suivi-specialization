@@ -93,9 +93,6 @@ class RiderRegistrationForm(FlaskForm):
                                     Length(min=2, max=100)])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    current_location = StringField('Current Location',
-                                   validators=[DataRequired(),
-                                   Length(min=5, max=100)])
     submit = SubmitField('Register')
 
 class LoginRiderForm(FlaskForm):

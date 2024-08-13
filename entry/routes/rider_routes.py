@@ -34,7 +34,6 @@ def register_rider():
             vehicle_registration=form.vehicle_registration.data,
             area_of_operation=form.area_of_operation.data,
             password=hashed_password,
-            current_location=form.current_location.data,
             role='rider'
         )
         db.session.add(new_rider)
@@ -144,3 +143,22 @@ def toggle_rider_status(rider_id):
         db.session.commit()
         return jsonify({'status': rider.status})
     return jsonify({'error': 'Rider not found'}), 404
+
+
+@rider.route('/update_location', methods=['POST'])
+def update_location():
+    data = request.json
+    rider_id = data.get('rider_id')
+    new_location = data.get('current_location')
+
+    if not rider_id or not new_location:
+        return jsonify({"error": "Missing rider_id or current_location"}), 400
+
+    rider = Rider.query.get(rider_id)
+    if not rider:
+        return jsonify({"error": "Rider not found"}), 404
+
+    rider.current_location = new_location
+    db.session.commit()
+
+    return jsonify({"success": "Location updated successfully"}), 200
