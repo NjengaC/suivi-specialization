@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, flash, redirect, url_for, request
+from flask import Blueprint, render_template, flash, redirect, url_for, request, jsonify
 from flask_login import login_user, current_user, logout_user, login_required
 from entry import db, bcrypt, mail
 from entry.forms import RiderRegistrationForm, LoginRiderForm, UpdateRiderForm, ParcelForm
@@ -6,6 +6,8 @@ from entry.models import Rider, Parcel
 from sqlalchemy.exc import IntegrityError
 from flask_mail import Message, Mail
 from functools import wraps
+import logging
+
 
 rider = Blueprint('rider', __name__)
 
@@ -131,12 +133,13 @@ def rider_dashboard():
     return render_template('rider_dashboard.html', rider=current_user)
 
 
-@rider.route('/toggle_rider_status/<int:rider_id>', methods=['POST'])
+@rider.route('/toggle_rider_status/<rider_id>', methods=['POST'])
 @rider_login_required
 def toggle_rider_status(rider_id):
     """
     Toggles the status of the rider between available and unavailable
     """
+    logging.info(f"Received rider_id: {rider_id}")
     rider = Rider.query.filter_by(id=rider_id).first()
     if rider:
         rider.status = 'unavailable' if rider.status == 'available' else 'available'

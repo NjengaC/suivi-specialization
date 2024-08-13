@@ -1,23 +1,17 @@
-#!/bin/bash
+Flask
+Flask-WTF
+Flask-Login
+Flask-Bcrypt
+Flask-SQLAlchemy
+Stripe
+email-validator
+psycopg2-binary
+flask-sslify
+Flask-Mail
+geopy
+geoalchemy2
+twilio
+retrying
+flask-admin
+pip install requests
 
-# Install Flask and related packages
-pip install Flask
-pip install Flask-WTF
-pip install Flask-Login
-pip install Flask-Bcrypt
-pip install Flask-SQLAlchemy
-pip install Stripe
-pip install email_validator
-pip install psycopg2-binary Flask-SQLAlchemy
-pip install flask_sslify
-pip install flask_mail
-pip install geopy
-pip install geoalchemy2
-pip install Flask-Mail
-pip install twilio
-pip install retrying
-pip install flask-admin
-# sudo apt install postgresql
-# sudo apt install nodejs npm
-# npm install -D tailwindcss
-# npx tailwindcss init
