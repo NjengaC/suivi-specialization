@@ -1,23 +1,29 @@
-from flask import Blueprint, session, render_template, flash, request, redirect, url_for, jsonify
-import requests
-from flask_login import login_user, login_required, logout_user, current_user
-import json
-from entry import mail
-from entry.models import User, Rider, Parcel, FAQ
-from sqlalchemy.exc import IntegrityError
-from entry import app, db, bcrypt
-from flask_mail import Message, Mail
-from sqlalchemy import or_
-import stripe
 from entry.forms import LoginRiderForm, RegistrationForm, LoginForm, UpdateAccountForm, RiderRegistrationForm, ParcelForm, UpdateRiderForm, ForgotPasswordForm, ResetPasswordForm
-import secrets
-from geopy.distance import geodesic
+from flask import Blueprint, session, render_template, flash, request, redirect, url_for, jsonify
+from flask_login import login_user, login_required, logout_user, current_user
+from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.triggers.interval import IntervalTrigger
+from entry.models import User, Rider, Parcel, FAQ
+from entry.sms_service import send_bulk_sms
+from sqlalchemy.exc import IntegrityError
+from datetime import datetime, timedelta
 from geopy.geocoders import Nominatim
-import retrying
-import geopy.exc
+from flask_mail import Message, Mail
+from geopy.distance import geodesic
+from entry import app, db, bcrypt
+from sqlalchemy import or_
 from flask import session
-
+from entry import mail
+import geopy.exc
+import retrying
+import requests
+import secrets
+import stripe
+import atexit
+import json
 import os
+
+scheduler = BackgroundScheduler()
 
 parcel = Blueprint('parcel', __name__)
 secret_key = os.getenv('STRIPE_SECRET_KEY')
@@ -98,7 +104,7 @@ def request_pickup():
                 receiver_contact=session['receiver_contact'],
                 pickup_location=session['pickup_location'],
                 delivery_location=session['delivery_location'],
-                description="pipi"
+                description="Testing Parcel"
             )
 
             db.session.add(parcel)
@@ -106,9 +112,9 @@ def request_pickup():
 
             closest_rider = allocate_parcel(parcel)
             if closest_rider:
-                send_rider_details_email(parcel.sender_email, closest_rider, parcel.tracking_number)
                 flash('Rider Allocated. Check your email for more details', 'success')
             else:
+                start_scheduler()
                 flash('Allocation in progress. Please wait for a rider to be assigned', 'success')
 
     return render_template('request_pickup.html', form=form, step=step, key=stripe_keys['publishable_key'])
@@ -168,11 +174,70 @@ def allocate_parcel(parcel):
         closest_rider.status = 'unavailable'
         db.session.commit()
         notify_rider_new_assignment(closest_rider.email, parcel, closest_rider)
+        send_rider_details_email(parcel.sender_email, closest_rider, parcel.tracking_number)
+        sender_message = f"Your parcel has been allocated to a rider. Rider: {closest_rider.name}, Contact: {closest_rider.contact_number}"
+        rider_message = f"You have been assigned a new parcel. Pickup from: {parcel.pickup_location}, Deliver to: {parcel.delivery_location}"
 
-    if closest_rider:
+        send_bulk_sms(parcel.sender_contact, sender_message)
+        send_bulk_sms(closest_rider.contact_number, rider_message)
         return closest_rider
     else:
         return None
+
+
+def start_scheduler():
+    if not scheduler.running:
+        scheduler.start()
+
+    if not scheduler.get_job('check_pending_parcels_job'):
+        scheduler.add_job(
+            func=check_pending_parcels,
+            trigger=IntervalTrigger(minutes=5),
+            id='check_pending_parcels_job',
+            name='Check pending parcels every 5 minutes',
+            replace_existing=True
+        )
+
+    atexit.register(lambda: scheduler.shutdown())
+
+
+def check_pending_parcels():
+    with app.app_context():
+        now = datetime.utcnow()
+
+        pending_parcels_exist = Parcel.query.filter_by(status='pending').first()
+        if not pending_parcels_exist:
+            print(f"No pending parcels found at {datetime.now()}. Skipping the check.")
+            scheduler.remove_job('check_pending_parcels_job')
+            return
+
+        pending_parcels = Parcel.query.filter_by(status='pending').all()
+
+        for parcel in pending_parcels:
+            time_since_last_update = now - parcel.updated_at
+
+            if time_since_last_update > timedelta(minutes=30):
+                notify_sender_parcel_pending(parcel)
+            else:
+                try:
+                    closest_rider = allocate_parcel(parcel)
+                    if closest_rider:
+                        parcel.status = 'allocated'
+                        db.session.commit()
+                except Exception as e:
+                    print(f"Error allocating parcel {parcel.id}: {e}")
+
+            print(f"Attempted to allocate parcel {parcel.id} at {datetime.now()}")
+
+
+def notify_sender_parcel_pending(parcel):
+    msg = Message(
+        subject="Parcel Allocation Delayed",
+        recipients=[parcel.sender_email],
+        body=f"Dear {parcel.sender_name},\n\nWe apologize for the delay in allocating a rider for your parcel. We are still working on assigning a rider. Please bear with us.\n\nThank you,\nSuivi Delivery Company"
+    )
+    mail.send(msg)
+    print(f"Notification sent to {parcel.sender_email} about pending parcel {parcel.id}")
 
 
 @retrying.retry(wait_exponential_multiplier=1000, wait_exponential_max=10000)

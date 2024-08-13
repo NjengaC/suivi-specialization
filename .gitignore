@@ -6,7 +6,7 @@
 /migrations/
 *.py[cod]
 *$py.class
-
+__pycache__/
 # C extensions
 *.so
 test_cases.py
@@ -161,7 +161,9 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 .vscode/
-
+__pycache__
+*.swo
+*.swp
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore

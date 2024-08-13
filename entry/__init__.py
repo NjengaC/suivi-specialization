@@ -10,6 +10,9 @@ from flask_migrate import Migrate
 import logging
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.triggers.interval import IntervalTrigger
+import atexit
 
 load_dotenv()
 
@@ -30,13 +33,15 @@ migrate = Migrate(app, db)
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
+
 from entry.routes.main_routes import main
 from entry.routes.auth_routes import auth
 from entry.routes.rider_routes import rider
-from entry.routes.parcels import parcel
+from entry.routes.parcels import parcel, check_pending_parcels
 from entry.routes.password import password
 from entry.routes.payment import payment
 from entry.routes.admin_routes import admin_bp, MyAdminIndexView, MyModelView
+
 
 
 admin = Admin(app, name='Suivi Admin Panel', template_mode='bootstrap4', index_view=MyAdminIndexView())
