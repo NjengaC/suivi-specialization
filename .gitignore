@@ -6,6 +6,9 @@
 /migrations/
 *.py[cod]
 *$py.class
+__pycache__/*
+entry/__pycache__/*
+entry/routes/__pycache__/*
 
 # C extensions
 *.so
