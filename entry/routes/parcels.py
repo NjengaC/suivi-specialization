@@ -48,7 +48,9 @@ def get_parcel_status():
         if parcel:
             return jsonify({
                 'status': parcel.status,
-                'expected_arrival': parcel.expected_arrival
+                'expected_arrival': parcel.expected_arrival,
+                'pickup_location': parcel.pickup_location,
+                'delivery_location': parcel.delivery_location
             }), 200
         else:
             return jsonify({'error': 'Parcel not found'}), 404

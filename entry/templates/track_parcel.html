@@ -156,6 +156,56 @@ document.addEventListener('DOMContentLoaded', function() {
   }).addTo(map);
 });
 
+document.getElementById('tracking-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const trackingNumber = document.getElementById('tracking-number').value;
+        fetch(`/get_parcel_status?tracking_number=${trackingNumber}`)
+            .then(response => response.json())
+            .then(data => {
+                let resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = '';
+                if (data.error) {
+                    resultDiv.innerHTML = `<p style="color:red;">${data.error}</p>`;
+                } else {
+                    resultDiv.innerHTML = `
+                        <h2>Parcel Status</h2>
+                        <p>Status: ${data.status}</p>
+                        <p>Expected Arrival: ${data.expected_arrival}</p>
+                        <p>Pickup Location: ${data.pickup_location}</p>
+                        <p>Delivery Location: ${data.delivery_location}</p>
+                    `;
+                    if (data.pickup_lat && data.pickup_lng && data.delivery_lat && data.delivery_lng) {
+                        initializeMap(data.pickup_lat, data.pickup_lng, data.delivery_lat, data.delivery_lng);
+                    } else {
+                        document.getElementById('map').style.display = 'none';
+                    }
+                }
+            })
+            .catch(error => {
+                document.getElementById('result').innerHTML = `<p style="color:red;">Error: ${error.message}</p>`;
+            });
+    });
+
+    function initializeMap(pickupLat, pickupLng, deliveryLat, deliveryLng) {
+        document.getElementById('map').style.display = 'block';
+
+        const map = L.map('map').setView([pickupLat, pickupLng], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        const pickupMarker = L.marker([pickupLat, pickupLng]).addTo(map)
+            .bindPopup('Pickup Location').openPopup();
+
+        const deliveryMarker = L.marker([deliveryLat, deliveryLng]).addTo(map)
+            .bindPopup('Delivery Location');
+
+        const routeLine = L.polyline([[pickupLat, pickupLng], [deliveryLat, deliveryLng]], {color: 'blue'}).addTo(map);
+
+        map.fitBounds(routeLine.getBounds());
+    }
+
 </script>
 
     <script>
