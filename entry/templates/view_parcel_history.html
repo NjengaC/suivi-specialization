@@ -21,35 +21,7 @@
   <link rel="stylesheet" href="path/to/ionicons.min.css">
 </head>
 <body>
-<header>
-    <nav id="reg" class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">VUE</a> <!-- Your brand name or logo -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span> <!-- Hamburger icon for mobile -->
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('main.home') }}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('main.about') }}">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('main.support') }}">Support</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('main.logout') }}">Logout</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('auth.edit_profile') }}">Profile</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
-
+	{% include 'header.html' %}
 {% if current_user.is_authenticated %}
 <div class="container">
     <h1>Your Parcel History</h1>
@@ -153,19 +125,6 @@
     <p>Please log in to view your parcel history.</p>
 </div>
 {% endif %}
-<footer id="footer">
-            <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>            <ul class="list-inline">
-                    <li class="list-inline-item"><a href="{{ url_for('main.home') }}">Home</a></li>
-                    <li class="list-inline-item"><a href="{{ url_for('main.about') }}">About</a></li>
-                    <li class="list-inline-item"><a href="{{ url_for('main.support') }}">Support</a></li>
-                <li class="list-inline-item"><a href="#">Terms</a></li>
-                <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-            </ul>
-            <p class="copyright">suivi © 2024</p>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-            </body>
-        </footer>
-    <script src="static/scripts/home.js"></script>
-</footer>
+{% include 'footer.html' %}
 </body>
 </html>

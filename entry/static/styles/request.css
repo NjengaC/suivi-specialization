@@ -1,0 +1,407 @@
+@import url('https://fonts.googleapis.com/css?family=Arimo');
+
+/* General body styles */
+body {
+    display: flex;
+    justify-content: center;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+/* Sidebar styles */
+.sidenav, .l-navbar {
+    height: 100%;
+    width: auto;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: white;
+    overflow-x: hidden;
+    transition: width 0.3s ease;
+    padding-top: 60px;
+}
+
+.sidenav a, .l-navbar .nav_link {
+    padding: 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: red;
+    display: block;
+    transition: color 0.3s;
+}
+
+.sidenav a:hover, .l-navbar .nav_link:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.l-navbar.collapsed {
+    width: 80px;
+}
+
+.l-navbar.collapsed .nav_name {
+    display: none;
+}
+
+.l-navbar.collapsed .nav_link {
+    justify-content: center;
+}
+
+.l-navbar .nav_logo-name {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.3s, transform 0.3s ease;
+}
+
+.l-navbar.collapsed .nav_logo-name {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+
+/* Adjust the main content (map, assyn) to fit the screen when the sidebar is collapsed */
+.collapsed #map, .collapsed .assyn {
+    width: calc(100% - 80px);
+    margin-left: 80px;
+}
+
+#map {
+    height: 400px; /* Adjust as needed */
+    width: 100%;
+    margin-top: 20px; /* Optional, to add space between map and above content */
+}
+
+/* Media queries for smaller screens */
+@media (max-width: 768px) {
+    .l-navbar {
+        width: 80px; /* Collapse to show only icons */
+    }
+
+    .l-navbar .nav_name {
+        display: none;
+    }
+
+    .l-navbar .nav_link {
+        justify-content: center;
+    }
+
+    #map, .assyn {
+        width: calc(100% - 80px);
+        margin-left: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .l-navbar {
+        width: 60px; /* Further collapse to show only smaller icons */
+    }
+
+    #map, .assyn {
+        width: calc(100% - 60px);
+        margin-left: 60px;
+    }
+}
+
+/* Container and form styles */
+.container {
+    width: 90%;
+    padding: 5% 2%;
+    margin: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: grey;
+    text-align: center;
+}
+
+form {
+    width: 100%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin: 50px auto;
+
+    > * {
+        margin-top: 20px;
+    }
+
+    input {
+        width: 100%;
+        min-height: 25px;
+        border: 0;
+        font-size: 1rem;
+        letter-spacing: .15rem;
+        color: #8e2807;
+        border-radius: 4px;
+    }
+
+    label {
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 2px;
+        color: #8e2807;
+    }
+}
+
+/* Button styles */
+.btn-outline-primary, .btn-primary {
+    color: #007bff;
+    border-color: #007bff;
+    background-color: transparent;
+}
+
+.btn-outline-primary:hover, .btn-primary:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+/* Flexbox for form elements */
+.name, .address-info, .cc-info, .street, .cc-num, .btns {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.btns {
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.btns button {
+    margin: 3px 0;
+    height: 30px;
+    width: 40%;
+    color: #cfc9e1;
+    background-color: #4a3b76;
+    text-transform: uppercase;
+    border: 0;
+    border-radius: .3rem;
+    letter-spacing: 2px;
+}
+
+.btns button:hover {
+    animation-name: btn-hov;
+    animation-duration: 550ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes btn-hov {
+    100% {
+        background-color: #cfc9e1;
+        color: #4a3b76;
+        transform: scale(1.05)
+    }
+}
+
+input:focus, button:focus {
+    outline: none;
+}
+
+/* General styles for header, footer, and main content */
+header, footer {
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: grey;
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    margin: 40px;
+}
+
+.kichwa {
+    margin: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #466368;
+    background: -webkit-linear-gradient(#648880, #293f50);
+    background: linear-gradient(#648880, #293f50);
+}
+
+.main-content {
+    width: 100%;
+    height: auto;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Specific styles for sign-up and ship sections */
+.sign-up, .ship {
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Action buttons styling */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Media queries for container adjustments */
+@media (max-width: 736px) {
+    .container, .wrapper {
+        width: 100%;
+    }
+
+    .btns {
+        flex-direction: column;
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+
+        button {
+            height: 40px;
+            width: 100%;
+        }
+    }
+
+    form h1 {
+        text-align: center;
+    }
+
+    .name, .address-info, .cc-info {
+        flex-direction: column;
+        width: 80%;
+        justify-content: space-between;
+
+        div {
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            display: flex;
+        }
+    }
+
+    .street, .cc-num {
+        text-align: center;
+    }
+
+    input {
+        margin: 5px 0;
+        min-height: 30px;
+    }
+}
+
+/* Spinner animation */
+.spinner {
+    --size: 30px;
+    --first-block-clr: #005bba;
+    --second-block-clr: #fed500;
+    width: 100px;
+    height: 100px;
+    position: relative;
+}
+
+.spinner::after, .spinner::before {
+    box-sizing: border-box;
+    position: absolute;
+    content: "";
+    width: var(--size);
+    height: var(--size);
+    top: 50%;
+    animation: up 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite;
+    left: 50%;
+    background: var(--first-block-clr);
+}
+
+.spinner::after {
+    background: var(--second-block-clr);
+    top: calc(50% - var(--size));
+    left: calc(50% - var(--size));
+    animation: down 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite;
+}
+
+@keyframes down {
+    0%, 100% {
+        transform: none;
+    }
+
+    25% {
+        transform: translateX(100%);
+    }
+
+    50% {
+        transform: translateX(100%) translateY(100%);
+    }
+
+    75% {
+        transform: translateY(100%);
+    }
+}
+
+@keyframes up {
+    0%, 100% {
+        transform: none;
+    }
+
+    25% {
+        transform: translateX(-100%);
+    }
+
+    50% {
+        transform: translateX(-100%) translateY(-100%);
+    }
+
+    75% {
+        transform: translateY(-100%);
+    }
+}
+
+/* Additional content and company list styles */
+.additional-content {
+    background-color: lightgrey;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+#company-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#company-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    transition: background-color 0.3s;
+}
+
+#company-list li:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+#companies {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    border: 2px solid;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    padding: 10px 20px;
+    background-color: lightblue;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px;
+}
+

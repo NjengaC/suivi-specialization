@@ -30,26 +30,6 @@ a:hover {
     color: #0056b3;
 }
 
-/* Header 
-header {
-    background-color: black;
-    color: blue;
-    padding: 20px 0;
-}
-
-#master {
-    background-color: red;
-    padding: 20px 0;
-}
-
-header h1 {
-    font-size: 2.8rem;
-    margin-bottom: 15px;
-}
-header a {
-	color: white;
-}
-/* Main Content*/
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -137,143 +117,22 @@ header a {
     margin-bottom: 10px;
 }
 
-/* Footer */
-footer {
-    background-color: #343a40;
-    color: #fff;
-    padding: 20px 0;
-    text-align: center;
-}
+/* Responsive navigation menu (for mobile devices) */
+@media screen and (max-width: 600px) {
+	.navbar a {
+		float: none;
+		display: block;
+		width: 100%;
+		text-align: left;
+	}
 
-footer a {
-    color: #ddd;
-}
-
-footer i {
-    font-size: 1.8rem;
-}
-.pic {
-	align: center;
-	text-align: center;
-	width: 100px;
-	height: 100px;
-	float: right;
-	margin-top: 50px;
-	border-radius: 8px;
-}
-.footer-basic {
-  padding:40px 0;
-  background-color:#ffffff;
-  color:#4b4c4d;
-}
-
-.footer-basic ul {
-  padding:0;
-  list-style:none;
-  text-align:center;
-  font-size:18px;
-  line-height:1.6;
-  margin-bottom:0;
-}
-
-.footer-basic li {
-  padding:0 10px;
-}
-
-.footer-basic ul a {
-  color:inherit;
-  text-decoration:none;
-  opacity:0.8;
-}
-
-.footer-basic ul a:hover {
-  opacity:1;
-}
-
-.footer-basic .social {
-  text-align:center;
-  padding-bottom:25px;
-}
-
-.footer-basic .social > a {
-  font-size:24px;
-  width:40px;
-  height:40px;
-  line-height:40px;
-  display:inline-block;
-  text-align:center;
-  border-radius:50%;
-  border:1px solid #ccc;
-  margin:0 8px;
-  color:inherit;
-  opacity:0.75;
-}
-
-.footer-basic .social > a:hover {
-  opacity:0.9;
-}
-
-.footer-basic .copyright {
-  margin-top:15px;
-  text-align:center;
-  font-size:13px;
-  color:#aaa;
-  margin-bottom:0;
-}
-.navbar {
-            background-color: black;
-            overflow: hidden;
-        }
-
-        /* Navbar links */
-        .navbar a {
-            float: right;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-        }
-
-        /* On hover */
-        .navbar a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-
-        /* Active/current link */
-        .navbar a.active {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        /* Add a gray right border to all navbar links */
-        .navbar a {
-            border-right: 1px solid #bbb;
-        }
-
-        /* Add a gray background color and some padding to the active/current link */
-        .navbar a.active {
-            background-color: #666;
-            color: white;
-        }
-
-        /* Responsive navigation menu (for mobile devices) */
-        @media screen and (max-width: 600px) {
-            .navbar a {
-                float: none;
-                display: block;
-                width: 100%;
-                text-align: left;
-            }
-
-            .navbar a.active {
-                background-color: #666;
-                color: white;
-            }
+	.navbar a.active {
+		background-color: #666;
+		color: white;
+	}
 }
 @media screen and (min-width: 601px) {
-            .navbar a {
-                padding: 14px 30px; /* Increase padding for larger screens */
-            }
-        }
+	.navbar a {
+		padding: 14px 30px; /* Increase padding for larger screens */
+	}
+}

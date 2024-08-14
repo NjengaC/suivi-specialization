@@ -11,27 +11,11 @@
 </head>
 <body>
 <!-- Navigation -->
-<div class="container-fluid bg-dark">
-    <header class="header-box py-4">
-        <div class="d-flex justify-content-between align-items-center">
-            <!-- Navigation links -->
-            <nav>
-                <ul class="list-inline text-light">
-                    <li class="list-inline-item"><a href="{{ url_for('main.home') }}">Home</a></li>
-                    <li class="list-inline-item"><a href="{{ url_for('auth.login') }}">Login</a></li>
-                    <li class="list-inline-item"><a href="{{ url_for('auth.register') }}">Register</a></li>
-                    <li class="list-inline-item"><a href="{{ url_for('parcel.request_pickup') }}">Request pickup</a></li>
-                    <li class="list-inline-item"><a href="{{ url_for('rider.register_rider') }}">Find a Job</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-</div>
-
+{% include 'header.html' %}
 <!-- Header -->
-<header class="header-box">
+<div><h1 class="text-center display-6">Support Center</h1></div>
     <h1 class="text-center display-4">Support Center</h1>
-</header>
+</div>
             <!-- Flash messages -->
             <div class="row justify-content-center">
                 {% with messages = get_flashed_messages(with_categories=true) %}
@@ -91,8 +75,9 @@
     {% endif %}
 </section>
 </div>
-
 <!-- Bootstrap and jQuery scripts -->
+<div style="clear: both;"></div>
+{% include 'footer.html' %}
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 

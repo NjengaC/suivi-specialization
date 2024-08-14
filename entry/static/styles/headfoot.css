@@ -1,0 +1,197 @@
+header {
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  
+  background-color: grey;
+  align-items: center;
+  text-align: center;
+  align: center;
+}
+footer {
+  background-color: #343a40;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+  text-align: center;
+  width: 100%;
+}
+
+footer a {
+    color: #ddd;
+}
+
+footer i {
+    font-size: 1.8rem;
+}
+.pic {
+        align: center;
+        text-align: center;
+        width: 100px;
+        height: 100px;
+        float: right;
+        margin-top: 50px;
+        border-radius: 8px;
+}
+.footer-basic {
+  padding:40px 0;
+  background-color:#ffffff;
+  color:#4b4c4d;
+}
+
+.footer-basic ul {
+  padding:0;
+  list-style:none;
+  text-align:center;
+  font-size:18px;
+  line-height:1.6;
+  margin-bottom:0;
+}
+.footer-basic li {
+  padding:0 10px;
+}
+
+.footer-basic ul a {
+  color:inherit;
+  text-decoration:none;
+  opacity:0.8;
+}
+
+.footer-basic ul a:hover {
+  opacity:1;
+}
+
+.footer-basic .social {
+  text-align:center;
+  padding-bottom:25px;
+}
+
+.footer-basic .social > a {
+  font-size:24px;
+  width:40px;
+  height:40px;
+  line-height:40px;
+  display:inline-block;
+  text-align:center;
+  border-radius:50%;
+  border:1px solid #ccc;
+  margin:0 8px;
+  color:inherit;
+  opacity:0.75;
+}
+
+.footer-basic .social > a:hover {
+  opacity:0.9;
+}
+
+.footer-basic .copyright {
+  margin-top:15px;
+  text-align:center;
+  font-size:13px;
+  color:#aaa;
+  margin-bottom:0;
+}
+
+
+nav ul {
+list-style-type: none;
+margin: 0;
+padding: 0;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    padding: 5px 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    float: right;
+}
+
+.list-group ul li a {
+	color: navy;
+}
+nav ul li a:hover {
+  background-color: #333;
+  color: #fff;
+}
+.btn-outline-primary {
+  color: #007bff; /* Blue color */
+  border-color: #007bff; /* Blue color */
+  background-color: transparent;
+}
+
+.button-container {
+	margin-bottom: 20px;
+}
+
+.navbar {
+    background-color: black;
+    overflow: hidden;
+}
+
+.navbar-nav {
+    display: flex;
+    justify-content: space-around; /* Distributes items evenly */
+    align-items: center;
+    width: 100%;
+}
+
+.nav-item {
+    margin: 10px 10px; /* Adds margin between items */
+}
+
+.nav-link {
+    color: white;
+    text-align: center;
+    padding: 10px 15px; /* Adjust padding for smaller size */
+    font-size: 14px; /* Adjust font size */
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.nav-link:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.nav-link.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.nav-link:focus,
+.nav-link:active {
+    background-color: #666;
+    color: white;
+    outline: none; /* Remove outline on focus */
+}
+
+@media screen and (max-width: 600px) {
+    .navbar a {
+        float: none;
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+
+    .navbar a.active {
+        background-color: #666;
+        color: white;
+    }
+}
+@media screen and (min-width: 601px) {
+    .navbar a {
+        padding: 14px 30px; /* Increase padding for larger screens */
+    }
+}

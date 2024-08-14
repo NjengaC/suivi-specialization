@@ -218,6 +218,9 @@ def check_pending_parcels():
 
             if time_since_last_update > timedelta(minutes=30):
                 notify_sender_parcel_pending(parcel)
+                db.session.delete(parcel)
+                db.session.commit()
+                return
             else:
                 try:
                     closest_rider = allocate_parcel(parcel)
@@ -228,6 +231,11 @@ def check_pending_parcels():
                     print(f"Error allocating parcel {parcel.id}: {e}")
 
             print(f"Attempted to allocate parcel {parcel.id} at {datetime.now()}")
+
+        remaining_pending_parcels = Parcel.query.filter_by(status='pending').count()
+        if remaining_pending_parcels == 0:
+            print(f"All pending parcels processed. Removing the job at {datetime.now()}.")
+            scheduler.remove_job('check_pending_parcels_job')
 
 
 def notify_sender_parcel_pending(parcel):
