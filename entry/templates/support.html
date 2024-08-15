@@ -8,14 +8,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../static/styles/support.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/headfoot.css') }}">
 </head>
 <body>
 <!-- Navigation -->
 {% include 'header.html' %}
 <!-- Header -->
-<div><h1 class="text-center display-6">Support Center</h1></div>
     <h1 class="text-center display-4">Support Center</h1>
-</div>
             <!-- Flash messages -->
             <div class="row justify-content-center">
                 {% with messages = get_flashed_messages(with_categories=true) %}
