@@ -67,6 +67,29 @@
       </label>
     </div>
   </nav>
+</header>
+
+<div class="l-navbar" id="nav-bar">
+  <nav class="nav">
+    <div class="nav_content">
+      <a href="#" class="nav_logo" id="logo">
+        <i class='bx bx-layer nav_logo-icon'></i>
+        <span class="nav_logo-name">Suivi</span>
+      </a>
+      <div class="nav_list" id="sidebar">
+        <a href="#" class="nav_link active"><i class='bx bx-grid-alt nav_icon'></i><span class="nav_name">Dashboard</span></a>
+        <a href="{{ url_for('parcel.request_pickup') }}" class="nav_link"><i class='bx bx-message-square-detail nav_icon'></i><span class="nav_name">Request Pickup</span></a>
+        <a href="{{ url_for('parcel.track_parcel') }}" class="nav_link"><i class='bx bx-bookmark nav_icon'></i><span class="nav_name">Track Parcel</span></a>
+        <a href="{{ url_for('auth.edit_profile') }}" class="nav_link"><i class='bx bx-user nav_icon'></i><span class="nav_name">Edit Profile</span></a>
+        <a href="{{ url_for('parcel.view_parcel_history') }}" class="nav_link"><i class='bx bx-bar-chart-alt-2 nav_icon'></i><span class="nav_name">My History</span></a>
+        <a href="{{ url_for('main.support') }}" class="nav_link"><i class='bx bx-folder nav_icon'></i><span class="nav_name">Support</span></a>
+        <a href="{{ url_for('main.logout') }}" class="nav_link"><i class='bx bx-log-out nav_icon'></i><span class="nav_name">Sign Out</span></a>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<div class="assyn">
   <div class="row justify-content-center">
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
@@ -78,26 +101,6 @@
     {% endif %}
     {% endwith %}
   </div>
-</header>
-<div class="l-navbar" id="nav-bar">
-  <nav class="nav">
-    <div>
-      <a href="#" class="nav_logo">
-        <i class='bx bx-layer nav_logo-icon'></i><span class="nav_logo-name">BBBootstrap</span>
-      </a>
-      <div class="nav_list">
-        <a href="#" class="nav_link active"><i class='bx bx-grid-alt nav_icon'></i><span class="nav_name">Dashboard</span></a>
-        <a href="#" class="nav_link"><i class='bx bx-user nav_icon'></i><span class="nav_name">Users</span></a>
-        <a href="{{ url_for('rider.edit_rider_profile') }}" class="nav_link"><i class='bx bx-message-square-detail nav_icon'></i><span class="nav_name">My profile</span></a>
-        <a href="{{ url_for('rider.edit_rider_profile') }}" class="nav_link"><i class='bx bx-bookmark nav_icon'></i><span class="nav_name">Update status</span></a>
-        <a href="{{ url_for('main.support') }}" class="nav_link"><i class='bx bx-folder nav_icon'></i><span class="nav_name">Support</span></a>
-        <a href="{{ url_for('rider.view_rider_history') }}" class="nav_link"><i class='bx bx-bar-chart-alt-2 nav_icon'></i><span class="nav_name">View my History</span></a>
-      </div>
-    </div>
-    <a href="{{ url_for('main.logout') }}" class="nav_link"><i class='bx bx-log-out nav_icon'></i><span class="nav_name">SignOut</span></a>
-  </nav>
-</div>
-<div class="assyn">
   <h2 class="greeting-message" style="color: #1abc9c;"></h2><br>
   <h3>Pending Delivery Assignments</h3>
   {% if assignment %}
@@ -441,6 +444,15 @@ document.addEventListener('DOMContentLoaded', function() {
       console.error('Error:', error);
     });
   }
+});
+
+document.addEventListener('DOMContentLoaded', (event) => {
+  const logo = document.getElementById('logo');
+  const navbar = document.getElementById('nav-bar');
+
+  logo.addEventListener('click', function() {
+    navbar.classList.toggle('collapsed');
+  });
 });
 
 </script>

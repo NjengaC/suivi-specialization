@@ -12,7 +12,6 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
   integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
   crossorigin=""></script>
-  <title>suivi - Dashboard</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <!-- Bootstrap CSS -->
@@ -24,10 +23,8 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/riderauth.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/ship.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/sidebar.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='scripts/home.js') }}">
 
-  <style>
-        #map { height: 350px; }
-  </style>
 </head>
 <body id="body-pd">
 <header class="header" id="header">
@@ -51,11 +48,30 @@
           <a href="#footer" class="nav-link">CONTACTS</a>
         </li>
       </ul>
-          <path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V256c0 17.7 14.3 32 32 32s32-14.3 32-32V32zM143.5 120.6c13.6-11.3 15.4-31.5 4.1-45.1s-31.5-15.4-45.1-4.1C49.7 115.4 16 181.8 16 256c0 132.5 107.5 240 240 240s240-107.5 240-240c0-74.2-33.8-140.6-86.6-184.6c-13.6-11.3-33.8-9.4-45.1 4.1s-9.4 33.8 4.1 45.1c38.9 32.3 63.5 81 63.5 135.4c0 97.2-78.8 176-176 176s-176-78.8-176-176c0-54.4 24.7-103.1 63.5-135.4z"></path>
-        </svg>
-      </label>
     </div>
   </nav>
+</header>
+<div class="l-navbar" id="nav-bar">
+  <nav class="nav">
+    <div class="nav_content">
+      <a href="#" class="nav_logo" id="logo">
+        <i class='bx bx-layer nav_logo-icon'></i>
+        <span class="nav_logo-name">Suivi</span>
+      </a>
+      <div class="nav_list" id="sidebar">
+        <a href="#" class="nav_link active"><i class='bx bx-grid-alt nav_icon'></i><span class="nav_name">Dashboard</span></a>
+        <a href="{{ url_for('parcel.request_pickup') }}" class="nav_link"><i class='bx bx-message-square-detail nav_icon'></i><span class="nav_name">Request Pickup</span></a>
+        <a href="{{ url_for('parcel.track_parcel') }}" class="nav_link"><i class='bx bx-bookmark nav_icon'></i><span class="nav_name">Track Parcel</span></a>
+        <a href="{{ url_for('auth.edit_profile') }}" class="nav_link"><i class='bx bx-user nav_icon'></i><span class="nav_name">Edit Profile</span></a>
+        <a href="{{ url_for('parcel.view_parcel_history') }}" class="nav_link"><i class='bx bx-bar-chart-alt-2 nav_icon'></i><span class="nav_name">My History</span></a>
+        <a href="{{ url_for('main.support') }}" class="nav_link"><i class='bx bx-folder nav_icon'></i><span class="nav_name">Support</span></a>
+        <a href="{{ url_for('main.logout') }}" class="nav_link"><i class='bx bx-log-out nav_icon'></i><span class="nav_name">Sign Out</span></a>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<div class="assyn">
   <div class="row justify-content-center">
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
@@ -67,26 +83,6 @@
     {% endif %}
     {% endwith %}
   </div>
-</header>
-<div class="l-navbar" id="nav-bar">
-  <nav class="nav">
-    <div>
-      <a href="#" class="nav_logo">
-        <i class='bx bx-layer nav_logo-icon'></i><span class="nav_logo-name">BBBootstrap</span>
-      </a>
-      <div class="nav_list">
-        <a href="#" class="nav_link active"><i class='bx bx-grid-alt nav_icon'></i><span class="nav_name">Dashboard</span></a>
-        <a href="{{ url_for('parcel.request_pickup') }}" class="nav_link"><i class='bx bx-message-square-detail nav_icon'></i><span class="nav_name">Request Pickup</span></a>
-        <a href="{{ url_for('parcel.track_parcel') }}" class="nav_link"><i class='bx bx-bookmark nav_icon'></i><span class="nav_name">Track_parcel</span></a>
-        <a href="{{ url_for('auth.edit_profile') }}" class="nav_link"><i class='bx bx-user nav_icon'></i><span class="nav_name">Edit Profile</span></a>
-        <a href="{{ url_for('parcel.view_parcel_history') }}" class="nav_link"><i class='bx bx-bar-chart-alt-2 nav_icon'></i><span class="nav_name">My History</span></a>
-        <a href="{{ url_for('main.support') }}" class="nav_link"><i class='bx bx-folder nav_icon'></i><span class="nav_name">Support</span></a>
-      </div>
-    </div>
-    <a href="{{ url_for('main.logout') }}" class="nav_link"><i class='bx bx-log-out nav_icon'></i><span class="nav_name">SignOut</span></a>
-  </nav>
-</div>
-<div class="assyn">
   <h2 class="greeting-message" style="color: #1abc9c;"></h2><br>
   <div class="additional-content" style="background-color: lightgrey; padding: 20px; margin-top: 20px; border-radius: 10px;">
     <h2 class="sub-heading" style="color: #333;">We value your contribution</h2><br>
@@ -96,7 +92,7 @@
     <p class="content-info" style="color: black; font-weight: bold;">Happy dispatching!</p>
     <button class="custom-button" style="background-color: #1abc9c; color: #fff; border: none; padding: 10px 20px; border-radius: 5px;">View More</button>
   </div>
-  <div id="map"></div>
+<div id="map"></div>
 </div>
 
 <script>
@@ -137,28 +133,40 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 });
 
-// Get all sidebar links
-// Get all sidebar links
-const sidebarLinks = document.querySelectorAll('.sidebar-link');
+// Sidebar toggle logic
+document.addEventListener('DOMContentLoaded', (event) => {
+  const logo = document.getElementById('logo');
+  const navbar = document.getElementById('nav-bar');
 
-// Attach click event listener to each sidebar link
-sidebarLinks.forEach(link => {
-    link.addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent default link behavior
-
-        // Get the href attribute of the clicked link
-        const href = this.getAttribute('href');
-
-        // Fetch the content from the href URL
-        fetch(href)
-            .then(response => response.text()) // Convert response to text
-            .then(data => {
-                // Replace the content of the main content area with the fetched data
-                document.getElementById('main-content').innerHTML = data;
-            })
-            .catch(error => console.error('Error fetching content:', error));
-    });
+  logo.addEventListener('click', function() {
+    navbar.classList.toggle('collapsed');
+  });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Get the greeting element
+  const greetingElement = document.querySelector('.greeting-message');
+
+  // Get the current hour
+  const currentHour = new Date().getHours();
+
+  // Define the greeting messages
+  let greetingMessage = '';
+  if (currentHour < 12) {
+    greetingMessage = 'Good Morning! {{ current_user.username}}';
+  } else if (currentHour < 18) {
+    greetingMessage = 'Good Afternoon! {{ current_user.username}}';
+  } else {
+    greetingMessage = 'Good Evening! {{ current_user.username}}';
+  }
+  const h1Element = document.createElement('h1');
+  h1Element.textContent = greetingMessage;
+
+  greetingElement.innerHTML = '';
+  greetingElement.appendChild(h1Element);
+});
+
 </script>
 </body>
 </html>
+
