@@ -1,258 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rider Registration</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <!-- Font Awesome CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css">
     <!-- Custom CSS (if any) -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/registerrider.css') }}">
-</head>
-<body>
-<header>
-    <nav id="reg" class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">VUE</a> <!-- Your brand name or logo -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span> <!-- Hamburger icon for mobile -->
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('main.home') }}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('main.about') }}">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('main.support') }}">Support</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('main.logout') }}">Logout</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('auth.edit_profile') }}">Profile</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
-<div class="container-fluid" id="grad1">
-    <div class="row justify-content-center mt-0">
+  </head>
+  <body>
+    {% include 'header.html' %}
+    <div class="container-fluid" id="grad1">
+      <div class="row justify-content-center mt-0">
         <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
-            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-                <h2><strong>Rider Registration</strong></h2>
-                <p>Fill all form fields to complete registration</p>
-		<div class="row">
-                    <div class="col-md-12 mx-0">
-			<form id="msform" method="POST" action="{{ url_for('rider.register_rider') }}">
-                <!-- progressbar -->
-                <ul id="progressbar">
+          <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+            <h2><strong>Rider Registration</strong></h2>
+            <p>Fill all form fields to complete registration</p>
+            <div class="row">
+              <div class="col-md-12 mx-0">
+                <form id="msform" method="POST" action="{{ url_for('rider.register_rider') }}">
+                  <!-- progressbar -->
+                  <ul id="progressbar">
                     <li class="active" id="account"><strong>Account</strong></li>
                     <li id="personal"><strong>Personal</strong></li>
                     <li id="payment"><strong>Payment</strong></li>
                     <li id="confirm"><strong>Finish</strong></li>
-                </ul>
-                            {{ form.hidden_tag() }}
-                            <!-- fieldsets -->
-                            <fieldset>
-                                <div class="form-card">
-                                    <h2 class="fs-title">Account Information</h2>
-                                    <div class="form-group">
-                                        {{ form.email(class="form-control", placeholder="Email Id", autocomplete="email") }}
-                                        {% for error in form.email.errors %}
-                                        <span class="text-danger">{{ error }}</span>
-                                        {% endfor %}
-                                    </div>
-                                    <div class="form-group">
-                                        {{ form.password(class="form-control", placeholder="Password") }}
-                                        {% for error in form.password.errors %}
-                                        <span class="text-danger">{{ error }}</span>
-                                        {% endfor %}
-                                    </div>
-                                    <div class="form-group">
-                                        {{ form.confirm_password(class="form-control", placeholder="Confirm Password") }}
-                                        {% for error in form.confirm_password.errors %}
-                                        <span class="text-danger">{{ error }}</span>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                <input type="button" name="next" class="next action-button" value="Next Step"/>
-                            </fieldset>
-                            
-                            <!-- Personal Information -->
-                            <fieldset>
-                                <div class="form-card">
-                                    <h2 class="fs-title">Personal Information</h2>
-                                    <div class="form-group">
-                                        {{ form.name(class="form-control", placeholder="Full Name") }}
-                                        {% for error in form.name.errors %}
-                                        <span class="text-danger">{{ error }}</span>
-                                        {% endfor %}
-                                    </div>
-                                    <div class="form-group">
-                                        {{ form.contact_number(class="form-control", placeholder="Contact Number") }}
-                                        {% for error in form.contact_number.errors %}
-                                        <span class="text-danger">{{ error }}</span>
-                                        {% endfor %}
-                                    </div>
-                                    <!-- Include additional personal info fields as needed -->
-                                </div>
-                                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                                <input type="button" name="next" class="next action-button" value="Next Step"/>
-                            </fieldset>
-                            
-                            <!-- Vehicle Information -->
-                            <fieldset>
-                                <div class="form-card">
-                                    <h2 class="fs-title">Vehicle Information</h2>
-                                    <div class="form-group">
-                                        {{ form.vehicle_type(class="form-control", placeholder="Vehicle Type") }}
-                                        {% for error in form.vehicle_type.errors %}
-                                        <span class="text-danger">{{ error }}</span>
-                                        {% endfor %}
-                                    </div>
-                                    <div class="form-group">
-                                        {{ form.vehicle_registration(class="form-control", placeholder="Vehicle Registration") }}
-                                        {% for error in form.vehicle_registration.errors %}
-                                        <span class="text-danger">{{ error }}</span>
-                                        {% endfor %}
-                                    </div>
-                                    <!-- Include additional vehicle info fields as needed -->
-                                </div>
-                                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                                <input type="button" name="next" class="next action-button" value="Next Step"/>
-                            </fieldset>
-                            
-                            <!-- Finish Registration -->
-                            <fieldset>
-                                <div class="form-card">
-                                    <h2 class="fs-title">Finish Registration</h2>
-                                    <div class="form-group">
-                                        {{ form.area_of_operation(class="form-control", placeholder="Area of Operation") }}
-                                        {% for error in form.area_of_operation.errors %}
-                                        <span class="text-danger">{{ error }}</span>
-                                        {% endfor %}
-                                    </div>
-                                    <!-- Include additional fields as needed -->
-                                </div>
-                                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-				<div class="form-group">
-					<input type="submit" class="btn btn-outline-info" value="Submit"/>
-				</div>
-			    </fieldset>
-                        </form>
+                  </ul>
+                  {{ form.hidden_tag() }}
+                  <!-- fieldsets -->
+                  <fieldset>
+                    <div class="form-card">
+                      <h2 class="fs-title">Account Information</h2>
+                      <div class="form-group">
+                        {{ form.email(class="form-control", placeholder="Email Id", autocomplete="email") }}
+                        {% for error in form.email.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                      <div class="form-group">
+                        {{ form.password(class="form-control", placeholder="Password") }}
+                        {% for error in form.password.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                      <div class="form-group">
+                        {{ form.confirm_password(class="form-control", placeholder="Confirm Password") }}
+                        {% for error in form.confirm_password.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                      </div>
                     </div>
-                </div>
+                    <input type="button" name="next" class="next action-button" value="Next Step"/>
+                  </fieldset>
+
+                  <!-- Personal Information -->
+                  <fieldset>
+                    <div class="form-card">
+                      <h2 class="fs-title">Personal Information</h2>
+                      <div class="form-group">
+                        {{ form.name(class="form-control", placeholder="Full Name") }}
+                        {% for error in form.name.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                      <div class="form-group">
+                        {{ form.contact_number(class="form-control", placeholder="Contact Number") }}
+                        {% for error in form.contact_number.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                      <!-- Include additional personal info fields as needed -->
+                    </div>
+                    <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                    <input type="button" name="next" class="next action-button" value="Next Step"/>
+                  </fieldset>
+
+                  <!-- Vehicle Information -->
+                  <fieldset>
+                    <div class="form-card">
+                      <h2 class="fs-title">Vehicle Information</h2>
+                      <div class="form-group">
+                        {{ form.vehicle_type(class="form-control", placeholder="Vehicle Type") }}
+                        {% for error in form.vehicle_type.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                      <div class="form-group">
+                        {{ form.vehicle_registration(class="form-control", placeholder="Vehicle Registration") }}
+                        {% for error in form.vehicle_registration.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                      <!-- Include additional vehicle info fields as needed -->
+                    </div>
+                    <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                    <input type="button" name="next" class="next action-button" value="Next Step"/>
+                  </fieldset>
+
+                  <!-- Finish Registration -->
+                  <fieldset>
+                    <div class="form-card">
+                      <h2 class="fs-title">Finish Registration</h2>
+                      <div class="form-group">
+                        {{ form.area_of_operation(class="form-control", placeholder="Area of Operation") }}
+                        {% for error in form.area_of_operation.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                      <!-- Include additional fields as needed -->
+                    </div>
+                    <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                    <div class="form-group">
+                      <input type="submit" class="btn btn-outline-info" value="Submit"/>
+                    </div>
+                  </fieldset>
+                </form>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-<footer id="footer">
-            <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>            <ul class="list-inline">
-                    <li class="list-inline-item"><a href="{{ url_for('main.home') }}">Home</a></li>
-                    <li class="list-inline-item"><a href="{{ url_for('main.about') }}">About</a></li>
-                    <li class="list-inline-item"><a href="{{ url_for('main.support') }}">Support</a></li>
-                <li class="list-inline-item"><a href="#">Terms</a></li>
-                <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-            </ul>
-            <p class="copyright">suivi © 2024</p>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {% include 'footer.html' %}
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="static/scripts/home.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- Bootstrap Bundle (includes Popper.js) -->
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-            <!-- Your Custom JavaScript File -->
-		<script>
-$(document).ready(function(){
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script>
+      $(document).ready(function(){
 
-    var current_fs, next_fs, previous_fs; //fieldsets
-    var opacity;
+        var current_fs, next_fs, previous_fs; //fieldsets
+        var opacity;
 
-    $(".next").click(function(){
+        $(".next").click(function(){
 
-        current_fs = $(this).parent();
-        next_fs = $(this).parent().next();
+          current_fs = $(this).parent();
+          next_fs = $(this).parent().next();
 
-        //Add Class Active
-        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+          //Add Class Active
+          $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
 
-        //show the next fieldset
-        next_fs.show();
-        //hide the current fieldset with style
-        current_fs.animate({opacity: 0}, {
+          //show the next fieldset
+          next_fs.show();
+          //hide the current fieldset with style
+          current_fs.animate({opacity: 0}, {
             step: function(now) {
-                // for making fieldset appear animation
-                opacity = 1 - now;
+              // for making fieldset appear animation
+              opacity = 1 - now;
 
-                current_fs.css({
-                    'display': 'none',
-                    'position': 'relative'
-                });
-                next_fs.css({'opacity': opacity});
+              current_fs.css({
+                'display': 'none',
+                'position': 'relative'
+              });
+              next_fs.css({'opacity': opacity});
             },
             duration: 600
+          });
         });
-    });
 
-    $(".previous").click(function(){
+        $(".previous").click(function(){
 
-        current_fs = $(this).parent();
-        previous_fs = $(this).parent().prev();
+          current_fs = $(this).parent();
+          previous_fs = $(this).parent().prev();
 
-        //Remove class active
-        $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+          //Remove class active
+          $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
 
-        //show the previous fieldset
-        previous_fs.show();
+          //show the previous fieldset
+          previous_fs.show();
 
-        //hide the current fieldset with style
-        current_fs.animate({opacity: 0}, {
+          //hide the current fieldset with style
+          current_fs.animate({opacity: 0}, {
             step: function(now) {
-                // for making fieldset appear animation
-                opacity = 1 - now;
+              // for making fieldset appear animation
+              opacity = 1 - now;
 
-                current_fs.css({
-                    'display': 'none',
-                    'position': 'relative'
-                });
-                previous_fs.css({'opacity': opacity});
+              current_fs.css({
+                'display': 'none',
+                'position': 'relative'
+              });
+              previous_fs.css({'opacity': opacity});
             },
             duration: 600
+          });
         });
-    });
 
-    $('.radio-group .radio').click(function(){
-        $(this).parent().find('.radio').removeClass('selected');
-        $(this).addClass('selected');
-    });
+        $('.radio-group .radio').click(function(){
+          $(this).parent().find('.radio').removeClass('selected');
+          $(this).addClass('selected');
+        });
 
-    // Submit form
-    $("form#msform").submit(function(event) {
-        // Prevent default form submission
-        event.preventDefault();
+        // Submit form
+        $("form#msform").submit(function(event) {
+          // Prevent default form submission
+          event.preventDefault();
 
-        // Submit form via AJAX
-        $.ajax({
+          // Submit form via AJAX
+          $.ajax({
             url: $(this).attr('action'),
             type: $(this).attr('method'),
             data: $(this).serialize(),
             success: function(response) {
-                // If submission is successful, redirect to login page
-                window.location.replace("{{ url_for('rider.login_rider') }}");
+              // If submission is successful, redirect to login page
+              window.location.replace("{{ url_for('rider.login_rider') }}");
             },
             error: function(xhr, status, error) {
-                // Handle errors here
-                console.error(xhr.responseText);
+              // Handle errors here
+              console.error(xhr.responseText);
             }
+          });
         });
-    });
 
-});
-</script>
-</footer>
-</body>
+      });
+    </script>
+  </body>
 </html>

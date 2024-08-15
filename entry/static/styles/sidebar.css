@@ -48,7 +48,7 @@
 }
 
 .row {
-	display: block;
+	display: flex;
 }
 #checkbox {
   display: none;

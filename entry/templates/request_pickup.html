@@ -48,15 +48,7 @@
     </style>
 </head>
 <body>
-<header>
-    <nav id="reg">
-        <a class="home-btn" href="{{ url_for('main.home') }}">Home</a>
-        <a href="{{ url_for('main.about') }}">About</a>
-        <a href="{{ url_for('main.support') }}">Support</a>
-        <a href="{{ url_for('main.logout') }}">Logout</a>
-        <a href="{{ url_for('auth.edit_profile') }}">Profile</a>
-    </nav>
-</header>
+	{% include 'header.html' %}
 <div class="container rounded">
     <div class="row">
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -69,8 +61,6 @@
         {% endif %}
         {% endwith %}
     </div>
-    <div class="container">
-        <h1>Suivi Delivery Company</h1>
         <form id="parcelForm" method="POST" action="{{ url_for('parcel.request_pickup', step=step) }}">
             {{ form.hidden_tag() }}
 
@@ -129,13 +119,11 @@
             <div id="thank-you" class="thank-you-message" style="display: none;">
                 Thank you for your payment! You will be redirected home shortly.
             </div>
-        </div>
         {% else %}
         {% endif %}
     </form>
 </div>
-<footer>
-</footer>
+{% include 'footer.html' %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var map = L.map('map').setView([-1.286389, 36.817223], 13);
@@ -230,15 +218,13 @@
 <script>
     $(document).ready(function() {
         $('#submit-button').on('click', function(event) {
-            event.preventDefault(); // Prevent default form submission
+            event.preventDefault();
 
-            // AJAX call to submit form data
             $.ajax({
                 url: $('#parcelForm').attr('action'),
                 method: 'POST',
                 data: $('#parcelForm').serialize(),
                 success: function(response) {
-                    // Hide the submit button and show the payment button
                     $('#submit-button').hide();
                     $('#payment-section').show();
                 },
@@ -260,13 +246,13 @@
                         data: {
                             stripeToken: token.id,
                             email: '{{ current_user.email }}',
-                            description: 'Payment for parcel from {{ current_user.name }} to ' + $('#receiver_name').val()
+                            description: 'Payment for parcel from {{ current_user.username }} to ' + $('#receiver_name').val()
                         },
                         success: function(response) {
-                            $('#thank-you').show(); // Show thank you message
+                            $('#thank-you').show();
                             setTimeout(function() {
                                 window.location.href = "{{ url_for('main.home') }}";
-                            }, 1000); // Redirect after 2 seconds
+                            }, 2500);
                         },
                         error: function() {
                             alert('Payment failed. Please try again.');
@@ -277,7 +263,7 @@
 
             handler.open({
                 name: 'Suivi',
-                description: 'Payment for parcel from {{ current_user.name }} to ' + $('#receiver_name').val(),
+                description: 'Payment for parcel from {{ current_user.username }} to ' + $('#receiver_name').val(),
                 amount: 1000
             });
 

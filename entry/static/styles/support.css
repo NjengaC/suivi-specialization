@@ -13,18 +13,13 @@ body {
     width: 65%; /* Occupying 65% of the width */
     float: left; /* Displaying side by side */
 }
-
-/* Header styles */
-.header-box {
-    padding: 20px;
-    background-color: #343a40;
-    color: #fff;
+.all-space {
+	width: 100%;
 }
-
-.header-box h1 {
-    margin: 0;
-}
-
+.support-name {
+    margin-top: 20px;
+    display: block;
+    }
 /* Support form styles */
 .support-form {
     background-color: #fff;

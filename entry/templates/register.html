@@ -8,32 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
 </head>
 <body id="grad1">
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url_for('main.home') }}">VUE Express</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.home') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-			    <a class="nav-link" href="{{ url_for('main.about') }}">About</a>
-                    </li>
-                    <li class="nav-item">
-			    <a class="nav-link" href="{{ url_for('main.support') }}">Support</a>
-                    </li>
-                    <li class="nav-item">
-			    <a class="nav-link" href="{{ url_for('main.home') }}">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+	{% include 'header.html' %}
     <div class="row justify-content-center">
 	    {% with messages = get_flashed_messages(with_categories=true) %}
 	    {% if messages %}
@@ -136,20 +111,6 @@
             </div>
         </div>
     </div>
-<footer id="footer">
-            <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>            <ul class="list-inline">
-                    <li class="list-inline-item"><a href="{{ url_for('main.home') }}">Home</a></li>
-                    <li class="list-inline-item"><a href="{{ url_for('main.about') }}">About</a></li>
-                    <li class="list-inline-item"><a href="{{ url_for('main.support') }}">Support</a></li>
-                <li class="list-inline-item"><a href="#">Terms</a></li>
-                <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-            </ul>
-            <p class="copyright">suivi © 2024</p>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="static/scripts/home.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- jQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> <!-- Popper.js -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> <!-- Bootstrap JS -->
-</footer>
+    {% include 'footer.html' %}
 </body>
 </html>
