@@ -2,6 +2,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/headfoot.css') }}">
 
   <nav id="mainNavbar", id="reg", class="navbar navbar-dark navbar-expand-md py-0 fixed-top">
+    <a class="navbar-brand" href="{{ url_for('main.home') }}">SUIVI</a>
+    <!-- Navbar toggle button for smaller screens -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navLinks" aria-controls="navLinks" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
     <div class="collapse navbar-collapse" id="navLinks">
       <ul class="navbar-nav">
         <li class="nav-item">
@@ -23,11 +29,17 @@
 		<a class="btn btn-outline-primary btn-sm mx-2" href="{{ url_for('rider.edit_rider_profile') }}" class="nav-link">PROFILE</a>
 	</li>
         {% endif %}
+        <li class="nav-item">
         <a class="btn btn-outline-primary btn-sm mx-2" href="{{ url_for('main.logout') }}">LOGOUT</a>
+	</li>
         
         {% else %}
+        <li class="nav-item">
         <a class="btn btn-outline-primary btn-sm mx-2" href="{{ url_for('auth.login') }}">LOGIN</a>
+	</li>
+        <li class="nav-item">
         <a class="btn btn-outline-primary btn-sm mx-2" href="{{ url_for('auth.register') }}">SIGN UP</a>
+	</li>
         {% endif %}
         <li class="nav-item">
           <a class="btn btn-outline-primary btn-sm mx-2" href="#footer" class="nav-link">CONTACTS</a>
@@ -35,4 +47,7 @@
       </ul>
     </div>
   </nav>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </header>

@@ -1,8 +1,8 @@
-header {
+#header {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 80px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  
   background-color: grey;
@@ -195,3 +195,27 @@ nav ul li a:hover {
         padding: 14px 30px; /* Increase padding for larger screens */
     }
 }
+/* headfoot.css or any custom CSS file */
+.navbar-collapse {
+    justify-content: flex-end; /* Align menu items to the right */
+}
+
+@media (max-width: 768px) {
+    .navbar-collapse {
+        width: 250px; /* Set a fixed width for the sidebar menu */
+        background-color: rgba(0, 0, 0, 0.9); /* Optional: Dark background */
+    }
+
+    .navbar-collapse.collapse.show {
+        display: block; /* Ensure the menu is shown as a block element */
+    }
+    
+    .navbar-nav {
+        display: block;
+    }
+    
+    .navbar-nav .nav-item {
+        text-align: left; /* Align text to the left */
+    }
+}
+
