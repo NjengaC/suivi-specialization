@@ -17,9 +17,9 @@ def register():
     
     form = RegistrationForm()
     if form.validate_on_submit():
-        existing_user = User.query.filter((User.username == form.username.data) | (User.email == form.email.data)).first()
+        existing_user = User.query.filter((User.username == form.username.data) | (User.email == form.email.data) | (User.user_contact == form.user_contact.data)).first()
         if existing_user:
-            flash('Username or email already exists. Please choose a different username or email.', 'danger')
+            flash('Username details already exists. Please choose a different username, contact or email.', 'danger')
             return redirect(url_for('auth.register'))
         
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')

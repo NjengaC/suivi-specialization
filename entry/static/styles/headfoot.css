@@ -20,12 +20,31 @@ footer {
   margin: auto;
   text-align: center;
   width: 100%;
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  margin-bottom: 0;
 }
-
+section {
+    width: 100%;
+    padding: 4rem 8rem;
+    background-color: #000000; /* Black background */
+    color: #ffffff; /* White text */
+}
 footer a {
     color: #ddd;
 }
 
+
+.top-image {
+	width: 95% !important;
+}
+
+
+
+body {
+    background-color: #000000; /* Black background */
+}
 footer i {
     font-size: 1.8rem;
 }
@@ -37,6 +56,9 @@ footer i {
         float: right;
         margin-top: 50px;
         border-radius: 8px;
+}
+.main-content {
+	flex: 1;
 }
 .footer-basic {
   padding:40px 0;
@@ -216,6 +238,84 @@ nav ul li a:hover {
     
     .navbar-nav .nav-item {
         text-align: left; /* Align text to the left */
+    }
+}
+
+
+
+/* Top Image */
+.top-image {
+    width: 95%; /* Occupy 95% of the width */
+    margin: 0 auto 30px auto; /* Center the image and add margin below */
+    border-radius: 10px; /* Adjust the border-radius for consistency */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Side-by-side Sections */
+.side-by-side-section {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 0; /* Remove bottom margin to attach sections */
+}
+
+.side-by-side-section > .col-md-6 {
+    padding: 0; /* Remove padding to eliminate gaps between sections */
+}
+
+.why-choose-suivi, .become-rider {
+    width: 100%; /* Ensure each section occupies full width of its column */
+    border-radius: 0; /* Remove border radius to align sections perfectly */
+    box-shadow: none; /* Remove shadow if you want a flush attachment */
+}
+
+/* Adjust padding for inner content */
+.why-choose-suivi .list-group-item,
+.become-rider .list-group-item {
+    padding: 15px;
+}
+
+.why-choose-suivi, .become-rider {
+    margin-bottom: 0; /* Remove bottom margin */
+    border-radius: 10px; /* Adjust the border-radius */
+}
+
+.side-by-side-section img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px; /* Consistent border-radius for images */
+}
+
+/* Responsive navigation menu (for mobile devices) */
+@media screen and (max-width: 600px) {
+    .navbar a {
+        float: none;
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+
+    .navbar a.active {
+        background-color: #666;
+        color: white;
+    }
+
+    .top-image {
+        width: 100%; /* On mobile, let the image occupy full width */
+    }
+
+    .side-by-side-section {
+        flex-direction: column;
+    }
+
+    .why-choose-suivi, .become-rider {
+        margin-bottom: 20px; /* Add space between stacked sections on mobile */
+    }
+}
+
+@media screen and (min-width: 601px) {
+    .navbar a {
+        padding: 14px 30px; /* Increase padding for larger screens */
     }
 }
 

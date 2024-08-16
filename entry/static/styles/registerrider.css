@@ -1,8 +1,7 @@
-/*Background color*/
 #grad1 {
-    background-color: navy;
+    background-color: black;
+    background-image: linear-gradient(120deg, #000000, #434343, #000000);
 }
-
 /*Form styles*/
 #msform {
     text-align: center;

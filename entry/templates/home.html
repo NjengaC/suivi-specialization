@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>suivi</title>
-  <link rel="stylesheet" href="../static/styles/home.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/headfoot.css') }}">
+  <link rel="stylesheet" href="../static/styles/home.css">
   <link rel="icon" href="../static/images/favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" sizes="180x180" href="../static/images/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="../static/images/favicon-32x32.png">
@@ -36,20 +36,23 @@
                 {% endwith %}
 
         </div>
-<div class="small-header">
-    <div class="header-content">
-        <div class="right-content">
+
+
+
+<section class="p-4 lg:p-8 bg-black text-white">
+    <div class="container mx-auto space-y-12">
+        <div class="d-flex align-items-center flex-lg-row flex-column">
             <div class="d-shape">
                 <img src="../static/images/background.jpg" alt="Your Image">
             </div>
-        </div>
-        <div class="left-content">
-            <h3 class="display-4">Welcome to suivi</h3>
-            <p class="lead text-white">Explore our services and get started today!</p>
-            <a href="{{ url_for('auth.register') }}" class="btn btn-primary mr-3 future">Get Started</a>
+            <div class="content p-6 flex-grow-1">
+                <h3 class="text-3xl font-bold">Welcome to suivi</h3>
+                <p class="my-6 text-gray-400 dark:text-gray-600">Explore our services and get started today!</p>
+                <a href="{{ url_for('auth.register') }}" class="btn btn-primary">Get Started</a>
+            </div>
         </div>
     </div>
-</div>
+</section>
 
 
 
@@ -71,14 +74,14 @@ Rest assured that your parcel is in good hands, and we take every precaution to 
     </div>
   </section>
   <!-- End of translucent section -->
-<section class="p-4 lg:p-8 bg-gray-800 dark:bg-gray-100 text-gray-100 dark:text-gray-800">
+<section class="container p-4 lg:p-8 bg-black-800 dark:bg-back-100 text-black-100 dark:text-black-800">
     <div class="container mx-auto space-y-12">
         <!-- First Section with Image on the Right -->
         <div class="d-flex align-items-center flex-lg-row flex-column">
             <div class="content p-6 flex-grow-1">
                 <h3 class="text-3xl font-bold">Revolutionizing Shipping, Simplified</h3>
                 <p class="my-6 text-gray-400 dark:text-gray-600">Discover seamless shipping solutions tailored to your needs at suivi. Our commitment to excellence is reflected in our streamlined shipping process, ensuring your orders reach you swiftly and securely.</p>
-                <a href="{{ url_for('parcel.request_pickup') }}" class="btn btn-primary">REQUEST</a>
+                <a href="{{ url_for('parcel.request_pickup') }}" class="btn btn-primary">REQUEST PICKUP NOW</a>
             </div>
             <div class="image-container">
                 <img src="../static/images/feature1.png" alt="Feature 1 Image">
@@ -88,9 +91,9 @@ Rest assured that your parcel is in good hands, and we take every precaution to 
         <!-- Second Section with Image on the Left -->
         <div class="d-flex align-items-center flex-lg-row-reverse flex-column">
             <div class="content p-6 flex-grow-1">
-                <h3 class="text-3xl font-bold">Unlock Exclusive Benefits for Free Today!</h3>
-                <p class="my-6 text-gray-400 dark:text-gray-600">Discover seamless shipping solutions tailored to your needs at suivi. Our commitment to excellence is reflected in our streamlined shipping process, ensuring your orders reach you swiftly and securely.</p>
-                <a href="{{ url_for('rider.register_rider') }}" class="btn btn-primary">REGISTER</a>
+                <h3 class="text-3xl font-bold">Unlock Exclusive Benefits When you join SUIVI as a Rider</h3>
+                <p class="my-6 text-gray-400 dark:text-gray-600">Discover opportunities at suivi. Our commitment to excellence is reflected in our streamlined shipping process by offering you the right working conditions.</p>
+                <a href="{{ url_for('rider.register_rider') }}" class="btn btn-primary">REGISTER AS A RIDER</a>
             </div>
             <div class="image-container">
                 <img src="../static/images/feature2.png" alt="Feature 2 Image">
@@ -102,10 +105,20 @@ Rest assured that your parcel is in good hands, and we take every precaution to 
             <div class="content p-6 flex-grow-1">
                 <h3 class="text-3xl font-bold">Easily Track Your Parcel Every Step of the Way</h3>
                 <p class="my-6 text-gray-400 dark:text-gray-600">Stay informed every step of the way with our intuitive parcel tracking feature. Whether you're sending or receiving a package, our platform provides real-time updates to ensure peace of mind. Simply enter your tracking number, and gain instant access to the current status and estimated delivery time of your parcel.</p>
-                <a href="{{ url_for('parcel.track_parcel') }}" class="btn btn-primary">TRACK</a>
+                <a href="{{ url_for('parcel.track_parcel') }}" class="btn btn-primary">TRACK YOUR PARCEL</a>
             </div>
             <div class="image-container">
                 <img src="../static/images/feature3.png" alt="Feature 3 Image">
+            </div>
+        </div>
+        <div class="d-flex align-items-center flex-lg-row-reverse flex-column">
+            <div class="content p-6 flex-grow-1">
+                <h3 class="text-3xl font-bold">Login as a Rider to view assignments and deliver</h3>
+                <p class="my-6 text-gray-400 dark:text-gray-600">Earn with us a Driver or a Rider, Join this winning side and craft the future of Safe, Swift and Secure parcel deliver</p>
+                <a href="{{ url_for('rider.login_rider') }}" class="btn btn-primary">LOGIN AS DRIVER</a>
+            </div>
+            <div class="image-container">
+                <img src="../static/images/feature4.jpg" alt="Feature 4 Image">
             </div>
         </div>
     </div>
