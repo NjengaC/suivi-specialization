@@ -40,20 +40,29 @@ stripe.api_key = stripe_keys['secret_key']
 def track_parcel():
     return render_template('track_parcel.html')
 
+
 @parcel.route('/get_parcel_status')
 def get_parcel_status():
     tracking_number = request.args.get('tracking_number')
     if tracking_number:
         parcel = Parcel.query.filter_by(tracking_number=tracking_number).first()
         if parcel:
+            pickup_lat, pickup_lng = get_lat_lng(parcel.pickup_location)
+            delivery_lat, delivery_lng = get_lat_lng(parcel.delivery_location)
+
             return jsonify({
                 'status': parcel.status,
-                'expected_arrival': parcel.expected_arrival
+                'expected_arrival': parcel.expected_arrival,
+                'pickup_location': parcel.pickup_location,
+                'delivery_location': parcel.delivery_location,
+                'pickup_coords': {'lat': pickup_lat, 'lng': pickup_lng},
+                'delivery_coords': {'lat': delivery_lat, 'lng': delivery_lng}
             }), 200
         else:
             return jsonify({'error': 'Parcel not found'}), 404
     else:
         return jsonify({'error': 'Tracking number not provided'}), 400
+
 
 @parcel.route('/request_pickup', methods=['POST', 'GET'])
 @login_required

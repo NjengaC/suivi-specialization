@@ -1,6 +1,6 @@
 # SUIVI SPECIALISATION PROJECT
 
-Welcome to SUIVI Parcel Sending Service App. This application provides a convenient platform for users to send parcels and for parcel service companies to manage pickup requests and deliveries.
+Welcome to SUIVI Parcel Sending Service App. This application provides a convenient platform for users to send parcels from one location to another. It is also a platform that offers secure and consistent work to the workforce.
 
 ## Features
 

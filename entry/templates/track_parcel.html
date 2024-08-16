@@ -5,61 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parcel Tracking</title>
     <!-- Leafletjs mapping links and scripts -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""/>
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
-
-    <!-- Make sure you put this AFTER Leaflet's CSS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""></script>
-
-    <!-- Leaflet Routing Machine -->
-    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
-
-    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css">
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/track.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/man.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/headfoot.css') }}">
     <style>
-        #map { height: 350px; }
+        #map { height: 500px;
+               width: 100%; }
     </style>
 </head>
 <body>
-	{% include 'header.html' %}
-    <!-- Search bar -->
+    {% include 'header.html' %}
     <div class="row justify-content-center">
-	    {% with messages = get_flashed_messages(with_categories=true) %}
-	    {% if messages %}
-	    {% for category, message in messages %}
-	    <div class="alert alert-{{ category }}">
-		    {{ message }}
-	    </div>
-	    {% endfor %}
-	    {% endif %}
-	    {% endwith %}
-
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
     </div>
     <div class="container mt-4">
-	    <div class="row justify-content-center">
-		    <div class="col-md-6">
-			    <div class="input-group">
-				    <input type="text" class="form-control" placeholder="Enter Tracking Number" id="trackingNumberInput">
-				    <div class="input-group-append">
-					    <button class="btn btn-primary" type="button" id="trackButton">
-						    <span>Track</span>
-					    </button>
-				    </div>
-			    </div>
-		    </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Enter Tracking Number" id="trackingNumberInput">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" id="trackButton">
+                            <span>Track</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    <!-- Tracking progress bar -->
     <div class="container px-1 px-md-4 py-5 mx-auto">
         <div class="card">
             <div class="row d-flex justify-content-between px-3 top">
@@ -70,7 +55,6 @@
                     <p class="mb-0">Expected Arrival: <span id="expectedArrivalPlaceholder">Always Atleast a Day</span></p>
                 </div>
             </div>
-            <!-- Add class 'active' to progress -->
             <div class="row d-flex justify-content-center">
                 <div class="col-12">
                     <ul id="progressbar" class="text-center no-gutters">
@@ -114,91 +98,120 @@
                     </div>
                 </div>
             </div>
-            <div id="map"></div>
         </div>
+        <div id="map"></div>
     </div>
-    <!-- Footer -->
     {% include 'footer.html' %}
-    <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var map = L.map('map').setView([-1.286389, 36.817223], 13);
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-  }).addTo(map);
-});
-
-</script>
-
     <script>
-document.getElementById('trackButton').addEventListener('click', function() {
-    var trackingNumber = document.getElementById('trackingNumberInput').value;
+    document.addEventListener('DOMContentLoaded', function() {
+        var map = L.map('map').setView([-1.286389, 36.817223], 13);
 
-    fetch('/get_parcel_status?tracking_number=' + trackingNumber)
-        .then(response => response.json())
-        .then(parcel => {
-            if (parcel && parcel.status) {
-		var expected_arrival = parcel.expected_arrival;
-                updateProgressBar(parcel.status);
-                updateTrackingInfo(trackingNumber, expected_arrival);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        function trackParcel(trackingNumber) {
+            fetch(`/get_parcel_status?tracking_number=${trackingNumber}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Parcel Data:", data);
+                    if (data.error) {
+                        alert(data.error);
+                        return;
+                    }
+
+                    const pickupLatLng = [data.pickup_coords.lat, data.pickup_coords.lng];
+                    const deliveryLatLng = [data.delivery_coords.lat, data.delivery_coords.lng];
+
+                    if (!Array.isArray(pickupLatLng) || pickupLatLng.length !== 2 || !Array.isArray(deliveryLatLng) || deliveryLatLng.length !== 2) {
+                        console.error("Invalid coordinates format");
+                        return;
+                    }
+
+                    L.marker(pickupLatLng).addTo(map)
+                        .bindPopup("Pickup Location")
+                        .openPopup();
+                    L.circle(pickupLatLng, { radius: 100 }).addTo(map);
+
+                    L.marker(deliveryLatLng).addTo(map)
+                        .bindPopup("Delivery Location")
+                        .openPopup();
+                    L.circle(deliveryLatLng, { radius: 100 }).addTo(map);
+
+                    L.Routing.control({
+                        waypoints: [
+                            L.latLng(pickupLatLng[0], pickupLatLng[1]),
+                            L.latLng(deliveryLatLng[0], deliveryLatLng[1])
+                        ],
+                        routeWhileDragging: true,
+                        createMarker: function() { return null; }
+                    }).addTo(map);
+
+                    map.fitBounds(L.latLngBounds([
+                        L.latLng(pickupLatLng[0], pickupLatLng[1]),
+                        L.latLng(deliveryLatLng[0], deliveryLatLng[1])
+                    ]));
+
+                    // Update progress bar based on parcel status
+                    updateProgressBar(data.status);
+                })
+                .catch(error => console.error('Error fetching parcel status:', error));
+        }
+
+        document.getElementById('trackButton').addEventListener('click', function() {
+            var trackingNumber = document.getElementById('trackingNumberInput').value;
+            if (trackingNumber) {
+                trackParcel(trackingNumber);
             } else {
-                console.log('Parcel not found or status missing');
+                alert('Please enter a tracking number.');
             }
-        })
-        .catch(error => {
-            console.error('Error fetching parcel status:', error);
         });
-});
 
-function updateProgressBar(status) {
-    // Reset progress bar to initial state
-    document.querySelectorAll('#progressbar li').forEach(li => {
-        li.classList.remove('active');
+        function updateProgressBar(status) {
+            console.log("Updating progress bar with status:", status);
+
+            document.querySelectorAll('#progressbar li').forEach(li => {
+                li.classList.remove('active');
+            });
+
+            switch (status) {
+                case 'pending':
+                    document.getElementById('step1').classList.add('active');
+                    break;
+                case 'allocated':
+                    document.getElementById('step1').classList.add('active');
+                    document.getElementById('step2').classList.add('active');
+                    break;
+                case 'in_progress':
+                    document.getElementById('step1').classList.add('active');
+                    document.getElementById('step2').classList.add('active');
+                    document.getElementById('step3').classList.add('active');
+                    break;
+                case 'out_for_delivery':
+                    document.getElementById('step1').classList.add('active');
+                    document.getElementById('step2').classList.add('active');
+                    document.getElementById('step3').classList.add('active');
+                    document.getElementById('step4').classList.add('active');
+                    break;
+                case 'delivered':
+                    document.getElementById('step1').classList.add('active');
+                    document.getElementById('step2').classList.add('active');
+                    document.getElementById('step3').classList.add('active');
+                    document.getElementById('step4').classList.add('active');
+                    document.getElementById('step5').classList.add('active');
+                    break;
+                default:
+                    console.error("Unknown status:", status);
+                    break;
+            }
+        }
     });
-
-    // Update progress bar based on parcel status
-    switch (status) {
-        case 'pending':
-            document.getElementById('step1').classList.add('active');
-            break;
-        case 'allocated':
-            document.getElementById('step1').classList.add('active');
-            document.getElementById('step2').classList.add('active');
-            break;
-        case 'in_progress':
-            document.getElementById('step1').classList.add('active');
-	    document.getElementById('step2').classList.add('active');
-            document.getElementById('step3').classList.add('active');
-            break;
-        case 'shipped':
-            document.getElementById('step1').classList.add('active');
-            document.getElementById('step2').classList.add('active');
-            document.getElementById('step3').classList.add('active');
-            document.getElementById('step4').classList.add('active');
-            break;
-        case 'arrived':
-            document.getElementById('step1').classList.add('active');
-            document.getElementById('step2').classList.add('active');
-            document.getElementById('step3').classList.add('active');
-            document.getElementById('step4').classList.add('active');
-            document.getElementById('step5').classList.add('active');
-            break;
-        default:
-            console.log('Unknown parcel status:', status);
-            break;
-    }
-}
-
-function updateTrackingInfo(trackingNumber, expectedArrival) {
-    // Update tracking number and expected arrival time in HTML
-    document.getElementById('trackingNumberPlaceholder').textContent = trackingNumber;
-    document.getElementById('expectedArrivalPlaceholder').textContent = expectedArrival;
-}
 </script>
+
 </body>
 </html>
