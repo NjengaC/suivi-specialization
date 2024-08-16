@@ -1,14 +1,18 @@
 <footer>
-	<link rel="stylesheet" href="{{ url_for('static', filename='styles/headfoot.css') }}">
-	<div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>
-	<ul class="list-inline">
-		<li class="list-inline-item"><a href="main.home">Home</a></li>
-		<li class="list-inline-item"><a href="main.support">Services</a></li>
-		<li class="list-inline-item"><a href="main.about">About</a></li>
-		<li class="list-inline-item"><a href="#">Terms</a></li>
-		<li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-	</ul>
-	<p>&copy; 2024 Suivi. All Rights Reserved.</p>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitterap/4.1.3/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/headfoot.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@6.0.2/dist/css/ionicons.min.css">
+    <div class="social">
+        <a href="#"><i class="icon ion-logo-instagram"></i></a>
+        <a href="#"><i class="icon ion-logo-snapchat"></i></a>
+        <a href="#"><i class="icon ion-logo-twitter"></i></a>
+        <a href="#"><i class="icon ion-logo-facebook"></i></a>
+    </div>
+    <ul class="list-inline">
+        <li class="list-inline-item"><a href="{{ url_for('main.home') }}">Home</a></li>
+        <li class="list-inline-item"><a href="{{ url_for('main.support') }}">Services</a></li>
+        <li class="list-inline-item"><a href="{{ url_for('main.about') }}">About</a></li>
+        <li class="list-inline-item"><a href="#">Terms</a></li>
+        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+    </ul>
+    <p>&copy; 2024 Suivi. All Rights Reserved.</p>
 </footer>

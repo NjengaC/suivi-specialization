@@ -1,7 +1,6 @@
-/* Background styling */
 #grad1 {
-    background-color: #9c27b0;
-    background-image: linear-gradient(120deg, #ff4081, #81d4fa);
+    background-color: black;
+    background-image: linear-gradient(120deg, #000000, #434343, #000000);
 }
 .content-section {
     background: #00b4ef;

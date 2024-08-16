@@ -10,67 +10,71 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="../static/styles/about1.css">
-    
+
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/headfoot.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   </head>
   <body>
-      {% include 'header.html' %}
+    {% include 'header.html' %}
 
-    <main class="container py-5">
-        <div class="col-md-6 mb-4">
-        <img src="{{ url_for('static', filename='images/delivery3.jpg') }}" alt="Delivery Image 3" class="img-fluid">
+    <div class="top-image">
+        <img src="{{ url_for('static', filename='images/delivery3.jpg') }}" alt="Delivery Image 3" class="img-fluid w-100">
     </div>
-    <img src="entry/static/images/delivery3.jpg" alt="Delivery Image">
-        </div>
-      <section class="row">
-        <div class="why-choose-suivi col-md-6 mb-4">
-          <h2>Why Choose suivi?</h2>
-          <p>Fueled by innovation and a passion for streamlined logistics, suivi is more than just a delivery company. We're a comprehensive solution for all your parcel shipping needs. Here's what sets us apart:</p>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-              <i class="fas fa-rocket text-primary me-2"></i> Fast & Secure Delivery: Experience unparalleled speed and reliability with our optimized routes and robust security measures.
-            </li>
-            <li class="list-group-item">
-              <i class="fas fa-eye text-primary me-2"></i> Real-time Parcel Tracking: Never be left wondering. Track your parcels in real-time with our user-friendly app, providing complete peace of mind.
-            </li>
-            <li class="group-list-item">
-              <i class="fas fa-shield-alt text-primary me-2"></i> Secure Parcel Handling: From pickup to delivery, your parcels are in the safest hands. We prioritize secure storage and meticulous handling procedures.
-            </li>
-            <li class="list-group-item">
-              <i class="fas fa-clock text-primary me-2"></i> Timely Delivery: We understand the importance of deadlines. Our dedicated drivers ensure your parcels reach their destinations on time, every time.
-            </li>
-          </ul>
-        </div>
-        <div>
-        <img src="{{ url_for('static', filename='images/delivery1.png') }}" alt="Delivery Image 1" class="img-fluid">
-    </div>
-      </section>
-      <section class="row">
-          <div class="col-md-6 mb-4">
-        <img src="{{ url_for('static', filename='images/delivery2.jpg') }}" alt="Delivery Image 2" class="img-fluid">
-          </div>
-          <div class="become-rider col-md-6 mb-4">
-          <h2>Become a suivi Rider</h2>
-          <p>Are you passionate about efficient deliveries and providing exceptional customer service? Join our team of reliable riders and build a rewarding career with suivi. Here's what you can expect:</p>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-              <i class="fas fa-calendar-check text-primary me-2"></i> Flexible Scheduling: Craft a work schedule that fits your lifestyle. Choose the hours you want to work and maximize your earning potential.
-            </li>
-            <li class="list-group-item">
-              <i class="fas fa-map-marker-alt text-primary me-2"></i> Optimized Routes: We prioritize your efficiency. Our app provides optimized delivery routes, saving you time and maximizing your earnings.
-            </li>
-            <li class="list-group-item">
-              <i class="fas fa-handshake text-primary me-2"></i> Competitive Earnings: Earn competitive compensation for each delivery. With our clear pay structure, you'll always know what you're working for.
-            </li>
-            <li class="list-group-item">
-              <i class="fas fa-headset text-primary me-2"></i> Supportive Community: Become part of a team of dedicated riders who support each other. We offer ongoing training and resources to help you succeed.
-            </li>
-          </ul>
-          <a href="{{ url_for('rider.register_rider') }}" class="btn btn-primary">Join the suivi Team</a>
-        </div>
-      </section>
 
+<div class="container py-5">
+    <div class="side-by-side-section row">
+        <div class="why-choose-suivi col-md-6">
+            <h2>Why Choose suivi?</h2>
+            <p>Fueled by innovation and a passion for streamlined logistics, suivi is more than just a delivery company. We're a comprehensive solution for all your parcel shipping needs. Here's what sets us apart:</p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <i class="fas fa-rocket text-primary me-2"></i> Fast & Secure Delivery: Experience unparalleled speed and reliability with our optimized routes and robust security measures.
+                </li>
+                <li class="list-group-item">
+                    <i class="fas fa-eye text-primary me-2"></i> Real-time Parcel Tracking: Never be left wondering. Track your parcels in real-time with our user-friendly app, providing complete peace of mind.
+                </li>
+                <li class="list-group-item">
+                    <i class="fas fa-shield-alt text-primary me-2"></i> Secure Parcel Handling: From pickup to delivery, your parcels are in the safest hands. We prioritize secure storage and meticulous handling procedures.
+                </li>
+                <li class="list-group-item">
+                    <i class="fas fa-clock text-primary me-2"></i> Timely Delivery: We understand the importance of deadlines. Our dedicated drivers ensure your parcels reach their destinations on time, every time.
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <img src="{{ url_for('static', filename='images/delivery2.jpg') }}" alt="Delivery Image 2" class="img-fluid w-100">
+        </div>
+    </div>
+
+    <div class="side-by-side-section row mt-4">
+        <div class="col-md-6 order-md-2">
+            <div class="become-rider">
+                <h2>Become a suivi Rider</h2>
+                <p>Are you passionate about efficient deliveries and providing exceptional customer service? Join our team of reliable riders and build a rewarding career with suivi. Here's what you can expect:</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <i class="fas fa-calendar-check text-primary me-2"></i> Flexible Scheduling: Craft a work schedule that fits your lifestyle. Choose the hours you want to work and maximize your earning potential.
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-map-marker-alt text-primary me-2"></i> Optimized Routes: We prioritize your efficiency. Our app provides optimized delivery routes, saving you time and maximizing your earnings.
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-handshake text-primary me-2"></i> Competitive Earnings: Earn competitive compensation for each delivery. With our clear pay structure, you'll always know what you're working for.
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-headset text-primary me-2"></i> Supportive Community: Become part of a team of dedicated riders who support each other. We offer ongoing training and resources to help you succeed.
+                    </li>
+                </ul>
+                <a href="{{ url_for('rider.register_rider') }}" class="btn btn-primary">Join the suivi Team</a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <img src="{{ url_for('static', filename='images/delivery1.png') }}" alt="Delivery Image 1" class="img-fluid w-100">
+        </div>
+    </div>
+</div>
+
+      <!-- Our Technology Section -->
       <section class="our-technology row text-center">
         <div class="col">
           <h2>Our Technology</h2>
@@ -78,6 +82,7 @@
         </div>
       </section>
 
+      <!-- Testimonials Section -->
       <section class="testimonial row">
         <div class="col-md-4 mb-4">
           <img src="../static/images/image1.jpg" alt="Image 1" class="img-fluid rounded-circle mx-auto d-block">

@@ -184,6 +184,64 @@
                 .catch(error => console.error('Error fetching parcel status:', error));
         }
     </script>
+<script>
+    $(document).ready(function() {
+        $('#submit-button').on('click', function(event) {
+            event.preventDefault();
+
+            $.ajax({
+                url: $('#parcelForm').attr('action'),
+                method: 'POST',
+                data: $('#parcelForm').serialize(),
+                success: function(response) {
+                    $('#submit-button').hide();
+                    $('#payment-section').show();
+                },
+                error: function() {
+                    alert('Failed to request pickup. Please try again.');
+                }
+            });
+        });
+
+        $('#pay-button').on('click', function() {
+            var handler = StripeCheckout.configure({
+                key: '{{ key }}',
+                locale: 'auto',
+                email: '{{ current_user.email }}',
+                token: function(token) {
+                    $.ajax({
+                        url: '/charge',
+                        method: 'POST',
+                        data: {
+                            stripeToken: token.id,
+                            email: '{{ current_user.email }}',
+                            description: 'Payment for parcel from {{ current_user.username }} to ' + $('#receiver_name').val()
+                        },
+                        success: function(response) {
+                            $('#thank-you').show();
+                            setTimeout(function() {
+                                window.location.href = "{{ url_for('main.home') }}";
+                            }, 2500);
+                        },
+                        error: function() {
+                            alert('Payment failed. Please try again.');
+                        }
+                    });
+                }
+            });
+
+            handler.open({
+                name: 'Suivi',
+                description: 'Payment for parcel from {{ current_user.username }} to ' + $('#receiver_name').val(),
+                amount: 1000
+            });
+
+            $(window).on('popstate', function() {
+                handler.close();
+            });
+        });
+    });
+</script>
 </body>
 </html>
 
