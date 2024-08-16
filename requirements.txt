@@ -19,5 +19,4 @@ psycopg2-binary
 flask-sslify
 geoalchemy2
 twilio
-requests
 apscheduler

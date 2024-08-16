@@ -94,7 +94,7 @@ def edit_rider_profile():
     elif request.method == 'POST':
         if form.validate_on_submit():
             current_user.email = form.email.data
-            current_user.username = form.name.data
+            current_user.name = form.name.data
             hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
             current_user.password = hashed_password
             current_user.vehicle_type = form.vehicle_type.data
