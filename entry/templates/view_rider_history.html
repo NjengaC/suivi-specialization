@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rider Parcel History</title>
+    <title>Parcel Delivery History</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/view_parcel_history.css') }}">
   <link rel="icon" href="../static/images/favicon.ico" type="image/x-icon">
@@ -21,10 +21,11 @@
 <body>
 	{% include 'header.html' %}
 {% if current_user.is_authenticated %}
+
 <div class="container">
-    <h1>Your Parcel History</h1>
-    
-    <h5>Open Parcels</h5>
+    <h1>Parcel Delivering History</h1>
+
+    <h3>Open Parcels</h3>
     {% if open_orders %}
         {% for parcel in open_orders %}
             <div class="tracking-item">
@@ -36,19 +37,21 @@
                 <div class="tracking-date">{{ parcel.date }}<span>{{ parcel.time }}</span></div>
                 <div class="tracking-content">
                     <p><strong>Parcel ID:</strong> {{ parcel.id }}</p>
+                    <p><strong>Tracking Number:</strong> {{ parcel.tracking_number }}</p>
+                    <p><strong>Parcel Status:</strong> {{ parcel.status }}</p>
                     <p><strong>Receiver Name:</strong> {{ parcel.receiver_name }}</p>
                     <p><strong>Receiver Contact:</strong> {{ parcel.receiver_contact }}</p>
                     <p><strong>Pickup Location:</strong> {{ parcel.pickup_location }}</p>
                     <p><strong>Delivery Location:</strong> {{ parcel.delivery_location }}</p>
-                    <p><strong>Description:</strong> {{ parcel.description }}</p>
-		</div>
+                </div>
             </div>
         {% endfor %}
     {% else %}
         <p>No allocated parcels found.</p>
     {% endif %}
+</div>
 
-    <h5>Closed Parcels</h5>
+    <h3>Closed Parcels</h3>
     {% if closed_orders %}
         {% for parcel in closed_orders %}
             <div class="tracking-item">
@@ -60,11 +63,11 @@
                 <div class="tracking-date">{{ parcel.date }}<span>{{ parcel.time }}</span></div>
                 <div class="tracking-content">
                     <p><strong>Parcel ID:</strong> {{ parcel.id }}</p>
+                    <p><strong>Tracking Number:</strong> {{parcel.tracking_number }}</p>
                     <p><strong>Receiver Name:</strong> {{ parcel.receiver_name }}</p>
                     <p><strong>Receiver Contact:</strong> {{ parcel.receiver_contact }}</p>
                     <p><strong>Pickup Location:</strong> {{ parcel.pickup_location }}</p>
                     <p><strong>Delivery Location:</strong> {{ parcel.delivery_location }}</p>
-                    <p><strong>Description:</strong> {{ parcel.description }}</p>
 		</div>
             </div>
         {% endfor %}
@@ -75,7 +78,7 @@
 </div>
 {% else %}
 <div class="container">
-    <h1>Rider Parcel History</h1>
+    <h1>Parcel History</h1>
     <p>Please log in to view your parcel history.</p>
 </div>
 {% endif %}
