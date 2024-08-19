@@ -338,6 +338,7 @@ def update_assignment():
 
 
 @parcel.route('/view_parcel_history', methods=['GET', 'POST'])
+@login_required
 def view_parcel_history():
     if current_user.is_authenticated:
         parcels = Parcel.query.filter_by(sender_email=current_user.email).all()
@@ -359,6 +360,7 @@ def view_parcel_history():
         flash('Log in to view your parcels history!', 'danger')
 
 @parcel.route('/view_rider_history', methods=['GET', 'POST'])
+@login_required
 def view_rider_history():
     if current_user.is_authenticated:
         # Query parcels for the current rider
