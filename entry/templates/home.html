@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>suivi</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/headfoot.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/headfoot.css') }}">
   <link rel="stylesheet" href="../static/styles/home.css">
   <link rel="icon" href="../static/images/favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" sizes="180x180" href="../static/images/apple-touch-icon.png">
@@ -12,118 +12,122 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../static/images/favicon-16x16.png">
   <link rel="manifest" href="../static/site.webmanifest">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-P8XN+Jyrp6rVIiIMT9RYBq5h6DScnIxK1K8yhSfFNSq7hdx38P4qNGpbKNisF3d6V2fK60h0RVaMx6syPeCifQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <!-- jQuery -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/ionicons@6.0.2/dist/css/ionicons.min.css">
 </head>
 <body>
-	{% include 'header.html' %}
+  {% include 'header.html' %}
 
-        <div class="row">
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">
-                    {{ message }}
-                </div>
-                {% endfor %}
-                {% endif %}
-                {% endwith %}
-
-        </div>
-
-
-
-<section class="p-4 lg:p-8 bg-black text-white">
-    <div class="container mx-auto space-y-12">
-        <div class="d-flex align-items-center flex-lg-row flex-column">
-            <div class="d-shape">
-                <img src="../static/images/background.jpg" alt="Your Image">
-            </div>
-            <div class="content p-6 flex-grow-1">
-                <h3 class="text-3xl font-bold">Welcome to suivi</h3>
-                <p class="my-6 text-gray-400 dark:text-gray-600">Explore our services and get started today!</p>
-                <a href="{{ url_for('auth.register') }}" class="btn btn-primary">Get Started</a>
-            </div>
-        </div>
+  <div class="row">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+      {{ message }}
     </div>
-</section>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+  </div>
 
-
-
-  <!-- Translucent section for policy content -->
-  <section id="policySection" class="policy-section">
-    <div class="policy-content">
-      <!-- Content for timely delivery policy -->
-      <button id="closePolicyBtn" class="close-policy-btn">Close</button>
-      <div id="timelyDelivery" class="policy-content-item" style="display: none;">
-        <h2>Timely Delivery Policy</h2>
-            <p>We strive to deliver all Parcels in a timely manner to ensure customer satisfaction. Our delivery team is committed to meeting specified delivery timelines. In case of any delays, we will communicate promptly with affected customers and provide updates on the status of their parcels. If you have any concerns regarding the delivery of your parcel, please don't hesitate to contact our customer support team for assistance.</p>
-      </div>
-      <!-- Content for secure parcel handling policy -->
-      <div id="secureParcelHandling" class="policy-content-item" style="display: none;">
-        <h2>Secure Parcel Handling Policy</h2>
-            <p>We prioritize the safety and security of all parcels entrusted to us. Our team follows strict protocols to ensure that parcels are handled with care and professionalism throughout the delivery process. We use secure packaging materials and employ advanced tracking systems to safeguard parcels during transit.
-Rest assured that your parcel is in good hands, and we take every precaution to protect it from loss, damage, or theft.</p>
+  <section class="p-4 lg:p-8 bg-black text-white">
+    <div class="container mx-auto space-y-12">
+      <div class="d-flex align-items-center flex-lg-row flex-column">
+        <div class="d-shape">
+          <img src="../static/images/feature2.png"" alt="Your Image">
+        </div>
+        <div class="content p-6 flex-grow-1">
+          <h3 class="text-3xl font-bold">Welcome to suivi</h3>
+          <p class="my-6 text-gray-400 dark:text-gray-600">Explore our services and get started today!</p>
+          <a href="{{ url_for('auth.register') }}" class="btn btn-primary">Get Started</a>
+        </div>
       </div>
     </div>
   </section>
-  <!-- End of translucent section -->
-<section class="container p-4 lg:p-8 bg-black-800 dark:bg-back-100 text-black-100 dark:text-black-800">
-    <div class="container mx-auto space-y-12">
-        <!-- First Section with Image on the Right -->
-        <div class="d-flex align-items-center flex-lg-row flex-column">
-            <div class="content p-6 flex-grow-1">
-                <h3 class="text-3xl font-bold">Revolutionizing Shipping, Simplified</h3>
-                <p class="my-6 text-gray-400 dark:text-gray-600">Discover seamless shipping solutions tailored to your needs at suivi. Our commitment to excellence is reflected in our streamlined shipping process, ensuring your orders reach you swiftly and securely.</p>
-                <a href="{{ url_for('parcel.request_pickup') }}" class="btn btn-primary">REQUEST PICKUP NOW</a>
-            </div>
-            <div class="image-container">
-                <img src="../static/images/feature1.png" alt="Feature 1 Image">
-            </div>
-        </div>
 
-        <!-- Second Section with Image on the Left -->
-        <div class="d-flex align-items-center flex-lg-row-reverse flex-column">
-            <div class="content p-6 flex-grow-1">
-                <h3 class="text-3xl font-bold">Unlock Exclusive Benefits When you join SUIVI as a Rider</h3>
-                <p class="my-6 text-gray-400 dark:text-gray-600">Discover opportunities at suivi. Our commitment to excellence is reflected in our streamlined shipping process by offering you the right working conditions.</p>
-                <a href="{{ url_for('rider.register_rider') }}" class="btn btn-primary">REGISTER AS A RIDER</a>
-            </div>
-            <div class="image-container">
-                <img src="../static/images/feature2.png" alt="Feature 2 Image">
-            </div>
-        </div>
-
-        <!-- Third Section with Image on the Right -->
-        <div class="d-flex align-items-center flex-lg-row flex-column">
-            <div class="content p-6 flex-grow-1">
-                <h3 class="text-3xl font-bold">Easily Track Your Parcel Every Step of the Way</h3>
-                <p class="my-6 text-gray-400 dark:text-gray-600">Stay informed every step of the way with our intuitive parcel tracking feature. Whether you're sending or receiving a package, our platform provides real-time updates to ensure peace of mind. Simply enter your tracking number, and gain instant access to the current status and estimated delivery time of your parcel.</p>
-                <a href="{{ url_for('parcel.track_parcel') }}" class="btn btn-primary">TRACK YOUR PARCEL</a>
-            </div>
-            <div class="image-container">
-                <img src="../static/images/feature3.png" alt="Feature 3 Image">
-            </div>
-        </div>
-        <div class="d-flex align-items-center flex-lg-row-reverse flex-column">
-            <div class="content p-6 flex-grow-1">
-                <h3 class="text-3xl font-bold">Login as a Rider to view assignments and deliver</h3>
-                <p class="my-6 text-gray-400 dark:text-gray-600">Earn with us a Driver or a Rider, Join this winning side and craft the future of Safe, Swift and Secure parcel deliver</p>
-                <a href="{{ url_for('rider.login_rider') }}" class="btn btn-primary">LOGIN AS DRIVER</a>
-            </div>
-            <div class="image-container">
-                <img src="../static/images/feature4.jpg" alt="Feature 4 Image">
-            </div>
-        </div>
+  <section id="policySection" class="policy-section">
+    <div class="policy-content">
+      <button id="closePolicyBtn" class="close-policy-btn">Close</button>
+      <div id="timelyDelivery" class="policy-content-item" style="display: none;">
+        <h2>Timely Delivery Policy</h2>
+        <p>We strive to deliver all Parcels in a timely manner to ensure customer satisfaction...</p>
+      </div>
+      <div id="secureParcelHandling" class="policy-content-item" style="display: none;">
+        <h2>Secure Parcel Handling Policy</h2>
+        <p>We prioritize the safety and security of all parcels entrusted to us...</p>
+      </div>
     </div>
-</section>
+  </section>
 
-{% include 'footer.html' %}
+  <section class="container p-4 lg:p-8 bg-black-800 dark:bg-back-100 text-black-100 dark:text-black-800">
+    <div class="container mx-auto space-y-12">
+      <div class="d-flex align-items-center flex-lg-row flex-column">
+        <div class="content p-6 flex-grow-1">
+          <h3 class="text-white-400 font-bold">Revolutionizing Shipping, Simplified</h3>
+          <p class="my-6 text-gray-400 dark:text-gray-600">Discover seamless shipping solutions tailored to your needs...</p>
+          <a href="{{ url_for('parcel.request_pickup') }}" class="btn btn-primary">REQUEST PICKUP NOW</a>
+        </div>
+        <div class="image-container">
+          <img src="../static/images/feature3.png" alt="Feature 1 Image">
+        </div>
+      </div>
+      <div class="d-flex align-items-center flex-lg-row-reverse flex-column">
+        <div class="content p-6 flex-grow-1">
+          <h3 class="text-3xl font-bold">Unlock Exclusive Benefits When you join SUIVI as a Rider</h3>
+          <p class="my-6 text-gray-400 dark:text-gray-600">Discover opportunities at suivi...</p>
+          <a href="{{ url_for('rider.register_rider') }}" class="btn btn-primary">REGISTER AS A RIDER</a>
+        </div>
+        <div class="image-container">
+          <img src="../static/images/background.jpg" alt="Feature 2 Image">
+        </div>
+      </div>
+      <div class="d-flex align-items-center flex-lg-row flex-column">
+        <div class="content p-6 flex-grow-1">
+          <h3 class="text-3xl font-bold">Easily Track Your Parcel Every Step of the Way</h3>
+          <p class="my-6 text-gray-400 dark:text-gray-600">Stay informed every step of the way with our intuitive parcel tracking feature...</p>
+          <a href="{{ url_for('parcel.track_parcel') }}" class="btn btn-primary">TRACK YOUR PARCEL</a>
+        </div>
+        <div class="image-container">
+          <img src="../static/images/feature1.png" alt="Feature 3 Image">
+        </div>
+      </div>
+      <div class="d-flex align-items-center flex-lg-row-reverse flex-column">
+        <div class="content p-6 flex-grow-1">
+          <h3 class="text-3xl font-bold">Login as a Rider to view assignments and deliver</h3>
+          <p class="my-6 text-gray-400 dark:text-gray-600">If you are a rider, please login to access your assignments...</p>
+          <a href="{{ url_for('rider.login_rider') }}" class="btn btn-primary">LOGIN AS A RIDER</a>
+        </div>
+        <div class="image-container">
+          <img src="../static/images/feature4.jpg" alt="Feature 4 Image">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <button class="open-button" onclick="openForm()">Chat with us</button>
+  <div class="chat-popup" id="chatForm">
+    <form action="post" class="form-container">
+      <h1>Chat with us</h1>
+      <textarea placeholder="Type your message.." name="msg" required></textarea>
+      <button type="submit" class="btn">Send</button>
+      <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    </form>
+  </div>
+
+  {% include 'footer.html' %}
+
+  <script>
+    function openForm() {
+      document.getElementById("chatForm").style.display = "block";
+    }
+
+    function closeForm() {
+      document.getElementById("chatForm").style.display = "none";
+    }
+  </script>
 </body>
 </html>
+
