@@ -113,7 +113,6 @@ def request_pickup():
                 receiver_contact=session['receiver_contact'],
                 pickup_location=session['pickup_location'],
                 delivery_location=session['delivery_location'],
-                description="Testing Parcel"
             )
 
             db.session.add(parcel)
