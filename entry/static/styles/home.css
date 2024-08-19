@@ -454,7 +454,9 @@ footer i {
     flex: 1;
     padding: 20px;
 }
-
+.font-bold  {
+	color: white;
+}
 .image-container {
     width: 500px;
     height: 300px;

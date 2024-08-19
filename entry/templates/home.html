@@ -37,7 +37,7 @@
     <div class="container mx-auto space-y-12">
       <div class="d-flex align-items-center flex-lg-row flex-column">
         <div class="d-shape">
-          <img src="../static/images/background.jpg" alt="Your Image">
+          <img src="../static/images/feature2.png"" alt="Your Image">
         </div>
         <div class="content p-6 flex-grow-1">
           <h3 class="text-3xl font-bold">Welcome to suivi</h3>
@@ -66,12 +66,12 @@
     <div class="container mx-auto space-y-12">
       <div class="d-flex align-items-center flex-lg-row flex-column">
         <div class="content p-6 flex-grow-1">
-          <h3 class="text-3xl font-bold">Revolutionizing Shipping, Simplified</h3>
+          <h3 class="text-white-400 font-bold">Revolutionizing Shipping, Simplified</h3>
           <p class="my-6 text-gray-400 dark:text-gray-600">Discover seamless shipping solutions tailored to your needs...</p>
           <a href="{{ url_for('parcel.request_pickup') }}" class="btn btn-primary">REQUEST PICKUP NOW</a>
         </div>
         <div class="image-container">
-          <img src="../static/images/feature1.png" alt="Feature 1 Image">
+          <img src="../static/images/feature3.png" alt="Feature 1 Image">
         </div>
       </div>
       <div class="d-flex align-items-center flex-lg-row-reverse flex-column">
@@ -81,7 +81,7 @@
           <a href="{{ url_for('rider.register_rider') }}" class="btn btn-primary">REGISTER AS A RIDER</a>
         </div>
         <div class="image-container">
-          <img src="../static/images/feature2.png" alt="Feature 2 Image">
+          <img src="../static/images/background.jpg" alt="Feature 2 Image">
         </div>
       </div>
       <div class="d-flex align-items-center flex-lg-row flex-column">
@@ -91,7 +91,7 @@
           <a href="{{ url_for('parcel.track_parcel') }}" class="btn btn-primary">TRACK YOUR PARCEL</a>
         </div>
         <div class="image-container">
-          <img src="../static/images/feature3.png" alt="Feature 3 Image">
+          <img src="../static/images/feature1.png" alt="Feature 3 Image">
         </div>
       </div>
       <div class="d-flex align-items-center flex-lg-row-reverse flex-column">
@@ -107,10 +107,10 @@
     </div>
   </section>
 
-  <button class="open-button" onclick="openForm()">Chat</button>
+  <button class="open-button" onclick="openForm()">Chat with us</button>
   <div class="chat-popup" id="chatForm">
-    <form action="#" class="form-container">
-      <h1>Chat</h1>
+    <form action="post" class="form-container">
+      <h1>Chat with us</h1>
       <textarea placeholder="Type your message.." name="msg" required></textarea>
       <button type="submit" class="btn">Send</button>
       <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
