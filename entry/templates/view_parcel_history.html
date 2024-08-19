@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parcel Sending History</title>
+    <title>Parcel Dispatching History</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/view_parcel_history.css') }}">
   <link rel="icon" href="../static/images/favicon.ico" type="image/x-icon">
@@ -25,7 +25,7 @@
 	{% include 'header.html' %}
 {% if current_user.is_authenticated %}
 <div class="container">
-    <h1>Your Parcel History</h1>
+    <h1>Your Parcel Dispatching History</h1>
     
     <h5>Allocated Parcels</h5>
     {% if allocated_parcels %}
@@ -42,7 +42,6 @@
                     <p><strong>Receiver Contact:</strong> {{ parcel.receiver_contact }}</p>
                     <p><strong>Pickup Location:</strong> {{ parcel.pickup_location }}</p>
                     <p><strong>Delivery Location:</strong> {{ parcel.delivery_location }}</p>
-                    <p><strong>Description:</strong> {{ parcel.description }}</p>
 		</div>
             </div>
         {% endfor %}
@@ -65,7 +64,6 @@
                     <p><strong>Receiver Contact:</strong> {{ parcel.receiver_contact }}</p>
                     <p><strong>Pickup Location:</strong> {{ parcel.pickup_location }}</p>
                     <p><strong>Delivery Location:</strong> {{ parcel.delivery_location }}</p>
-                    <p><strong>Description:</strong> {{ parcel.description }}</p>
 		</div>
             </div>
         {% endfor %}
@@ -88,7 +86,6 @@
                     <p><strong>Receiver Contact:</strong> {{ parcel.receiver_contact }}</p>
                     <p><strong>Pickup Location:</strong> {{ parcel.pickup_location }}</p>
                     <p><strong>Delivery Location:</strong> {{ parcel.delivery_location }}</p>
-                    <p><strong>Description:</strong> {{ parcel.description }}</p>
 		</div>
             </div>
         {% endfor %}
@@ -111,7 +108,6 @@
                     <p><strong>Receiver Contact:</strong> {{ parcel.receiver_contact }}</p>
                     <p><strong>Pickup Location:</strong> {{ parcel.pickup_location }}</p>
                     <p><strong>Delivery Location:</strong> {{ parcel.delivery_location }}</p>
-                    <p><strong>Description:</strong> {{ parcel.description }}</p>
 		</div>
             </div>
         {% endfor %}
@@ -122,7 +118,7 @@
 </div>
 {% else %}
 <div class="container">
-    <h1>Parcel Sending History</h1>
+    <h1>Parcel Allocation History</h1>
     <p>Please log in to view your parcel history.</p>
 </div>
 {% endif %}

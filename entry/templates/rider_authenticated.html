@@ -79,7 +79,7 @@
       <div class="nav_list" id="sidebar">
         <a href="#" class="nav_link active"><i class='bx bx-grid-alt nav_icon'></i><span class="nav_name">Dashboard</span></a>
         <a href="{{ url_for('rider.edit_rider_profile') }}" class="nav_link"><i class='bx bx-user nav_icon'></i><span class="nav_name">Edit Profile</span></a>
-        <a href="{{ url_for('parcel.view_parcel_history') }}" class="nav_link"><i class='bx bx-bar-chart-alt-2 nav_icon'></i><span class="nav_name">My History</span></a>
+        <a href="{{ url_for('parcel.view_rider_history') }}" class="nav_link"><i class='bx bx-bar-chart-alt-2 nav_icon'></i><span class="nav_name">My History</span></a>
         <a href="{{ url_for('main.support') }}" class="nav_link"><i class='bx bx-folder nav_icon'></i><span class="nav_name">Support</span></a>
         <a href="{{ url_for('main.logout') }}" class="nav_link"><i class='bx bx-log-out nav_icon'></i><span class="nav_name">Sign Out</span></a>
       </div>
@@ -250,25 +250,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Function to update rider location in the database
-  function updateRiderLocation(locationName) {
-    fetch(`/update_rider_location/{{ current_user.id }}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        location: locationName
-      })
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log("Rider location updated:", data);
-    })
-    .catch(error => console.error('Error updating rider location:', error));
-  }
+  // Send live location update to backend
+        fetch('/update_location', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                rider_id: "{{ current_user.id }}", // Replace with actual rider ID
+                current_location: `${lat},${lng}`
+            })
+        })
+        .then(response => response.json())
+        .then(data => console.log('Location update response:', data))
+        .catch(error => console.error('Error updating location:', error));
 
-  });
+});
+
 
 // Get the checkbox and the label
 const checkbox = document.getElementById('checkbox');
