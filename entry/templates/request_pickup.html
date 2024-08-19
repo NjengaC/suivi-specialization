@@ -112,65 +112,102 @@
     </form>
 </div>
 {% include 'footer.html' %}
-<script>
-        var map = L.map('map').setView([0, 0], 2); // Initialize map
 
-        // Add OpenStreetMap tiles
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var map = L.map('map').setView([-1.286389, 36.817223], 13);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
-        function trackParcel() {
-            var trackingNumber = document.getElementById('tracking_number').value;
-            fetch(`/get_parcel_status?tracking_number=${trackingNumber}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        alert(data.error);
-                        return;
-                    }
+        // Coordinates for pickup and delivery locations
+        var pickupCoords = L.latLng({{ session.get('pickup_coords')['lat'] }}, {{ session.get('pickup_coords')['lng'] }});
+        var deliveryCoords = L.latLng({{ session.get('delivery_coords')['lat'] }}, {{ session.get('delivery_coords')['lng'] }});
 
-                    // Get pickup and delivery locations
-                    var pickupLocation = data.pickup_location;
-                    var deliveryLocation = data.delivery_location;
+        // Add markers for pickup and delivery locations
+        var pickupMarker = L.marker(pickupCoords).addTo(map).bindPopup('Pickup Location').openPopup();
+        var deliveryMarker = L.marker(deliveryCoords).addTo(map).bindPopup('Delivery Location').openPopup();
 
-                    // Fetch coordinates
-                    fetch(`/get_coordinates`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            pickup_location: pickupLocation,
-                            delivery_location: deliveryLocation
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(coordData => {
-                        if (coordData.error) {
-                            alert(coordData.error);
-                            return;
+        // Add circles around the pickup and delivery locations
+        var pickupCircle = L.circle(pickupCoords, {
+            color: 'blue',
+            fillColor: '#30f',
+            fillOpacity: 0.5,
+            radius: 500 // Adjust the radius as needed
+        }).addTo(map);
+
+        var deliveryCircle = L.circle(deliveryCoords, {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 500 // Adjust the radius as needed
+        }).addTo(map);
+
+        // Add a route between the pickup and delivery locations
+        L.Routing.control({
+            waypoints: [
+                pickupCoords,
+                deliveryCoords
+            ],
+            routeWhileDragging: true
+        }).addTo(map);
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('currentLocation').addEventListener('click', function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+
+                    // Reverse Geocoding using Nominatim API to get the address
+                    var geocodeUrl = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`;
+
+                    $.getJSON(geocodeUrl, function(data) {
+                        if (data && data.address) {
+                            var address = data.display_name; // Get the formatted address
+
+                            // Autofill the pickup location form field with the resolved address
+                            var pickupLocationInput = document.getElementById("pickup_location");
+                            pickupLocationInput.value = address;
+
+                            // Create hidden form elements to store the current coordinates
+                            var form = document.getElementById('parcelForm');
+                            var hiddenLat = document.createElement("input");
+                            hiddenLat.setAttribute("type", "hidden");
+                            hiddenLat.setAttribute("name", "current_lat");
+                            hiddenLat.setAttribute("value", latitude);
+                            form.appendChild(hiddenLat);
+
+                            var hiddenLng = document.createElement("input");
+                            hiddenLng.setAttribute("type", "hidden");
+                            hiddenLng.setAttribute("name", "current_lng");
+                            hiddenLng.setAttribute("value", longitude);
+                            form.appendChild(hiddenLng);
+
+                            // Automatically submit the form after the location is autofilled
+                            form.submit();
+                        } else {
+                            alert("Unable to resolve the location to an address. Please enter your pickup location manually.");
                         }
+                    }).fail(function() {
+                        alert("Error fetching the location. Please enter your pickup location manually.");
+                    });
 
-                        // Set map view to encompass both pickup and delivery locations
-                        var pickupCoords = [coordData.pickup_lat, coordData.pickup_lng];
-                        var deliveryCoords = [coordData.delivery_lat, coordData.delivery_lng];
+                }, function(error) {
+                    console.error("Error fetching location: " + error.message);
+                    alert("Unable to retrieve your location. Please enter your pickup location manually.");
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        });
+    });
+</script>
 
-                        var bounds = L.latLngBounds([pickupCoords, deliveryCoords]);
-                        map.fitBounds(bounds);
 
-                        // Add markers for pickup and delivery locations
-                        L.marker(pickupCoords).addTo(map)
-                            .bindPopup(`<b>Pickup Location</b><br>${pickupLocation}`).openPopup();
-
-                        L.marker(deliveryCoords).addTo(map)
-                            .bindPopup(`<b>Delivery Location</b><br>${deliveryLocation}`).openPopup();
-                    })
-                    .catch(error => console.error('Error fetching coordinates:', error));
-                })
-                .catch(error => console.error('Error fetching parcel status:', error));
-        }
-    </script>
 <script>
     $(document).ready(function() {
         $('#submit-button').on('click', function(event) {
