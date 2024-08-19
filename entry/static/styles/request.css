@@ -9,6 +9,9 @@ body {
     padding: 0;
 }
 
+a {
+	margin-top: 20px;
+}
 /* Sidebar styles */
 .sidenav, .l-navbar {
     height: 100%;
@@ -116,39 +119,36 @@ body {
     padding: 5% 2%;
     margin: auto;
     border-radius: 8px;
+    background-color: black;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: grey;
     text-align: center;
 }
 
 form {
-    width: 100%;
+    width: auto;
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     margin: 50px auto;
+    margin-top: 20px;
+}
 
-    > * {
-        margin-top: 20px;
-    }
+input {
+	width: 100%;
+	min-height: 25px;
+	border: 0;
+	font-size: 1rem;
+	letter-spacing: .15rem;
+	color: #8e2807;
+	border-radius: 4px;
+}
 
-    input {
-        width: 100%;
-        min-height: 25px;
-        border: 0;
-        font-size: 1rem;
-        letter-spacing: .15rem;
-        color: #8e2807;
-        border-radius: 4px;
-    }
-
-    label {
-        text-transform: uppercase;
-        font-size: 12px;
-        letter-spacing: 2px;
-        color: #8e2807;
-    }
+label {
+	text-transform: uppercase;
+	font-size: 12px;
+	letter-spacing: 2px;
+	color: #8e2807;
 }
 
 /* Button styles */
@@ -367,41 +367,15 @@ h1 {
     }
 }
 
-/* Additional content and company list styles */
-.additional-content {
-    background-color: lightgrey;
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 10px;
-}
 
-#company-list {
-    list-style-type: none;
-    padding: 0;
+.thank-you-message {
+	background-color: #d4edda;
+	color: #155724;
+	border: 1px solid #c3e6cb;
+	padding: 15px;
+	margin-bottom: 20px;
+	border-radius: 5px;
+	text-align: center;
+	font-weight: bold;
+        font-size: 25px;
 }
-
-#company-list li {
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-    transition: background-color 0.3s;
-}
-
-#company-list li:hover {
-    background-color: #f0f0f0;
-    cursor: pointer;
-}
-
-#companies {
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    border: 2px solid;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    padding: 10px 20px;
-    background-color: lightblue;
-    color: white;
-    border-radius: 10px;
-    cursor: pointer;
-    margin: 10px;
-}
-
