@@ -191,23 +191,6 @@ def allocate_parcel(parcel):
         return closest_rider
     else:
         return None
-@parcel.route('/charge', methods=['POST'])
-def charge(parcel):
-    amount = calculate_distance(parcel.pickup_location, parcel.delivery_location)
-
-    customer = stripe.Customer.create(
-        email= current_user.email,
-        source=request.form['stripeToken']
-    )
-
-    charge = stripe.Charge.create(
-        customer=customer.id,
-        amount=amount,
-        currency='usd',
-        description='Suivi Payment'
-    )
-
-    return jsonify({'success': True})
 
 
 def start_scheduler():

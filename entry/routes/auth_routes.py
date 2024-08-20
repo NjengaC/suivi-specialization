@@ -62,10 +62,12 @@ def edit_profile():
     form = UpdateAccountForm()
     if request.method == 'GET':
         form.email.data = current_user.email
+        form.user_contact.data = current_user.user_contact
         form.username.data = current_user.username
     elif request.method == 'POST':
         if form.validate_on_submit():
             current_user.email = form.email.data
+            current_user.user_contact = form.user_contact.data
             current_user.username = form.username.data
             hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
             current_user.password = hashed_password

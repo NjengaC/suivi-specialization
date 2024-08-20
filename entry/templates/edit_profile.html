@@ -24,6 +24,13 @@
                     {% endfor %}
                 </div>
                 <div class="form-group">
+                    {{ form.user_contact.label(class="form-control-label") }}
+                    {{ form.user_contact(class="form-control form-control-lg") }}
+                    {% for error in form.user_contact.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
                     {{ form.email.label(class="form-control-label") }}
                     {{ form.email(class="form-control form-control-lg") }}
                     {% for error in form.email.errors %}

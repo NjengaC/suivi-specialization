@@ -34,6 +34,24 @@ def checkout():
     return render_template('checkout.html',key=stripe_keys['publishable_key'])
 
 
+@payment.route('/charge', methods=['POST'])
+def charge():
+    amount = 1000  # Amount in cents
+
+    customer = stripe.Customer.create(
+        email='customer@example.com',
+        source=request.form['stripeToken']
+    )
+
+    charge = stripe.Charge.create(
+        customer=customer.id,
+        amount=amount,
+        currency='usd',
+        description='Flask Charge'
+    )
+
+    return jsonify({'success': True})
+
 
 def send_payment_notification_email():
     msg = Message('New Payment Received', recipients=['victorcyrus01@gmai.com'])
