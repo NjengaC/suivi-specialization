@@ -65,6 +65,7 @@ class Parcel(db.Model):
     receiver_contact = db.Column(db.String(20))
     pickup_location = db.Column(db.String(255), nullable=False)
     delivery_location = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.String(400), nullable=True)
     rider_id = db.Column(db.String(36), db.ForeignKey('rider.id'), nullable=True)
     status = db.Column(db.String(20), default='pending')
     expected_arrival = db.Column(db.String(50))
