@@ -24,6 +24,9 @@ class LoginForm(FlaskForm):
 class UpdateAccountForm(FlaskForm):
     username = StringField('Username',
                            validators=[DataRequired(), Length(min=2, max=20)])
+    user_contact = StringField('Contact Number', validators=[DataRequired(),
+                                 Regexp(r'^[0-9]{10}$',
+                                 message='Please enter a valid 10-digit phone number')])
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
