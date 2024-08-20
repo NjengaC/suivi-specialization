@@ -1,1 +1,1 @@
-web: python3 run.py
+web: gunicorn -w 4 -b 0.0.0.0:8000 entry:app
