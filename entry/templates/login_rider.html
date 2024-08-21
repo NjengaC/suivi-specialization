@@ -3,32 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>suivi Rider Login Form</title>	
-    <link rel="stylesheet" href="../static/styles/login.css"> <!-- Link to the CSS file -->
-    <link rel="stylesheet" href="../static/styles/loginrider.css"> <!-- Link to the CSS file -->
+    <title>suivi Rider Login Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/login.css') }}"> <!-- Corrected CSS file path -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/loginrider.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/headfoot.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
 </head>
 <body id="grad1">
-	{% include 'header.html' %}
-	<div class="row justify-content-center">
-	    {% with messages = get_flashed_messages(with_categories=true) %}
-	    {% if messages %}
-	    {% for category, message in messages %}
-	    <div class="alert alert-{{ category }}">
-		    {{ message }}
-	    </div>
-	    {% endfor %}
-	    {% endif %}
-	    {% endwith %}
-
-    </div>
+        {% include 'header.html' %}
+        <div class="row justify-content-center">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+                    {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
     <!-- Login Form Section -->
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="content-section">
-                    <form method="POST" action="">
+                    <form method="POST" action="{{ url_for('rider.login_rider') }}">
                         {{ form.hidden_tag() }}
                         <fieldset class="form-group">
                             <legend class="border-bottom mb-4">Login as a Rider</legend>
@@ -50,23 +49,21 @@
                         <div class="form-group">
                             {{ form.submit(class="btn btn-outline-info") }}
                         </div>
-			 <div class="form-group">
-                        <small class="text-muted ml-2">
-				<a href="{{ url_for('password.forgot_password') }}">Forgot Password?</a><br>
-                            <a href="{{ url_for('rider.register_rider') }}">Register Instead</a>
-                        </small>
-                    </div>
+                         <div class="form-group">
+                            <small class="text-muted ml-2">
+                                <a href="{{ url_for('password.forgot_password') }}">Forgot Password?</a><br>
+                                <a href="{{ url_for('rider.register_rider') }}">Register Instead</a>
+                            </small>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
     {% include 'footer.html' %}
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="static/scripts/home.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> <!-- Popper.js -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> <!-- Bootstrap JS -->
-</footer>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> <!-- Bootstrap JS -->
+    <script src="{{ url_for('static', filename='scripts/home.js') }}"></script> <!-- Corrected script path -->
 </body>
 </html>
