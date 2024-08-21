@@ -1,212 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About suivi - Parcel Delivery Redefined</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-0evSX huddled7lwJEuBf/brwfwX+zKCmWQjUOPwjWypRDjgoaE2vuz9q7u7IGvgyPk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-0evSXhuddled7lwJEuBf/brwfwX+zKCmWQjUOPwjWypRDjgoaE2vuz9q7u7IGvgyPk" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/sidebar.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="../static/styles/about1.css">
-
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/headfoot.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  </head>
-  <body>
+</head>
+<body>
     {% include 'header.html' %}
 
-    <div class="top-image">
-        <img src="{{ url_for('static', filename='images/delivery3.jpg') }}" alt="Delivery Image 3" class="img-fluid w-100">
-    </div>
-
-<div class="container py-5">
-    <div class="side-by-side-section row">
-        <div class="why-choose-suivi col-md-6">
-            <h2>Why Choose suivi?</h2>
-            <p>Fueled by innovation and a passion for streamlined logistics, suivi is more than just a delivery company. We're a comprehensive solution for all your parcel shipping needs. Here's what sets us apart:</p>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <i class="fas fa-rocket text-primary me-2"></i> Fast & Secure Delivery: Experience unparalleled speed and reliability with our optimized routes and robust security measures.
-                </li>
-                <li class="list-group-item">
-                    <i class="fas fa-eye text-primary me-2"></i> Real-time Parcel Tracking: Never be left wondering. Track your parcels in real-time with our user-friendly app, providing complete peace of mind.
-                </li>
-                <li class="list-group-item">
-                    <i class="fas fa-shield-alt text-primary me-2"></i> Secure Parcel Handling: From pickup to delivery, your parcels are in the safest hands. We prioritize secure storage and meticulous handling procedures.
-                </li>
-                <li class="list-group-item">
-                    <i class="fas fa-clock text-primary me-2"></i> Timely Delivery: We understand the importance of deadlines. Our dedicated drivers ensure your parcels reach their destinations on time, every time.
-                </li>
-            </ul>
-        </div>
-        <div class="col-md-6">
-            <img src="{{ url_for('static', filename='images/delivery2.jpg') }}" alt="Delivery Image 2" class="img-fluid w-100">
-        </div>
-    </div>
-
-    <div class="side-by-side-section row mt-4">
-        <div class="col-md-6 order-md-2">
-            <div class="become-rider">
-                <h2>Become a suivi Rider</h2>
-                <p>Are you passionate about efficient deliveries and providing exceptional customer service? Join our team of reliable riders and build a rewarding career with suivi. Here's what you can expect:</p>
+    <div class="container py-5">
+        <div class="side-by-side-section row">
+            <div class="why-choose-suivi col-md-6">
+                <h2>Why Choose suivi?</h2>
+                <p>Fueled by innovation and a passion for streamlined logistics, suivi is more than just a delivery company. We're a comprehensive solution for all your parcel shipping needs. Here's what sets us apart:</p>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                        <i class="fas fa-calendar-check text-primary me-2"></i> Flexible Scheduling: Craft a work schedule that fits your lifestyle. Choose the hours you want to work and maximize your earning potential.
+                        <i class="fas fa-rocket text-primary me-2"></i> Fast & Secure Delivery: Experience unparalleled speed and reliability with our optimized routes and robust security measures.
                     </li>
                     <li class="list-group-item">
-                        <i class="fas fa-map-marker-alt text-primary me-2"></i> Optimized Routes: We prioritize your efficiency. Our app provides optimized delivery routes, saving you time and maximizing your earnings.
+                        <i class="fas fa-eye text-primary me-2"></i> Real-time Parcel Tracking: Never be left wondering. Track your parcels in real-time with our user-friendly app, providing complete peace of mind.
                     </li>
                     <li class="list-group-item">
-                        <i class="fas fa-handshake text-primary me-2"></i> Competitive Earnings: Earn competitive compensation for each delivery. With our clear pay structure, you'll always know what you're working for.
+                        <i class="fas fa-shield-alt text-primary me-2"></i> Secure Parcel Handling: From pickup to delivery, your parcels are in the safest hands. We prioritize secure storage and meticulous handling procedures.
                     </li>
                     <li class="list-group-item">
-                        <i class="fas fa-headset text-primary me-2"></i> Supportive Community: Become part of a team of dedicated riders who support each other. We offer ongoing training and resources to help you succeed.
+                        <i class="fas fa-clock text-primary me-2"></i> Timely Delivery: We understand the importance of deadlines. Our dedicated drivers ensure your parcels reach their destinations on time, every time.
                     </li>
                 </ul>
-                <a href="{{ url_for('rider.register_rider') }}" class="btn btn-primary">Join the suivi Team</a>
+            </div>
+            <div class="col-md-6">
+                <img src="{{ url_for('static', filename='images/delivery2.jpg') }}" alt="Delivery Image 2" class="img-fluid w-100">
             </div>
         </div>
-        <div class="col-md-6">
-            <img src="{{ url_for('static', filename='images/delivery1.png') }}" alt="Delivery Image 1" class="img-fluid w-100">
+
+        <div class="side-by-side-section row mt-4">
+            <div class="col-md-6 order-md-2">
+                <div class="become-rider">
+                    <h2>Become a suivi Rider</h2>
+                    <p>Are you passionate about efficient deliveries and providing exceptional customer service? Join our team of reliable riders and build a rewarding career with suivi. Here's what you can expect:</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <i class="fas fa-calendar-check text-primary me-2"></i> Flexible Scheduling: Craft a work schedule that fits your lifestyle. Choose the hours you want to work and maximize your earning potential.
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-map-marker-alt text-primary me-2"></i> Optimized Routes: We prioritize your efficiency. Our app provides optimized delivery routes, saving you time and maximizing your earnings.
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-handshake text-primary me-2"></i> Competitive Earnings: Earn competitive compensation for each delivery. With our clear pay structure, you'll always know what you're working for.
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-headset text-primary me-2"></i> Supportive Community: Become part of a team of dedicated riders who support each other. We offer ongoing training and resources to help you succeed.
+                        </li>
+                    </ul>
+                    <a href="{{ url_for('rider.register_rider') }}" class="btn btn-primary">Join the suivi Team</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img src="{{ url_for('static', filename='images/delivery1.png') }}" alt="Delivery Image 1" class="img-fluid w-100">
+            </div>
         </div>
     </div>
-</div>
 
-      <!-- Our Technology Section -->
-      <section class="our-technology row text-center">
+    <!-- Our Technology Section -->
+    <section class="our-technology row text-center">
         <div class="col">
-          <h2>Our Technology</h2>
-          <p>suivi leverages cutting-edge technology to streamline the delivery process. Our user-friendly app empowers both senders and riders with real-time tracking, optimized routes, and seamless communication.</p>
+            <h2>Our Technology</h2>
+            <p>suivi leverages cutting-edge technology to streamline the delivery process. Our user-friendly app empowers both senders and riders with real-time tracking, optimized routes, and seamless communication.</p>
         </div>
-      </section>
+    </section>
 
-      <!-- Testimonials Section -->
-      <section class="testimonial row">
+    <!-- Testimonials Section -->
+    <section class="testimonial row">
         <div class="col-md-4 mb-4">
-          <img src="../static/images/image1.jpg" alt="Image 1" class="img-fluid rounded-circle mx-auto d-block">
-          <h4 class="text-center py-2">Happy Customers</h4>
-          <p class="text-center">"suivi made shipping my packages a breeze. Their fast and reliable service gives me complete peace of mind."</p>
-          <p class="text-center">- Yvonne Gichovi</p>
+            <img src="../static/images/image1.jpg" alt="Image 1" class="img-fluid rounded-circle mx-auto d-block">
+            <h4 class="text-center py-2">Happy Customers</h4>
+            <p class="text-center">"suivi made shipping my packages a breeze. Their fast and reliable service gives me complete peace of mind."</p>
+            <p class="text-center">- Yvonne Gichovi</p>
         </div>
         <div class="col-md-4 mb-4">
-          <img src="../static/images/image2.jpg" alt="Image 2" class="img-fluid rounded-circle mx-auto d-block">
-          <h4 class="text-center py-2">Dedicated Riders</h4>
-          <p class="text-center">"Working with suivi has been a rewarding experience. The flexible schedule allows me to control my workload, and the support from the team is fantastic."</p>
-          <p class="text-center">- Victo Njenga</p>
+            <img src="../static/images/image2.jpg" alt="Image 2" class="img-fluid rounded-circle mx-auto d-block">
+            <h4 class="text-center py-2">Dedicated Riders</h4>
+            <p class="text-center">"Working with suivi has been a rewarding experience. The flexible schedule allows me to control my workload, and the support from the team is fantastic."</p>
+            <p class="text-center">- Victo Njenga</p>
         </div>
         <div class="col-md-4 mb-4">
-          <img src="../static/images/fast.jpeg" alt="image 3" class="img-fluid rounded-circle mx-auto d-block">
-          <h4 class="text-center py-2">Growing Network</h4>
-          <p class="text-center">"suivi's commitment to innovation is impressive. Their ever-expanding network ensures they can deliver anywhere, anytime."</p>
-          <p class="text-center">- Kay Macharia</p>
+            <img src="../static/images/fast.jpeg" alt="image 3" class="img-fluid rounded-circle mx-auto d-block">
+            <h4 class="text-center py-2">Growing Network</h4>
+            <p class="text-center">"suivi's commitment to innovation is impressive. Their ever-expanding network ensures they can deliver anywhere, anytime."</p>
+            <p class="text-center">- Kay Macharia</p>
         </div>
-      </section>
-      <section class="py-6 dark:bg-gray-100 dark:text-gray-800">
+    </section>
+
+    <section class="py-6 dark:bg-gray-100 dark:text-gray-800">
         <div class="container flex flex-col items-center justify-center p-4 mx-auto sm:p-10">
-          <p class="p-2 text-sm font-medium tracking-wider text-center uppercase">Development team</p>
-          <h1 class="text-4xl font-bold leading-none text-center sm:text-5xl">The talented people behind the scenes</h1>
-          <div class="flex flex-row flex-wrap-reverse justify-center mt-8">
-            <div class="flex flex-col justify-center w-full px-8 mx-6 my-12 text-center rounded-md md:w-96 lg:w-80 xl:w-64 dark:bg-gray-800 dark:text-gray-100">
-              <img alt="" class="self-center flex-shrink-0 w-24 h-24 -mt-12 bg-center bg-cover rounded-full dark:bg-gray-500" src="">
-              <div class="flex-1 my-4">
-                <p class="text-xl font-semibold leading-snug">Yvonne Gichovi</p>
-                <p>Database Maestro</p>
-              </div>
-              <div class="flex items-center justify-center p-3 space-x-3 border-t-2">
-                <a rel="noopener noreferrer" href="#" title="Email" class="dark:text-gray-50 hover:dark:text-yellow-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-                  </svg>
-                </a>
-                <a rel="noopener noreferrer" href="https://x.com/Ms_gichovi?t=lVGi6pCWSRPE025JzcTIiQ&s=09" title="Twitter" class="dark:text-gray-50 hover:dark:text-yellow-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" fill="currentColor" class="w-5 h-5">
-                    <path d="M 50.0625 10.4375 C 48.214844 11.257813 46.234375 11.808594 44.152344 12.058594 C 46.277344 10.785156 47.910156 8.769531 48.675781 6.371094 C 46.691406 7.546875 44.484375 8.402344 42.144531 8.863281 C 40.269531 6.863281 37.597656 5.617188 34.640625 5.617188 C 28.960938 5.617188 24.355469 10.21875 24.355469 15.898438 C 24.355469 16.703125 24.449219 17.488281 24.625 18.242188 C 16.078125 17.8125 8.503906 13.71875 3.429688 7.496094 C 2.542969 9.019531 2.039063 10.785156 2.039063 12.667969 C 2.039063 16.234375 3.851563 19.382813 6.613281 21.230469 C 4.925781 21.175781 3.339844 20.710938 1.953125 19.941406 C 1.953125 19.984375 1.953125 20.027344 1.953125 20.070313 C 1.953125 25.054688 5.5 29.207031 10.199219 30.15625 C 9.339844 30.390625 8.429688 30.515625 7.492188 30.515625 C 6.828125 30.515625 6.183594 30.453125 5.554688 30.328125 C 6.867188 34.410156 10.664063 37.390625 15.160156 37.472656 C 11.644531 40.230469 7.210938 41.871094 2.390625 41.871094 C 1.558594 41.871094 0.742188 41.824219 -0.0585938 41.726563 C 4.488281 44.648438 9.894531 46.347656 15.703125 46.347656 C 34.617188 46.347656 44.960938 30.679688 44.960938 17.09375 C 44.960938 16.648438 44.949219 16.199219 44.933594 15.761719 C 46.941406 14.3125 48.683594 12.5 50.0625 10.4375 Z"></path>
-                  </svg>
-                </a>
-                <a rel="noopener noreferrer" href="https://www.linkedin.com/in/yvonne-gichovi-2b0753223?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" title="LinkedIn" class="dark:text-gray-50 hover:dark:text-yellow-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 32 32" class="w-5 h-5">
-                    <path d="M8.268 28h-5.805v-18.694h5.805zM5.362 6.756c-1.856 0-3.362-1.538-3.362-3.394s1.505-3.362 3.362-3.362 3.362 1.505 3.362 3.362c0 1.856-1.506 3.394-3.362 3.394zM29.994 28h-5.792v-9.1c0-2.169-0.044-4.95-3.018-4.95-3.018 0-3.481 2.356-3.481 4.794v9.256h-5.799v-18.694h5.567v2.55h0.081c0.775-1.469 2.668-3.019 5.492-3.019 5.875 0 6.955 3.869 6.955 8.894v10.269z"></path>
-                  </svg>
-                </a>
-                <a rel="noopener noreferrer" href="https://github.com/yvonnegichovi" title="GitHub" class="dark:text-gray-50 hover:dark:text-yellow-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 32 32" class="w-5 h-5">
-                    <path d="M16 0.396c-8.839 0-16 7.167-16 16 0 7.073 4.584 13.068 10.937 15.183 0.803 0.151 1.093-0.344 1.093-0.772 0-0.38-0.009-1.385-0.015-2.719-4.453 0.964-5.391-2.151-5.391-2.151-0.729-1.844-1.781-2.339-1.781-2.339-1.448-0.989 0.115-0.968 0.115-0.968 1.604 0.109 2.448 1.645 2.448 1.645 1.427 2.448 3.744 1.74 4.661 1.328 0.14-1.031 0.557-1.74 1.011-2.135-3.552-0.401-7.287-1.776-7.287-7.907 0-1.751 0.62-3.177 1.645-4.297-0.177-0.401-0.719-2.031 0.141-4.235 0 0 1.339-0.427 4.4 1.641 1.281-0.355 2.641-0.532 4-0.541 1.36 0.009 2.719 0.187 4 0.541 3.043-2.068 4.381-1.641 4.381-1.641 0.859 2.204 0.317 3.833 0.161 4.235 1.015 1.12 1.635 2.547 1.635 4.297 0 6.145-3.74 7.5-7.296 7.891 0.556 0.479 1.077 1.464 1.077 2.959 0 2.14-0.020 3.864-0.020 4.385 0 0.416 0.28 0.916 1.104 0.755 6.4-2.093 10.979-8.093 10.979-15.156 0-8.833-7.161-16-16-16z"></path>
-                  </svg>
-                </a>
-              </div>
+            <p class="p-2 text-sm font-medium tracking-wider text-center uppercase">Development team</p>
+            <h1 class="text-4xl font-bold leading-none text-center sm:text-5xl">The talented people behind the scenes</h1>
+            <div class="flex flex-row flex-wrap-reverse justify-center mt-8">
+                <div class="flex flex-col justify-center w-full px-8 mx-6 my-12 text-center">
+                    <img alt="" class="self-center flex-shrink-0 w-24 h-24 -mt-12 bg-center bg-cover rounded-full dark:bg-gray-500" src="">
+                    <div class="flex-1 my-4">
+                        <p class="text-xl font-semibold leading-snug">Yvonne Gichovi</p>
+                        <p>Database Maestro</p>
+                    </div>
+                    <div class="flex items-center justify-center p-3 space-x-3 border-t-2">
+                        <a rel="noopener noreferrer" href="#" title="Email" class="dark:text-gray-50 hover:dark:text-yellow-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                                <path d="M18 8.118l-8 4-8-4v8a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center w-full px-8 mx-6 my-12 text-center">
+                    <img alt="" class="self-center flex-shrink-0 w-24 h-24 -mt-12 bg-center bg-cover rounded-full dark:bg-gray-500" src="">
+                    <div class="flex-1 my-4">
+                        <p class="text-xl font-semibold leading-snug">Kay Macharia</p>
+                        <p>UI/UX Designer</p>
+                    </div>
+                    <div class="flex items-center justify-center p-3 space-x-3 border-t-2">
+                        <a rel="noopener noreferrer" href="#" title="Email" class="dark:text-gray-50 hover:dark:text-yellow-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                                <path d="M18 8.118l-8 4-8-4v8a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center w-full px-8 mx-6 my-12 text-center">
+                    <img alt="" class="self-center flex-shrink-0 w-24 h-24 -mt-12 bg-center bg-cover rounded-full dark:bg-gray-500" src="">
+                    <div class="flex-1 my-4">
+                        <p class="text-xl font-semibold leading-snug">Victo Njenga</p>
+                        <p>Backend Engineer</p>
+                    </div>
+                    <div class="flex items-center justify-center p-3 space-x-3 border-t-2">
+                        <a rel="noopener noreferrer" href="#" title="Email" class="dark:text-gray-50 hover:dark:text-yellow-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                                <path d="M18 8.118l-8 4-8-4v8a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="flex flex-col justify-center w-full px-8 mx-6 my-12 text-center rounded-md md:w-96 lg:w-80 xl:w-64 dark:bg-gray-800 dark:text-gray-100">
-              <img alt="" class="self-center flex-shrink-0 w-24 h-24 -mt-12 bg-center bg-cover rounded-full dark:bg-gray-500" src="https://source.unsplash.com/100x100/?portrait?1">
-              <div class="flex-1 my-4">
-                <p class="text-xl font-semibold leading-snug">Cyrus Victor</p>
-                <p>Server Sorcerer</p>
-              </div>
-              <div class="flex items-center justify-center p-3 space-x-3 border-t-2">
-                <a rel="noopener noreferrer" href="" title="Email" class="dark:text-gray-50 hover:dark:text-yellow-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-                  </svg>
-                </a>
-                <a rel="noopener noreferrer" href="https://x.com/NjengaV?s=09" title="Twitter" class="dark:text-gray-50 hover:dark:text-yellow-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" fill="currentColor" class="w-5 h-5">
-                    <path d="M 50.0625 10.4375 C 48.214844 11.257813 46.234375 11.808594 44.152344 12.058594 C 46.277344 10.785156 47.910156 8.769531 48.675781 6.371094 C 46.691406 7.546875 44.484375 8.402344 42.144531 8.863281 C 40.269531 6.863281 37.597656 5.617188 34.640625 5.617188 C 28.960938 5.617188 24.355469 10.21875 24.355469 15.898438 C 24.355469 16.703125 24.449219 17.488281 24.625 18.242188 C 16.078125 17.8125 8.503906 13.71875 3.429688 7.496094 C 2.542969 9.019531 2.039063 10.785156 2.039063 12.667969 C 2.039063 16.234375 3.851563 19.382813 6.613281 21.230469 C 4.925781 21.175781 3.339844 20.710938 1.953125 19.941406 C 1.953125 19.984375 1.953125 20.027344 1.953125 20.070313 C 1.953125 25.054688 5.5 29.207031 10.199219 30.15625 C 9.339844 30.390625 8.429688 30.515625 7.492188 30.515625 C 6.828125 30.515625 6.183594 30.453125 5.554688 30.328125 C 6.867188 34.410156 10.664063 37.390625 15.160156 37.472656 C 11.644531 40.230469 7.210938 41.871094 2.390625 41.871094 C 1.558594 41.871094 0.742188 41.824219 -0.0585938 41.726563 C 4.488281 44.648438 9.894531 46.347656 15.703125 46.347656 C 34.617188 46.347656 44.960938 30.679688 44.960938 17.09375 C 44.960938 16.648438 44.949219 16.199219 44.933594 15.761719 C 46.941406 14.3125 48.683594 12.5 50.0625 10.4375 Z"></path>
-                  </svg>
-                </a>
-                <a rel="noopener noreferrer" href="https://www.linkedin.com/in/njenga-victor-725705270?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" title="LinkedIn" class="dark:text-gray-50 hover:dark:text-yellow-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 32 32" class="w-5 h-5">
-                    <path d="M8.268 28h-5.805v-18.694h5.805zM5.362 6.756c-1.856 0-3.362-1.538-3.362-3.394s1.505-3.362 3.362-3.362 3.362 1.505 3.362 3.362c0 1.856-1.506 3.394-3.362 3.394zM29.994 28h-5.792v-9.1c0-2.169-0.044-4.95-3.018-4.95-3.018 0-3.481 2.356-3.481 4.794v9.256h-5.799v-18.694h5.567v2.55h0.081c0.775-1.469 2.668-3.019 5.492-3.019 5.875 0 6.955 3.869 6.955 8.894v10.269z"></path>
-                  </svg>
-                </a>
-                <a rel="noopener noreferrer" href="https://github.com/NjengaC" title="GitHub" class="dark:text-gray-50 hover:dark:text-yellow-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 32 32" class="w-5 h-5">
-                    <path d="M16 0.396c-8.839 0-16 7.167-16 16 0 7.073 4.584 13.068 10.937 15.183 0.803 0.151 1.093-0.344 1.093-0.772 0-0.38-0.009-1.385-0.015-2.719-4.453 0.964-5.391-2.151-5.391-2.151-0.729-1.844-1.781-2.339-1.781-2.339-1.448-0.989 0.115-0.968 0.115-0.968 1.604 0.109 2.448 1.645 2.448 1.645 1.427 2.448 3.744 1.74 4.661 1.328 0.14-1.031 0.557-1.74 1.011-2.135-3.552-0.401-7.287-1.776-7.287-7.907 0-1.751 0.62-3.177 1.645-4.297-0.177-0.401-0.719-2.031 0.141-4.235 0 0 1.339-0.427 4.4 1.641 1.281-0.355 2.641-0.532 4-0.541 1.36 0.009 2.719 0.187 4 0.541 3.043-2.068 4.381-1.641 4.381-1.641 0.859 2.204 0.317 3.833 0.161 4.235 1.015 1.12 1.635 2.547 1.635 4.297 0 6.145-3.74 7.5-7.296 7.891 0.556 0.479 1.077 1.464 1.077 2.959 0 2.14-0.020 3.864-0.020 4.385 0 0.416 0.28 0.916 1.104 0.755 6.4-2.093 10.979-8.093 10.979-15.156 0-8.833-7.161-16-16-16z"></path>
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <div class="flex flex-col justify-center w-full px-8 mx-6 my-12 text-center rounded-md md:w-96 lg:w-80 xl:w-64 dark:bg-gray-800 dark:text-gray-100">
-              <img alt="" class="self-center flex-shrink-0 w-24 h-24 -mt-12 bg-center bg-cover rounded-full dark:bg-gray-500" src="https://source.unsplash.com/100x100/?portrait?2">
-              <div class="flex-1 my-4">
-                <p class="text-xl font-semibold leading-snug">Kay Macharia</p>
-                <p>Frontend Magician</p>
-              </div>
-              <div class="flex items-center justify-center p-3 space-x-3 border-t-2">
-                <a rel="noopener noreferrer" href="mailto:kaymacharia@gmail.com?subject=Website Inquiry&body=Hi%20I'm%20Kay,%0A%0A" title="Email" class="dark:text-gray-50 hover:dark:text-yellow-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-                  </svg>
-                </a>
-                <a rel="noopener noreferrer" href="https://x.com/Machariiaa?s=09" title="Twitter" class="dark:text-gray-50 hover:dark:text-yellow-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" fill="currentColor" class="w-5 h-5">
-                    <path d="M 50.0625 10.4375 C 48.214844 11.257813 46.234375 11.808594 44.152344 12.058594 C 46.277344 10.785156 47.910156 8.769531 48.675781 6.371094 C 46.691406 7.546875 44.484375 8.402344 42.144531 8.863281 C 40.269531 6.863281 37.597656 5.617188 34.640625 5.617188 C 28.960938 5.617188 24.355469 10.21875 24.355469 15.898438 C 24.355469 16.703125 24.449219 17.488281 24.625 18.242188 C 16.078125 17.8125 8.503906 13.71875 3.429688 7.496094 C 2.542969 9.019531 2.039063 10.785156 2.039063 12.667969 C 2.039063 16.234375 3.851563 19.382813 6.613281 21.230469 C 4.925781 21.175781 3.339844 20.710938 1.953125 19.941406 C 1.953125 19.984375 1.953125 20.027344 1.953125 20.070313 C 1.953125 25.054688 5.5 29.207031 10.199219 30.15625 C 9.339844 30.390625 8.429688 30.515625 7.492188 30.515625 C 6.828125 30.515625 6.183594 30.453125 5.554688 30.328125 C 6.867188 34.410156 10.664063 37.390625 15.160156 37.472656 C 11.644531 40.230469 7.210938 41.871094 2.390625 41.871094 C 1.558594 41.871094 0.742188 41.824219 -0.0585938 41.726563 C 4.488281 44.648438 9.894531 46.347656 15.703125 46.347656 C 34.617188 46.347656 44.960938 30.679688 44.960938 17.09375 C 44.960938 16.648438 44.949219 16.199219 44.933594 15.761719 C 46.941406 14.3125 48.683594 12.5 50.0625 10.4375 Z"></path>
-                  </svg>
-                </a>
-                <a rel="noopener noreferrer" href="linkedin.com/in/kay-m-9b8954216/" title="LinkedIn" class="dark:text-gray-50 hover:dark:text-yellow-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 32 32" class="w-5 h-5">
-                    <path d="M8.268 28h-5.805v-18.694h5.805zM5.362 6.756c-1.856 0-3.362-1.538-3.362-3.394s1.505-3.362 3.362-3.362 3.362 1.505 3.362 3.362c0 1.856-1.506 3.394-3.362 3.394zM29.994 28h-5.792v-9.1c0-2.169-0.044-4.95-3.018-4.95-3.018 0-3.481 2.356-3.481 4.794v9.256h-5.799v-18.694h5.567v2.55h0.081c0.775-1.469 2.668-3.019 5.492-3.019 5.875 0 6.955 3.869 6.955 8.894v10.269z"></path>
-                  </svg>
-                </a>
-                <a rel="noopener noreferrer" href="https://github.com/kaymacharia" title="GitHub" class="dark:text-gray-50 hover:dark:text-yellow-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 32 32" class="w-5 h-5">
-                    <path d="M16 0.396c-8.839 0-16 7.167-16 16 0 7.073 4.584 13.068 10.937 15.183 0.803 0.151 1.093-0.344 1.093-0.772 0-0.38-0.009-1.385-0.015-2.719-4.453 0.964-5.391-2.151-5.391-2.151-0.729-1.844-1.781-2.339-1.781-2.339-1.448-0.989 0.115-0.968 0.115-0.968 1.604 0.109 2.448 1.645 2.448 1.645 1.427 2.448 3.744 1.74 4.661 1.328 0.14-1.031 0.557-1.74 1.011-2.135-3.552-0.401-7.287-1.776-7.287-7.907 0-1.751 0.62-3.177 1.645-4.297-0.177-0.401-0.719-2.031 0.141-4.235 0 0 1.339-0.427 4.4 1.641 1.281-0.355 2.641-0.532 4-0.541 1.36 0.009 2.719 0.187 4 0.541 3.043-2.068 4.381-1.641 4.381-1.641 0.859 2.204 0.317 3.833 0.161 4.235 1.015 1.12 1.635 2.547 1.635 4.297 0 6.145-3.74 7.5-7.296 7.891 0.556 0.479 1.077 1.464 1.077 2.959 0 2.14-0.020 3.864-0.020 4.385 0 0.416 0.28 0.916 1.104 0.755 6.4-2.093 10.979-8.093 10.979-15.156 0-8.833-7.161-16-16-16z"></path>
-                  </svg>
-                </a>
-              </div>
-            </div>
-    </main>
+        </div>
+    </section>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='scripts/dashboard.js') }}"></script> 
-          </div>
-          {% include 'footer.html' %}
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
-  </body>
+    {% include 'footer.html' %}
+</body>
 </html>
