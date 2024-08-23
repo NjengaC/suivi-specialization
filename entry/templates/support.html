@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../static/styles/support.css">
+    <link rel="stylesheet" href="../static/styles/headfoot.css">
 
 
 </head>
@@ -16,7 +17,8 @@
 {% include 'header.html'%}
 <!-- Header -->
 <header class="header-box">
-    <h1 class="text-center display-4">Support Center</h1>
+    <div class="centered container">
+    <h1 class="cs-title">Support Center</h1>
 </header>
             <!-- Flash messages -->
             <div class="row justify-content-center">
@@ -31,36 +33,109 @@
                 {% endwith %}
             </div>
 <!-- Support Form -->
-<div class="container">
-    <section class="support-form">
-        <h2 class="header-text">Having Problems?</h2>
-        <form class="mx-auto text-center" action="/support" method="POST">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+<section id="support-1333">
+    <div class="cs-container">
+        <!-- Support Form -->
+        <form class="cs-form" id="cs-form-1333" name="Support Form" method="post">
+            <div class="cs-content">
+                <span class="cs-topper">Having Problems?</span>
+                <h2 class="cs-title">Contact Support</h2>
             </div>
-            <div class="form-group">
-                <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
-            </div>
-            <div class="form-group">
-                <label for="comment">Comment</label>
-                <textarea class="form-control" id="comment" name="comment" rows="5" placeholder="Enter your comment" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Send</button>
+            <label class="cs-label">
+                Name
+                <input class="cs-input" required type="text" id="name-1333" name="name" placeholder="Enter your name">
+            </label>
+            <label class="cs-label">
+                Email
+                <input class="cs-input" required type="email" id="email-1333" name="email" placeholder="Enter your email">
+            </label>
+            <label class="cs-label">
+                Comment
+                <textarea class="cs-input cs-textarea" required name="comment" id="comment-1333" placeholder="Enter your comment..."></textarea>
+            </label>
+            <button class="cs-button-solid cs-submit" type="submit">Send</button>
         </form>
-        <p class="text-center mt-3">Already have an account? <a href="{{ url_for('auth.login') }}">Login</a></p>
-    </section>
-</div>
+        <section id="faq">
+    <div class="cs-content">
+            <span class="cs-topper">Asked Questions</span>
+            <h2 class="cs-title">Frequently Asked Questions</h2>
+            <ul class="cs-faq-group">
+                <!-- FAQ items here -->
+                <ul class="cs-faq-group">
+    <li class="cs-faq-item active">
+        <button class="cs-button">
+            <span class="cs-button-text">
+                What should I do if my delivery is delayed?
+            </span>
+        </button>
+        <p class="cs-item-p">
+            If your delivery is delayed, please check the status of your order in the app or website. If the status is not updated or you believe there is an issue, contact our customer support team immediately. We will investigate the delay and provide an update as soon as possible. In some cases, delays might be due to high demand, traffic conditions, or unexpected events.
+        </p>
+    </li>
+    <li class="cs-faq-item">
+        <button class="cs-button">
+            <span class="cs-button-text">
+                Can I change my delivery address after placing an order?
+            </span>
+        </button>
+        <p class="cs-item-p">
+            Once an order is placed, changes to the delivery address can only be made if the order has not yet been dispatched. To request a change, contact our support team as soon as possible. If the order is already on its way, you will need to wait until the delivery is completed and then arrange for a return or redelivery.
+        </p>
+    </li>
+    <li class="cs-faq-item">
+        <button class="cs-button">
+            <span class="cs-button-text">
+                What should I do if I receive a damaged or incorrect item?
+            </span>
+        </button>
+        <p class="cs-item-p">
+            If you receive a damaged or incorrect item, please contact our customer support team immediately. Provide details about the issue, including photos of the damaged item or incorrect product. We will arrange for a replacement or refund based on the nature of the problem. Ensure to report these issues within the timeframe specified in our return policy.
+        </p>
+    </li>
+    <li class="cs-faq-item">
+        <button class="cs-button">
+            <span class="cs-button-text">
+                How can I track my delivery?
+            </span>
+        </button>
+        <p class="cs-item-p">
+            You can track your delivery in real-time using our app or website. Simply log in to your account, go to the "Orders" section, and select the order you wish to track. You will see the current status and estimated delivery time. If you encounter any issues with tracking, please reach out to our support team for assistance.
+        </p>
+    </li>
+    <li class="cs-faq-item">
+        <button class="cs-button">
+            <span class="cs-button-text">
+                What payment methods are accepted for delivery orders?
+            </span>
+        </button>
+        <p class="cs-item-p">
+            We accept various payment methods including credit and debit cards, digital wallets, and cash on delivery (where available). You can choose your preferred payment method during the checkout process. If you encounter any issues with payment, please contact our support team for help.
+        </p>
+    </li>
+    <li class="cs-faq-item">
+        <button class="cs-button">
+            <span class="cs-button-text">
+                Is there a minimum order amount for delivery?
+            </span>
+        </button>
+        <p class="cs-item-p">
+            The minimum order amount for delivery may vary depending on your location and the delivery partner. This information is usually provided during the checkout process. If your order does not meet the minimum amount, you may be prompted to add more items or select a different delivery option.
+        </p>
+    </li>
+     </ul>
+        </div>
+    </div>
+</section>
 
-<!-- FAQ Section -->
+
+<!-- FAQ Section
 <div class="container2">
     <section class="search-area text-center">
         <input type="text" class="form-control search-box" placeholder="Search FAQs">
         <button type="button" class="btn btn-primary search-btn">Search</button>
     </section>
-
-<section class="faq faq-box">
+-->
+<!--<section class="faq faq-box">
     <h2 class="header-text">Frequently Asked Questions</h2>
     {% if existing_faqs %}
         {% for faq in existing_faqs %}
@@ -76,7 +151,8 @@
         <p>No existing FAQs found.</p>
     {% endif %}
 </section>
-</div>
+</div> -->
+
 <!-- Bootstrap and jQuery scripts -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -124,6 +200,14 @@ document.addEventListener("DOMContentLoaded", function() {
             });
     });
 });
+const faqItems = Array.from(document.querySelectorAll('.cs-faq-item'));
+        for (const item of faqItems) {
+            const onClick = () => {
+            item.classList.toggle('active')
+        }
+        item.addEventListener('click', onClick)
+        }
+         
 </script>
 
 </body>
