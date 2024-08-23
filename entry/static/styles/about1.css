@@ -11,71 +11,204 @@
 /* General Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: black;
-    color: white;
+    background-color: white; /* Set page background to white */
+    color: black; /* Change text color to black for visibility */
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
-    color: white;
+    color: black; /* Change heading color to black for visibility */
 }
 
 a {
     text-decoration: none;
-    color: white;
+    color: #0056b3; /* Change link color for visibility */
     transition: color 0.3s ease;
 }
 
 a:hover {
-    color: #0056b3;
+    color: #003d80; /* Darker shade on hover */
+}
+body {
+    background-color: white !important; /* Force background color to white */
+}
+/*-- -------------------------- */
+/*        Why Choose Suivi       */
+/* -------------------------- --*/
+
+/* Mobile - 360px */
+@media only screen and (min-width: 0rem) {
+    #why-choose-suivi {
+        text-align: center;
+        padding: var(--sectionPadding);
+    }
+    #why-choose-suivi .cs-container {
+        width: 100%;
+        max-width: 34.375rem;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: clamp(3rem, 6vw, 4rem);
+    }
+    #why-choose-suivi .cs-content {
+        text-align: left;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    #why-choose-suivi .cs-topper {
+        font-size: var(--topperFontSize);
+        line-height: 1.2em;
+        text-transform: uppercase;
+        text-align: inherit;
+        letter-spacing: 0.1em;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 0.25rem;
+        display: block;
+    }
+    #why-choose-suivi .cs-title {
+        font-size: var(--headerFontSize);
+        font-weight: 900;
+        line-height: 1.2em;
+        text-align: inherit;
+        max-width: 43.75rem;
+        margin: 0 0 1rem 0;
+        color: var(--headerColor);
+        position: relative;
+    }
+    #why-choose-suivi .cs-text {
+        font-size: var(--bodyFontSize);
+        line-height: 1.5em;
+        text-align: inherit;
+        width: 100%;
+        max-width: 40.625rem;
+        margin: 0;
+        color: var(--bodyTextColor);
+    }
+    #why-choose-suivi .cs-text {
+        max-width: 32.625rem;
+    }
+    #why-choose-suivi .cs-card-group {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    #why-choose-suivi .cs-item {
+        list-style: none;
+        text-align: left;
+        width: 100%;
+        padding: 2rem;
+        background-color: #f7f7f7;
+        border-radius: 1rem;
+        box-sizing: border-box;
+        transition: background-color 0.3s;
+    }
+    #why-choose-suivi .cs-item:hover {
+        background-color: var(--primary);
+        cursor: pointer;
+    }
+    #why-choose-suivi .cs-item:hover .cs-icon {
+        filter: grayscale(1) brightness(200%);
+    }
+    #why-choose-suivi .cs-item:hover .cs-h3 {
+        color: var(--bodyTextColorWhite);
+    }
+    #why-choose-suivi .cs-item:hover .cs-item-text {
+        color: var(--bodyTextColorWhite);
+    }
+    #why-choose-suivi .cs-icon {
+        width: auto;
+        height: 3rem;
+        margin-bottom: 1.5rem;
+        display: block;
+        transition: filter 0.3s;
+    }
+    #why-choose-suivi .cs-h3 {
+        font-size: clamp(1.25rem, 2.5vw, 1.5625rem);
+        line-height: 1.2em;
+        margin: 0;
+        margin-bottom: 1rem;
+        color: var(--headerColor);
+        transition: color 0.3s;
+    }
+    #why-choose-suivi .cs-item-text {
+        font-size: 1rem;
+        line-height: 1.5em;
+        margin: 0;
+        color: var(--bodyTextColor);
+        transition: color 0.3s;
+    }
+}
+/* Tablet - 768px */
+@media only screen and (min-width: 48rem) {
+    #why-choose-suivi .cs-container {
+        max-width: 80rem;
+    }
+    #why-choose-suivi .cs-content {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 4rem;
+    }
+    #why-choose-suivi .cs-flex {
+        width: 50%;
+    }
+    #why-choose-suivi .cs-title {
+        margin: 0;
+    }
+    #why-choose-suivi .cs-card-group {
+        justify-content: space-between;
+        align-items: stretch;
+        flex-direction: row;
+        gap: clamp(1rem, 1.5vw, 1.25rem);
+    }
+    #why-choose-suivi .cs-item {
+        width: auto;
+        padding: 2rem clamp(1rem, 2.1vw, 2rem);
+    }
+}
+:root {
+    --primary: blue;
+    --primaryLight: #ffba43;
+    --secondary: #ffba43;
+    --secondaryLight: #ffba43;
+    --headerColor: #1a1a1a;
+    --bodyTextColor: #4e4b66;
+    --bodyTextColorWhite: #fafbfc;
+    --topperFontSize: clamp(0.8125rem, 1.6vw, 1rem);
+    --headerFontSize: clamp(1.9375rem, 3.9vw, 3.0625rem);
+    --bodyFontSize: 1rem;
+    --sectionPadding: clamp(3.75rem, 7.82vw, 6.25rem) 1rem;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 50px 20px;
-    align-items: center;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-.top-image img {
+body {
+    margin: 0;
     padding: 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
-    color: black;
-    width: 100%;
-    height: 400px;
-}
-/* Why Choose suivi Section */
-.why-choose-suivi, .become-rider {
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
-    color: black;
 }
 
-.why-choose-suivi h2, .become-rider h2 {
-    margin-bottom: 20px;
-    border-bottom: 2px solid #007bff;
-    padding-bottom: 10px;
-    color: black;
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+.cs-icon {
+    font-size: 3rem; /* Adjust the size of the icons */
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+    transition: color 0.3s;
+    display: block;
 }
 
-.list-group-item {
-    border: none;
-    padding: 15px 0;
-    display: flex;
-    align-items: center;
+.cs-item:hover .cs-icon {
+    color: var(--bodyTextColorWhite);
 }
 
-.list-group-item i {
-    font-size: 1.8rem;
-    margin-right: 15px;
-    color: black
-}
 
 /* Buttons */
 .btn-primary {
@@ -89,46 +222,614 @@ a:hover {
 
 .btn-primary:hover {
     background-color: #0056b3;
-}
+} 
 
-/* Our Technology Section */
-.our-technology {
+
+/*-- -------------------------- -->
+<---          Reviews           -->
+<--- -------------------------- -*/
+
+/* Mobile - 360px */
+@media only screen and (min-width: 0rem) {
+  #reviews-1537 {
+    padding: var(--sectionPadding);
+  }
+  #reviews-1537 .cs-container {
+    width: 100%;
+    max-width: 80rem;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* 48px - 64px */
+    gap: clamp(3rem, 6vw, 4rem);
+  }
+  #reviews-1537 .cs-content {
+    /* set text align to left if content needs to be left aligned */
     text-align: center;
-    padding: 50px 0;
-}
-
-.our-technology p {
-    font-size: 1.2rem;
-    line-height: 1.6;
-}
-
-/* Testimonials Section */
-.testimonial {
-    background-color: black;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.testimonial img {
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* centers content horizontally, set to flex-start to left align */
+    align-items: center;
+  }
+  #reviews-1537 .cs-title {
+    max-width: 23ch;
+  }
+  #reviews-1537 .cs-card-group {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* 16px - 20px */
+    gap: clamp(1rem, 2.5vw, 1.15rem);
+    row-gap: 1.5rem;
+  }
+  #reviews-1537 .cs-item {
+    list-style: none;
+    width: 100%;
+    /* removed at desktop */
+    max-width: 28.875rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+  }
+  #reviews-1537 .cs-review {
+    /* 14px - 20px */
+    font-size: clamp(0.875rem, 1.6vw, 1.25rem);
+    line-height: 1.5em;
+    margin: 0;
+    /* 24px - 48px */
+    padding: clamp(1.5rem, 6vw, 3rem);
+    height: 100%;
+    min-height: 10rem;
+    /* prevents padding from affecting height and width */
+    box-sizing: border-box;
+    /* 20px - 40px */
+    margin-bottom: clamp(1.25rem, 4vw, 2.5rem);
+    color: var(--bodyTextColor);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  #reviews-1537 .cs-svg {
+    --svgBG: #F2FAF8;
+    --svgBorder: #E5F4F0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+  }
+  #reviews-1537 .cs-flex-group {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  #reviews-1537 .cs-profile {
+    width: 3.125rem;
+    height: 3.125rem;
+    border: 2px solid #BABABA;
+    background-color: #BABABA;
     border-radius: 50%;
-    margin-bottom: 15px;
+    /* clips image corners to make circle */
+    overflow: hidden;
+    position: relative;
+    display: block;
+  }
+  #reviews-1537 .cs-profile img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    /* makes the image behave like a background image */
     object-fit: cover;
+  }
+  #reviews-1537 .cs-name {
+    /* 20px - 25px */
+    font-size: clamp(1.25rem, 3vw, 1.5625rem);
+    line-height: 1.2em;
+    font-weight: 700;
+    margin: 0;
+    /* in case one card has more text than the other, this pushes up against the review text so the name and title are always at the bottom. Only works if parent is a flexbox */
+    margin-top: auto;
+    color: var(--headerColor);
+    display: block;
+  }
+  #reviews-1537 .cs-job {
+    font-size: 1rem;
+    line-height: 1.5em;
+    font-weight: 700;
+    margin: 0;
+    color: var(--secondary);
+    display: block;
+  }
+}
+/* Desktop - 1024px */
+@media only screen and (min-width: 64rem) {
+  #reviews-1537 .cs-card-group {
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+  }
+  #reviews-1537 .cs-item {
+    max-width: 100%;
+  }
+  #reviews-1537 .cs-review {
+    min-height: 15.625rem;
+  }
+}
+:root {
+    /* Add these styles to your global stylesheet, which is used across all site pages. You only need to do this once. All elements in the library derive their variables and base styles from this central sheet, simplifying site-wide edits. For instance, if you want to modify how your h2's appear across the site, you just update it once in the global styles, and the changes apply everywhere. */
+    --primary: blue;
+    --primaryLight: #ffba43;
+    --secondary: #ffba43;
+    --secondaryLight: #ffba43;
+    --headerColor: #1a1a1a;
+    --bodyTextColor: #4e4b66;
+    --bodyTextColorWhite: #fafbfc;
+    /* 13px - 16px */
+    --topperFontSize: clamp(0.8125rem, 1.6vw, 1rem);
+    /* 31px - 49px */
+    --headerFontSize: clamp(1.9375rem, 3.9vw, 3.0625rem);
+    --bodyFontSize: 1rem;
+    /* 60px - 100px top and bottom */
+    --sectionPadding: clamp(3.75rem, 7.82vw, 6.25rem) 1rem;
 }
 
-.testimonial h4 {
-    font-size: 1.4rem;
-    margin-bottom: 10px;
+body {
+    margin: 0;
+    padding: 0;
 }
 
-.testimonial p {
-    font-style: italic;
-    margin-bottom: 10px;
+*, *:before, *:after {
+    /* prevents padding from affecting height and width */
+    box-sizing: border-box;
 }
+.cs-topper {
+    font-size: var(--topperFontSize);
+    line-height: 1.2em;
+    text-transform: uppercase;
+    text-align: inherit;
+    letter-spacing: .1em;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+    display: block;
+}
+
+.cs-title {
+    font-size: var(--headerFontSize);
+    font-weight: 900;
+    line-height: 1.2em;
+    text-align: inherit;
+    max-width: 43.75rem;
+    margin: 0 0 1rem 0;
+    color: var(--headerColor);
+    position: relative;
+}
+
+.cs-text {
+    font-size: var(--bodyFontSize);
+    line-height: 1.5em;
+    text-align: inherit;
+    width: 100%;
+    max-width: 40.625rem;
+    margin: 0;
+    color: var(--bodyTextColor);
+}
+/*team*/
+/* Section Styles */
+.py-6 {
+    padding-top: 1.5rem; /* 24px */
+    padding-bottom: 1.5rem; /* 24px */
+}
+
+.dark\:bg-gray-100 {
+    background-color: #f7fafc; /* Light gray for light mode */
+}
+
+.dark\:text-gray-800 {
+    color: #1a202c; /* Dark gray for dark mode */
+}
+
+.container {
+    max-width: 1200px; /* Adjust according to your layout */
+    margin: 0 auto;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.p-4 {
+    padding: 1rem; /* 16px */
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sm\:p-10 {
+    padding: 2.5rem; /* 40px */
+}
+
+.p-2 {
+    padding: 0.5rem; /* 8px */
+}
+
+.text-sm {
+    font-size: 0.875rem; /* 14px */
+}
+
+.font-medium {
+    font-weight: 500;
+}
+
+.tracking-wider {
+    letter-spacing: 0.05em;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-4xl {
+    font-size: 2.25rem; /* 36px */
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.leading-none {
+    line-height: 1;
+}
+
+.sm\:text-5xl {
+    font-size: 3rem; /* 48px */
+}
+
+.mt-8 {
+    margin-top: 2rem; /* 32px */
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-wrap-reverse {
+    flex-wrap: wrap-reverse;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.px-8 {
+    padding-left: 2rem; /* 32px */
+    padding-right: 2rem; /* 32px */
+}
+
+.mx-6 {
+    margin-left: 1.5rem; /* 24px */
+    margin-right: 1.5rem; /* 24px */
+}
+
+.my-12 {
+    margin-top: 3rem; /* 48px */
+    margin-bottom: 3rem; /* 48px */
+}
+
+.text-xl {
+    font-size: 1.25rem; /* 20px */
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+.leading-snug {
+    line-height: 1.375;
+}
+
+.bg-center {
+    background-position: center;
+}
+
+.bg-cover {
+    background-size: cover;
+}
+
+.rounded-full {
+    border-radius: 9999px; /* Fully rounded */
+}
+
+.dark\:bg-gray-500 {
+    background-color: #6b7280; /* Gray for dark mode */
+}
+
+.p-3 {
+    padding: 0.75rem; /* 12px */
+}
+
+.space-x-3 > :not([hidden]) ~ :not([hidden]) {
+    margin-left: 0.75rem; /* 12px */
+}
+
+.border-t-2 {
+    border-top-width: 2px;
+}
+
+.dark\:text-gray-50 {
+    color: #f9fafb; /* Light gray for dark mode */
+}
+
+.hover\:dark\:text-yellow-600:hover {
+    color: #d69e2e; /* Yellow color on hover in dark mode */
+}
+
+.w-5 {
+    width: 1.25rem; /* 20px */
+}
+
+.h-5 {
+    height: 1.25rem; /* 20px */
+}
+
+/*-- -------------------------- -->
+<---       Meet The Team        -->
+<--- -------------------------- -*/
+
+/* Mobile - 360px */
+@media only screen and (min-width: 0rem) {
+    #meet-us-1021 {
+        padding: var(--sectionPadding);
+        background-color: #1a1a1a;
+    }
+    #meet-us-1021 .cs-container {
+        width: 100%;
+        max-width: 80rem;
+        margin: auto;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        /* 48px - 64px */
+        gap: clamp(3rem, 6vw, 4rem);
+    }
+    #meet-us-1021 .cs-container {
+        width: 100%;
+        max-width: 80rem;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* 48px - 64px */
+        gap: clamp(3rem, 6vw, 4rem);
+    }
+    #meet-us-1021 .cs-content {
+        /* set text align to left if content needs to be left aligned */
+        text-align: center;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        /* centers content horizontally, set to flex-start to left align */
+        align-items: center;
+    }
+    #meet-us-1021 .cs-graphic {
+        width: 100%;
+        max-width: 26.82352941rem;
+        margin: 0 0 1rem 0;
+    }
+    #meet-us-1021 .cs-title {
+        font-size: var(--headerFontSize);
+        font-weight: 900;
+        line-height: 1.2em;
+        text-align: inherit;
+        max-width: 43.75rem;
+        margin: 0 0 1rem 0;
+        color: var(--headerColor);
+        position: relative;
+    }
+    #meet-us-1021 .cs-text {
+        font-size: var(--bodyFontSize);
+        line-height: 1.5em;
+        text-align: inherit;
+        width: 100%;
+        max-width: 40.625rem;
+        margin: 0;
+        color: var(--bodyTextColor);
+    }
+    #meet-us-1021 .cs-title,
+    #meet-us-1021 .cs-text {
+        color: var(--bodyTextColorWhite);
+    }
+    #meet-us-1021 .cs-text {
+        opacity: 0.8;
+    }
+    #meet-us-1021 .cs-card-group {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        /* 16px - 20px */
+        gap: clamp(1rem, 2vw, 1.25rem);
+    }
+    #meet-us-1021 .cs-item {
+        list-style: none;
+        width: 100%;
+        max-width: 25.8125rem;
+        position: relative;
+        z-index: 1;
+    }
+    #meet-us-1021 .cs-item:hover .cs-picture {
+        background-color: #000;
+    }
+    #meet-us-1021 .cs-item:hover .cs-picture img {
+        transform: scale(1.1);
+        opacity: 0.6;
+    }
+    #meet-us-1021 .cs-info {
+        width: 85.5%;
+        /* 16px - 24px */
+        padding: clamp(1rem, 2vw, 1.5rem);
+        margin: -3.75rem auto 0;
+        box-sizing: border-box;
+        background-color: #1a1a1a;
+        border-top: 4px solid var(--primary);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 10;
+    }
+    #meet-us-1021 .cs-name {
+        /* 16px - 25px */
+        font-size: clamp(1rem, 2vw, 1.5625rem);
+        font-weight: 700;
+        line-height: 1.2em;
+        /* 4px - 8px */
+        margin: 0 0 clamp(0.25rem, 1vw, 0.5rem);
+        color: var(--bodyTextColorWhite);
+        display: block;
+        transition: color 0.3s;
+    }
+    #meet-us-1021 .cs-job {
+        /* 14px - 16px */
+        font-size: clamp(0.875rem, 1.5vw, 1rem);
+        line-height: 1.5em;
+        color: var(--bodyTextColorWhite);
+        opacity: 0.8;
+        display: block;
+    }
+    #meet-us-1021 .cs-picture {
+        width: 100%;
+        /* 246px - 500px */
+        height: clamp(15.375rem, 40vw, 32.25rem);
+        overflow: hidden;
+        display: block;
+        position: relative;
+        transition: background-color 0.3s;
+        z-index: -1;
+    }
+    #meet-us-1021 .cs-picture img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        /* makes it behave like a background imahe */
+        object-fit: cover;
+        /* makes the image position itself at the top of the parent */
+        object-position: top;
+        transition:
+            transform 0.6s,
+            opacity 0.3s;
+    }
+}
+/* Tablet - 768px */
+@media only screen and (min-width: 48rem) {
+    #meet-us-1021 .cs-card-group {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        width: 100%;
+    }
+    #meet-us-1021 .cs-item {
+        grid-column: span 4;
+    }
+}
+:root {
+    /* Add these styles to your global stylesheet, which is used across all site pages. You only need to do this once. All elements in the library derive their variables and base styles from this central sheet, simplifying site-wide edits. For instance, if you want to modify how your h2's appear across the site, you just update it once in the global styles, and the changes apply everywhere. */
+    --primary: blue;
+    --primaryLight: #ffba43;
+    --secondary: #ffba43;
+    --secondaryLight: #ffba43;
+    --headerColor: #1a1a1a;
+    --bodyTextColor: #4e4b66;
+    --bodyTextColorWhite: #fafbfc;
+    /* 13px - 16px */
+    --topperFontSize: clamp(0.8125rem, 1.6vw, 1rem);
+    /* 31px - 49px */
+    --headerFontSize: clamp(1.9375rem, 3.9vw, 3.0625rem);
+    --bodyFontSize: 1rem;
+    /* 60px - 100px top and bottom */
+    --sectionPadding: clamp(3.75rem, 7.82vw, 6.25rem) 1rem;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+*, *:before, *:after {
+    /* prevents padding from affecting height and width */
+    box-sizing: border-box;
+}
+.cs-topper {
+    font-size: var(--topperFontSize);
+    line-height: 1.2em;
+    text-transform: uppercase;
+    text-align: inherit;
+    letter-spacing: .1em;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+    display: block;
+}
+
+.cs-title {
+    font-size: var(--headerFontSize);
+    font-weight: 900;
+    line-height: 1.2em;
+    text-align: inherit;
+    max-width: 43.75rem;
+    margin: 0 0 1rem 0;
+    color: var(--headerColor);
+    position: relative;
+}
+
+.cs-text {
+    font-size: var(--bodyFontSize);
+    line-height: 1.5em;
+    text-align: inherit;
+    width: 100%;
+    max-width: 40.625rem;
+    margin: 0;
+    color: var(--bodyTextColor);
+}
+                            
+                                
 
 /* Responsive navigation menu (for mobile devices) */
 @media screen and (max-width: 600px) {

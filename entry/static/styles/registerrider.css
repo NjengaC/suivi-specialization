@@ -1,6 +1,6 @@
 #grad1 {
     background-color: black;
-    background-image: linear-gradient(120deg, #000000, #434343, #000000);
+   /* background-image: linear-gradient(120deg, #000000, #434343, #000000); */
 }
 /*Form styles*/
 #msform {
