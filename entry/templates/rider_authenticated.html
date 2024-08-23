@@ -135,136 +135,139 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  var map = L.map('map').setView([-1.286389, 36.817223], 13);
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-  }).addTo(map);
-
-  // Fetch the coordinates for the assignment
-  {% if assignment %}
-  const pickupLocation = "{{ assignment.pickup_location }}";
-  const deliveryLocation = "{{ assignment.delivery_location }}";
-
-  fetch('/get_coordinates', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      pickup_location: pickupLocation,
-      delivery_location: deliveryLocation
-    })
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.error) {
-      alert(data.error);
-      return;
-    }
-
-    const pickupLatLng = [data.pickup_lat, data.pickup_lng];
-    const deliveryLatLng = [data.delivery_lat, data.delivery_lng];
-
-    L.marker(pickupLatLng).addTo(map)
-      .bindPopup("Pickup Location")
-      .openPopup();
-    L.circle(pickupLatLng, { radius: 100 }).addTo(map);
-
-    L.marker(deliveryLatLng).addTo(map)
-      .bindPopup("Delivery Location")
-      .openPopup();
-    L.circle(deliveryLatLng, { radius: 100 }).addTo(map);
-
-    // Add route between pickup and delivery locations
-    L.Routing.control({
-      waypoints: [
-        L.latLng(pickupLatLng),
-        L.latLng(deliveryLatLng)
-      ],
-      routeWhileDragging: true,
-      createMarker: function() { return null; } // Disable markers on the route
+  document.addEventListener('DOMContentLoaded', function() {
+    var map = L.map('map').setView([-1.286389, 36.817223], 13);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    // Fit the map to the route
-    map.fitBounds(L.latLngBounds(pickupLatLng, deliveryLatLng));
-  })
-  .catch(error => console.error('Error fetching coordinates:', error));
-  {% endif %}
+    // Fetch the coordinates for the assignment
+    {% if assignment %}
+    const pickupLocation = "{{ assignment.pickup_location }}";
+    const deliveryLocation = "{{ assignment.delivery_location }}";
 
-  // Live location tracking of rider
-  navigator.geolocation.watchPosition(success, error);
-
-  let riderMarker, riderCircle;
-  let riderToPickupRoute; // Variable to hold the route between rider and pickup
-
-  function success(pos) {
-    const lat = pos.coords.latitude;
-    const lng = pos.coords.longitude;
-    const accuracy = pos.coords.accuracy;
-
-    if (riderMarker) {
-      map.removeLayer(riderMarker);
-      map.removeLayer(riderCircle);
-      if (riderToPickupRoute) {
-        map.removeControl(riderToPickupRoute); // Remove previous route
-      }
-    }
-
-    riderMarker = L.marker([lat, lng]).addTo(map).bindPopup("Rider's Location").openPopup();
-    riderCircle = L.circle([lat, lng], { radius: accuracy }).addTo(map);
-
-    map.setView([lat, lng], 13);
-
-    // Reverse geocode to get location name
-    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&addressdetails=1`)
+    fetch('/get_coordinates', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        pickup_location: pickupLocation,
+        delivery_location: deliveryLocation
+      })
+    })
       .then(response => response.json())
       .then(data => {
-        const locationName = data.display_name;
-        console.log("Current location name:", locationName);
-        updateRiderLocation(locationName);
+        if (data.error) {
+          alert(data.error);
+          return;
+        }
+
+        const pickupLatLng = [data.pickup_lat, data.pickup_lng];
+        const deliveryLatLng = [data.delivery_lat, data.delivery_lng];
+
+        L.marker(pickupLatLng).addTo(map)
+          .bindPopup("Pickup Location")
+          .openPopup();
+        L.circle(pickupLatLng, { radius: 100 }).addTo(map);
+
+        L.marker(deliveryLatLng).addTo(map)
+          .bindPopup("Delivery Location")
+          .openPopup();
+        L.circle(deliveryLatLng, { radius: 100 }).addTo(map);
+
+        // Add route between pickup and delivery locations
+        L.Routing.control({
+          waypoints: [
+            L.latLng(pickupLatLng),
+            L.latLng(deliveryLatLng)
+          ],
+          routeWhileDragging: true,
+          createMarker: function() { return null; } // Disable markers on the route
+        }).addTo(map);
+
+        // Fit the map to the route
+        map.fitBounds(L.latLngBounds(pickupLatLng, deliveryLatLng));
       })
-      .catch(error => console.error('Error in reverse geocoding:', error));
-
-    // If pickup location data is available, add route between rider and pickup
-    {% if assignment %}
-    const pickupLatLng = [{{ assignment.pickup_lat }}, {{ assignment.pickup_lng }}];
-    riderToPickupRoute = L.Routing.control({
-      waypoints: [
-        L.latLng([lat, lng]),
-        L.latLng(pickupLatLng)
-      ],
-      routeWhileDragging: true,
-      createMarker: function() { return null; } // Disable markers on the route
-    }).addTo(map);
+      .catch(error => console.error('Error fetching coordinates:', error));
     {% endif %}
-  }
 
-  function error(err) {
-    if (err.code === 1) {
-      alert("Please allow geolocation access");
-    } else {
-      alert("Cannot get current location");
-    }
-  }
+    // Live location tracking of rider
+    navigator.geolocation.watchPosition(success, error);
 
-  // Send live location update to backend
-        fetch('/update_location', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                rider_id: "{{ current_user.id }}", // Replace with actual rider ID
-                current_location: `${lat},${lng}`
-            })
+    let riderMarker, riderCircle;
+    let riderToPickupRoute; // Variable to hold the route between rider and pickup
+
+    function success(pos) {
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
+      const accuracy = pos.coords.accuracy;
+
+      if (riderMarker) {
+        map.removeLayer(riderMarker);
+        map.removeLayer(riderCircle);
+        if (riderToPickupRoute) {
+          map.removeControl(riderToPickupRoute); // Remove previous route
+        }
+      }
+
+      riderMarker = L.marker([lat, lng]).addTo(map).bindPopup("Rider's Location").openPopup();
+      riderCircle = L.circle([lat, lng], { radius: accuracy }).addTo(map);
+
+      map.setView([lat, lng], 13);
+
+      // Reverse geocode to get location name
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&addressdetails=1`)
+        .then(response => response.json())
+        .then(data => {
+          const locationName = data.display_name;
+          console.log("Current location name:", locationName);
+          updateRiderLocation(locationName);
         })
+        .catch(error => console.error('Error in reverse geocoding:', error));
+
+      // If pickup location data is available, add route between rider and pickup
+      {% if assignment %}
+      const pickupLatLng = [{{ assignment.pickup_lat }}, {{ assignment.pickup_lng }}];
+      riderToPickupRoute = L.Routing.control({
+        waypoints: [
+          L.latLng([lat, lng]),
+          L.latLng(pickupLatLng)
+        ],
+        routeWhileDragging: true,
+        createMarker: function() { return null; } // Disable markers on the route
+      }).addTo(map);
+      {% endif %}
+    }
+
+    function error(err) {
+      if (err.code === 1) {
+        alert("Please allow geolocation access");
+      } else {
+        alert("Cannot get current location");
+      }
+    }
+    function updateRiderLocation(locationName) {
+      // Log the location name to console (for debugging)
+      console.log("Updating rider location to:", locationName);
+
+      fetch('/update_location', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          rider_id: "{{ current_user.id }}",
+          current_location: locationName
+        })
+      })
         .then(response => response.json())
         .then(data => console.log('Location update response:', data))
         .catch(error => console.error('Error updating location:', error));
+    }
 
-});
+  });
 
 
 // Get the checkbox and the label

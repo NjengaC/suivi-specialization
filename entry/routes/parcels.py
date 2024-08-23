@@ -56,7 +56,7 @@ def get_parcel_status():
                 'pickup_location': parcel.pickup_location,
                 'delivery_location': parcel.delivery_location,
                 'pickup_coords': {'lat': pickup_lat, 'lng': pickup_lng},
-                'delivery_coords': {'lat': delivery_lat, 'lng': delivery_lng}
+                'delivery_coords': {'lat': delivery_lat, 'lng': delivery_lng},
             }), 200
         else:
             return jsonify({'error': 'Parcel not found'}), 404
